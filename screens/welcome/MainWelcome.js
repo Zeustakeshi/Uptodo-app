@@ -1,8 +1,10 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import LayoutAuth from "../../components/Layout/LayoutAuth";
 
 const MainWelcome = () => {
+    const navigation = useNavigation();
     return (
         <LayoutAuth>
             <View className="mt-14">
@@ -15,13 +17,19 @@ const MainWelcome = () => {
                 </Text>
             </View>
             <View className="flex-1 justify-center px-4 py-10">
-                <TouchableOpacity className="w-full py-3 bg-primary2 rounded justify-center items-center mb-5">
+                <TouchableOpacity
+                    onPress={() => navigation.navigate("Login")}
+                    className="w-full py-3 bg-primary2 rounded justify-center items-center mb-5"
+                >
                     <Text className="font-normal text-base text-white">
                         LOGIN
                     </Text>
                 </TouchableOpacity>
-                <TouchableOpacity className="w-full py-3 border-2 border-primary2 rounded justify-center items-center">
-                    <Text className="text-base font-normal text-primary">
+                <TouchableOpacity
+                    onPress={() => navigation.navigate("Register")}
+                    className="w-full py-3 border-2 border-primary2 rounded justify-center items-center"
+                >
+                    <Text className="uppercase text-base font-normal text-primary">
                         Create account
                     </Text>
                 </TouchableOpacity>
