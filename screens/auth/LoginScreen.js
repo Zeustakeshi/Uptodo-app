@@ -38,7 +38,10 @@ const LoginScreen = () => {
                         />
                     </View>
                 </View>
-                <TouchableOpacity className="mt-10 bg-primary2 px-6 py-3 h-[48px] rounded justify-center items-center">
+                <TouchableOpacity
+                    onPress={() => navigation.replace("Home")}
+                    className="mt-10 bg-primary2 px-6 py-3 h-[48px] rounded justify-center items-center"
+                >
                     <Text className="font-normal text-base text-white">
                         Login
                     </Text>
