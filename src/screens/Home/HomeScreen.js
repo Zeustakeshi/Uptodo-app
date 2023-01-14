@@ -1,11 +1,12 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import LayoutWrapper from "../../components/Layout/LayoutWrapper";
-import Nav from "../../components/Nav";
-import EmptyTask from "../../components/EmptyTask";
+import EmptyTask from "../../components/Task/EmptyTask";
 import { fakeImg } from "../../const";
 
 const HomeScreen = () => {
+    const navigation = useNavigation();
     return (
         <LayoutWrapper showNavigate={true}>
             {/* Header */}
@@ -13,10 +14,14 @@ const HomeScreen = () => {
                 <Text className="text-xl font-semibold text-text-color">
                     Home
                 </Text>
-                <Image
-                    source={{ uri: fakeImg }}
-                    className="w-[42px] h-[42px] rounded-full"
-                />
+                <TouchableOpacity
+                    onPress={() => navigation.navigate("Profile")}
+                >
+                    <Image
+                        source={{ uri: fakeImg }}
+                        className="w-[42px] h-[42px] rounded-full"
+                    />
+                </TouchableOpacity>
             </View>
             {/* Content */}
             <View className="flex-1">

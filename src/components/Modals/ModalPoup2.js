@@ -23,8 +23,10 @@ const ModalPoup2 = ({ buttonShow = () => {}, title, children }) => {
                         className=" absolute -translate-x-[50%] -translate-y-[50%]  w-[90%] bg-white opacity-100 rounded-md "
                         style={styles.shadow}
                     >
-                        <View>{title}</View>
-                        <View className="w-[90%] mx-auto h-[1px] bg-gray-200"></View>
+                        {title && <View>{title}</View>}
+                        {title && (
+                            <View className="w-[90%] mx-auto h-[1px] bg-gray-200"></View>
+                        )}
                         {children(setModalVisible)}
                     </View>
                 </View>

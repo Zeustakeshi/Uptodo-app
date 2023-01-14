@@ -3,14 +3,6 @@ import { Text, View, ScrollView, TouchableOpacity } from "react-native";
 import ModalPoup2 from "./ModalPoup2";
 import { MaterialIcons } from "@expo/vector-icons";
 
-const categories = [
-    {
-        icon: "",
-        name: "",
-        color: "",
-    },
-];
-
 const PriorityModal = ({ buttonShow = () => {} }) => {
     return (
         <ModalPoup2

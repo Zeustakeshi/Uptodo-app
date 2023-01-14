@@ -1,5 +1,5 @@
 import React from "react";
-import { welcome1Img } from "../../assets";
+import { welcome1Img } from "../../../assets";
 import LayoutWelCome from "../../components/Layout/LayoutWelCome";
 
 const Screen1 = () => {
