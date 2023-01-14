@@ -2,7 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import LayoutWrapper from "../../components/Layout/LayoutWrapper";
-import EmptyTask from "../../components/Task/EmptyTask";
+import Task from "../../components/Task/Task";
 import { fakeImg } from "../../const";
 
 const HomeScreen = () => {
@@ -25,7 +25,7 @@ const HomeScreen = () => {
             </View>
             {/* Content */}
             <View className="flex-1">
-                <EmptyTask></EmptyTask>
+                <Task />
             </View>
         </LayoutWrapper>
     );

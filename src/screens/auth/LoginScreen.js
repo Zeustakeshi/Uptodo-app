@@ -39,7 +39,12 @@ const LoginScreen = () => {
                     </View>
                 </View>
                 <TouchableOpacity
-                    onPress={() => navigation.replace("Home")}
+                    onPress={() =>
+                        navigation.reset({
+                            index: 1,
+                            routes: [{ name: "Home" }],
+                        })
+                    }
                     className="mt-10 bg-primary2 px-6 py-3 h-[48px] rounded justify-center items-center"
                 >
                     <Text className="font-normal text-base text-white">

@@ -9,7 +9,7 @@ import {
 import ModalPoup1 from "./ModalPoup1";
 import CategoryModal from "./CategoryModal";
 import PriorityModal from "./PriorityModal";
-import CalendarsModal from "./CalendarsModal";
+import TimeModal from "./TimeModal";
 
 const AddTaskModal = ({ buttonShow = () => {} }) => {
     return (
@@ -33,7 +33,8 @@ const AddTaskModal = ({ buttonShow = () => {} }) => {
                 <View className="flex-row w-full justify-between">
                     <View className="flex-row">
                         {/* timer */}
-                        <CalendarsModal
+                        <TimeModal
+                            modes={["date", "time"]}
                             buttonShow={(setModalVisible) => (
                                 <TouchableOpacity
                                     onPress={() => setModalVisible(true)}
