@@ -5,8 +5,14 @@ import { AntDesign, Feather } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
 import CategoryIcon from "../CategoryIcon";
 
-const CategoryModal = ({ buttonShow = () => {} }) => {
+const CategoryModal = ({ setChooseCategory, buttonShow = () => {} }) => {
     const { categrories } = useSelector((state) => state.tasks);
+
+    const handleChooseItem = (setModalVisible, index) => {
+        setChooseCategory(index + 1);
+        setModalVisible(false);
+    };
+
     return (
         <ModalPoup2
             buttonShow={buttonShow}
@@ -26,6 +32,12 @@ const CategoryModal = ({ buttonShow = () => {} }) => {
                             {categrories.map((categrory, index) => {
                                 return (
                                     <TouchableOpacity
+                                        onPress={() =>
+                                            handleChooseItem(
+                                                setModalVisible,
+                                                index
+                                            )
+                                        }
                                         key={index}
                                         className="justify-center items-center"
                                     >
@@ -61,14 +73,14 @@ const CategoryModal = ({ buttonShow = () => {} }) => {
                             </TouchableOpacity> */}
                         </View>
                     </ScrollView>
-                    <TouchableOpacity
+                    {/* <TouchableOpacity
                         onPress={() => setModalVisible(false)}
                         className="mt-10 h-[48px] rounded justify-center items-center bg-primary2 "
                     >
                         <Text className="p-3 text-white text-base font-normal">
                             Add Category
                         </Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </View>
             )}
         </ModalPoup2>

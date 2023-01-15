@@ -65,7 +65,7 @@ const TaskItem = ({
                     <View className="flex-row justify-between items-center w-full">
                         {/* time */}
                         <Text className="text-xs font-normal text-gray-500">
-                            {timeFomat(time.end)}
+                            {time.end}
                         </Text>
                         <View className="flex-1 flex-row justify-end items-center gap-x-2">
                             {/* categrory */}

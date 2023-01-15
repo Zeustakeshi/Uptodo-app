@@ -140,7 +140,7 @@ const tasksSlice = createSlice({
                 (task) => task.id !== action.payload.id
             );
         },
-        removeUnCompleteTasks(state, action) {
+        removeUnCompleteTask(state, action) {
             state.uncomplete = state.uncomplete.filter(
                 (task) => task.id !== action.payload
             );

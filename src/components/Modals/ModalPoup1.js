@@ -23,7 +23,7 @@ const ModalPoup1 = ({ buttonShow = () => {}, children }) => {
                         className="h-[65%] bg-white opacity-100 rounded-tr-3xl rounded-tl-3xl"
                         style={styles.shadow}
                     >
-                        {children}
+                        {children(setModalVisible)}
                     </View>
                 </View>
             </Modal>

@@ -4,12 +4,35 @@ import LayoutAuth from "../../components/Layout/LayoutAuth";
 import { Feather, MaterialIcons } from "@expo/vector-icons";
 import { timeFomat } from "../../const";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CategoryIcon from "../../components/CategoryIcon";
+import {
+    removeCompletedTask,
+    removeUnCompleteTask,
+} from "../../redux/slice/tasksSlice";
+import { useNavigation } from "@react-navigation/native";
 
 const TaskScreen = ({ route }) => {
     const task = route?.params?.pram;
     const { categrories } = useSelector((state) => state.tasks);
+    // dispatch
+    const dispatch = useDispatch();
+
+    // navigation
+    const navigation = useNavigation();
+
+    const handleDeleteTask = () => {
+        navigation.reset({
+            index: 1,
+            routes: [{ name: "Home" }],
+        });
+        if (task.isCompleted) {
+            dispatch(removeCompletedTask(task.id));
+        } else {
+            dispatch(removeUnCompleteTask(task.id));
+        }
+    };
+
     return (
         <LayoutAuth>
             {/* title and desc */}
@@ -43,7 +66,7 @@ const TaskScreen = ({ route }) => {
                         />
                     }
                     title="Task Time :"
-                    data={{ lable: timeFomat(task?.time?.end) }}
+                    data={{ lable: task?.time?.end }}
                 />
                 <TaskInfoItem
                     icon={<Feather name="tag" size={24} color="#4b5563" />}
@@ -73,7 +96,10 @@ const TaskScreen = ({ route }) => {
                     }}
                 />
                 {/* delete */}
-                <TouchableOpacity className="flex-row justify-between items-center my-3">
+                <TouchableOpacity
+                    onPress={handleDeleteTask}
+                    className="flex-row justify-between items-center my-3"
+                >
                     <View className="flex-row justify-start items-center gap-x-2">
                         <MaterialCommunityIcons
                             name="delete-sweep-outline"
