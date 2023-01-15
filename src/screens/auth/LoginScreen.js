@@ -10,12 +10,14 @@ import { setUserInfo } from "../../redux/slice/userSlice";
 const LoginScreen = () => {
     const navigation = useNavigation();
     const dispatch = useDispatch();
+
     const handleLogin = () => {
         // navigation.reset({
         //     index: 1,
         //     routes: [{ name: "Home" }],
         // });
-        navigation.navigate("Home");
+        // navigation.navigate("Home");
+
         dispatch(
             setUserInfo({
                 userName: "Minh Hiếu",
@@ -76,13 +78,18 @@ const LoginScreen = () => {
                 <View className="flex-1 h-[1px] bg-gray-300"></View>
             </View>
             {/* or auth */}
+            {/* auth with google */}
             <View className="gap-y-5">
-                <TouchableOpacity className="h-[48px] flex-row border border-primary rounded justify-center items-center gap-x-3">
+                <TouchableOpacity
+                    onPress={handleLoginWithGoogle}
+                    className="h-[48px] flex-row border border-primary rounded justify-center items-center gap-x-3"
+                >
                     <Image className="w-[24px] h-[24px]" source={googleIcon} />
                     <Text className="text-text-color text-base font-normal">
                         Login with Google
                     </Text>
                 </TouchableOpacity>
+                {/* auth with apple */}
                 <TouchableOpacity className="h-[48px] flex-row border border-primary rounded justify-center items-center gap-x-3">
                     <Image className="w-[24px] h-[24px]" source={appleIcon} />
                     <Text className="text-text-color text-base font-normal">
