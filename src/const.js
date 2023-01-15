@@ -1,7 +1,8 @@
 export const fakeImg =
     "https://images.unsplash.com/photo-1533738363-b7f9aef128ce?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80";
 
-export const timeFomat = (date) => {
+export const timeFomat = (dateString) => {
+    const date = new Date(dateString);
     const today = new Date();
 
     const fomatNumLessThanTen = (num) => {
@@ -31,3 +32,11 @@ export const timeFomat = (date) => {
 
     return dateFomat + " At " + timeFomat;
 };
+
+export const validatePassword = (pass) => {
+    return String(pass).match(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(\W|_)).{5,}$/
+    );
+};
+
+export const getIcon = (name) => {};

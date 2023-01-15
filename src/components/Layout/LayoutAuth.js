@@ -9,7 +9,7 @@ const LayoutAuth = ({ children }) => {
         <LayoutWrapper>
             <TouchableOpacity
                 onPress={() => navigation.goBack()}
-                className="p-2"
+                className="py-2"
             >
                 <Ionicons
                     name="md-chevron-back-outline"

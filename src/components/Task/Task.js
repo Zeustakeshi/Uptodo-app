@@ -3,6 +3,7 @@ import { Text, View } from "react-native";
 import EmptyTask from "./EmptyTask";
 import TaskWapper from "./TaskWapper";
 import { FontAwesome5 } from "@expo/vector-icons";
+import { useSelector } from "react-redux";
 const datas = {
     uncomplete: [
         {
@@ -143,14 +144,11 @@ const datas = {
 };
 
 const Task = () => {
-    const [tasks, setTasks] = useState(datas.uncomplete);
+    const tasks = useSelector((state) => state.tasks);
+
     return (
         <View className="flex-1">
-            {tasks.length > 0 ? (
-                <TaskWapper tasks={datas}></TaskWapper>
-            ) : (
-                <EmptyTask></EmptyTask>
-            )}
+            {tasks.uncomplete.length > 0 ? <TaskWapper /> : <EmptyTask />}
         </View>
     );
 };

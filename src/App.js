@@ -11,27 +11,33 @@ import {
 import LoginScreen from "./screens/auth/LoginScreen";
 import RegisterScreen from "./screens/auth/RegisterScreen";
 import ProfileScreen from "./screens/Profile/ProfileScreen";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
+import SearchScreen from "./screens/Search/SearchScreen";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
     return (
-        <NavigationContainer>
-            <Stack.Navigator
-                screenOptions={{
-                    headerShown: false,
-                }}
-            >
-                <Stack.Screen name="Welcome1" component={WelcomeScreen1} />
-                <Stack.Screen name="Welcome2" component={WelcomeScreen2} />
-                <Stack.Screen name="Welcome3" component={WelcomeScreen3} />
-                <Stack.Screen name="MainWelcome" component={MainWelcome} />
-                <Stack.Screen name="Login" component={LoginScreen} />
-                <Stack.Screen name="Register" component={RegisterScreen} />
-                <Stack.Screen name="Home" component={HomeScreen} />
-                <Stack.Screen name="Profile" component={ProfileScreen} />
-            </Stack.Navigator>
-            <StatusBar style="auto" />
-        </NavigationContainer>
+        <Provider store={store}>
+            <NavigationContainer>
+                <Stack.Navigator
+                    screenOptions={{
+                        headerShown: false,
+                    }}
+                >
+                    <Stack.Screen name="Welcome1" component={WelcomeScreen1} />
+                    <Stack.Screen name="Welcome2" component={WelcomeScreen2} />
+                    <Stack.Screen name="Welcome3" component={WelcomeScreen3} />
+                    <Stack.Screen name="MainWelcome" component={MainWelcome} />
+                    <Stack.Screen name="Login" component={LoginScreen} />
+                    <Stack.Screen name="Register" component={RegisterScreen} />
+                    <Stack.Screen name="Home" component={HomeScreen} />
+                    <Stack.Screen name="Profile" component={ProfileScreen} />
+                    <Stack.Screen name="Search" component={SearchScreen} />
+                </Stack.Navigator>
+                <StatusBar style="auto" />
+            </NavigationContainer>
+        </Provider>
     );
 }

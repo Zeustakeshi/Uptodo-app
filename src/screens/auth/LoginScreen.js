@@ -1,11 +1,34 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { useDispatch } from "react-redux";
 import { appleIcon, googleIcon } from "../../../assets";
 import LayoutAuth from "../../components/Layout/LayoutAuth";
+import { fakeImg } from "../../const";
+import { setUserInfo } from "../../redux/slice/userSlice";
 
 const LoginScreen = () => {
     const navigation = useNavigation();
+    const dispatch = useDispatch();
+    const handleLogin = () => {
+        // navigation.reset({
+        //     index: 1,
+        //     routes: [{ name: "Home" }],
+        // });
+        navigation.navigate("Home");
+        dispatch(
+            setUserInfo({
+                userName: "Minh Hiếu",
+                password: "123456ABCabc@",
+                avatar: fakeImg,
+                task: {
+                    taskLeft: 10,
+                    taskDone: 100,
+                },
+            })
+        );
+    };
+
     return (
         <LayoutAuth>
             <View>
@@ -39,12 +62,7 @@ const LoginScreen = () => {
                     </View>
                 </View>
                 <TouchableOpacity
-                    onPress={() =>
-                        navigation.reset({
-                            index: 1,
-                            routes: [{ name: "Home" }],
-                        })
-                    }
+                    onPress={handleLogin}
                     className="mt-10 bg-primary2 px-6 py-3 h-[48px] rounded justify-center items-center"
                 >
                     <Text className="font-normal text-base text-white">

@@ -1,27 +1,34 @@
-import React, { useState } from "react";
+import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { timeFomat } from "../../const";
 import { MaterialIcons, FontAwesome5 } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
+import { useDispatch } from "react-redux";
+import {
+    addCompletedTask,
+    addUnCompleteTask,
+} from "../../redux/slice/tasksSlice";
 
-const today = new Date();
-const TaskItem = ({ data }) => {
+const TaskItem = ({ data, allowPress = true }) => {
     const { name, time, categrory, priority, isCompleted } = data;
-
-    const [completed, setCompleted] = useState(isCompleted);
-
+    const dispacth = useDispatch();
     const handlePress = () => {
-        setCompleted((prev) => !prev);
+        if (!allowPress) return;
+        if (isCompleted) {
+            dispacth(addUnCompleteTask({ ...data, isCompleted: false }));
+        } else {
+            dispacth(addCompletedTask({ ...data, isCompleted: true }));
+        }
     };
 
     return (
         <TouchableOpacity
             onPress={handlePress}
-            className={`flex-1 ${completed && "opacity-50"}`}
+            className={`flex-1 ${isCompleted && "opacity-50"}`}
         >
             <View className="p-3 flex-row justify-start items-center bg-gray-50 mb-3 rounded-lg">
                 {/* icon circle */}
-                {completed ? (
+                {isCompleted ? (
                     <FontAwesome5
                         name="check-circle"
                         size={24}
@@ -42,7 +49,11 @@ const TaskItem = ({ data }) => {
                         <View className="flex-1 flex-row justify-end items-center gap-x-2">
                             {/* categrory */}
                             <View className=" overflow-hidden flex-row justify-between items-center gap-x-1 px-1 pr-2 py-1 bg-[#809CFF] rounded-md">
-                                {categrory.icon(10)}
+                                <FontAwesome5
+                                    name="home"
+                                    size={10}
+                                    color={"#fff"}
+                                />
                                 <Text
                                     numberOfLines={1}
                                     className="max-w-[50px] text-[10px] text-gray-200"

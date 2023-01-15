@@ -1,7 +1,0 @@
-{
-    "files.associations": {
-        "*.php": "php",
-        "limits": "cpp",
-        "variant": "cpp"
-    }
-}

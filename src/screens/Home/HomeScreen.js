@@ -1,12 +1,15 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
+import { useSelector } from "react-redux";
 import LayoutWrapper from "../../components/Layout/LayoutWrapper";
 import Task from "../../components/Task/Task";
 import { fakeImg } from "../../const";
 
 const HomeScreen = () => {
     const navigation = useNavigation();
+    const { avatar } = useSelector((state) => state.user);
+
     return (
         <LayoutWrapper showNavigate={true}>
             {/* Header */}
@@ -18,7 +21,7 @@ const HomeScreen = () => {
                     onPress={() => navigation.navigate("Profile")}
                 >
                     <Image
-                        source={{ uri: fakeImg }}
+                        source={{ uri: avatar || fakeImg }}
                         className="w-[42px] h-[42px] rounded-full"
                     />
                 </TouchableOpacity>
