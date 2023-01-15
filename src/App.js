@@ -14,6 +14,8 @@ import ProfileScreen from "./screens/Profile/ProfileScreen";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import SearchScreen from "./screens/Search/SearchScreen";
+import TaskScreen from "./screens/Task/TaskScreen";
+import SettingScreen from "./screens/Profile/SettingScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -35,6 +37,8 @@ export default function App() {
                     <Stack.Screen name="Home" component={HomeScreen} />
                     <Stack.Screen name="Profile" component={ProfileScreen} />
                     <Stack.Screen name="Search" component={SearchScreen} />
+                    <Stack.Screen name="Task" component={TaskScreen} />
+                    <Stack.Screen name="Setting" component={SettingScreen} />
                 </Stack.Navigator>
                 <StatusBar style="auto" />
             </NavigationContainer>

@@ -8,12 +8,24 @@ import {
     addCompletedTask,
     addUnCompleteTask,
 } from "../../redux/slice/tasksSlice";
+import { useNavigation } from "@react-navigation/native";
 
-const TaskItem = ({ data, allowPress = true }) => {
+const TaskItem = ({
+    data,
+    onPress = () => {},
+    onLongPress = () => {},
+    allowPress = true,
+    allowLongPress = true,
+}) => {
     const { name, time, categrory, priority, isCompleted } = data;
+
     const dispacth = useDispatch();
+
+    const navigation = useNavigation();
+
     const handlePress = () => {
         if (!allowPress) return;
+
         if (isCompleted) {
             dispacth(addUnCompleteTask({ ...data, isCompleted: false }));
         } else {
@@ -21,9 +33,15 @@ const TaskItem = ({ data, allowPress = true }) => {
         }
     };
 
+    const handleLongPress = () => {
+        if (!allowLongPress) return;
+        navigation.navigate("Task", { pram: data });
+    };
+
     return (
         <TouchableOpacity
-            onPress={handlePress}
+            onPress={() => onPress()}
+            onLongPress={() => onLongPress()}
             className={`flex-1 ${isCompleted && "opacity-50"}`}
         >
             <View className="p-3 flex-row justify-start items-center bg-gray-50 mb-3 rounded-lg">

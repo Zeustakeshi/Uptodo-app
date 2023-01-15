@@ -92,7 +92,7 @@ const initialState = {
         {
             id: uuid.v4(),
             name: "HTML, CSS, Javacript",
-            desc: "Learn more and more c++2",
+            desc: "Learn more and more c++2 Learn more and more c++2Learn more and more c++2Learn more and more c++2",
             time: {
                 start: "Sat Jan 14 2023 21:00:00",
                 end: "Mon Jan 16 2023 21:30:04",

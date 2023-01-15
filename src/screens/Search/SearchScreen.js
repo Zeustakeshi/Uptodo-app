@@ -1,4 +1,5 @@
 import { Feather } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import { Text, TextInput, View, ScrollView } from "react-native";
 import { useSelector } from "react-redux";
@@ -10,6 +11,8 @@ const SearchScreen = () => {
     const [searchValue, setSearchValue] = useState("");
     const [results, setResults] = useState([]);
     const debounce = useDebounce(searchValue, 500);
+
+    const navigation = useNavigation();
 
     // get tasks from store
     const tasks = useSelector((state) => state.tasks);
@@ -47,13 +50,13 @@ const SearchScreen = () => {
         setResults(results);
     }, [debounce]);
 
+    // handle press task item
+    const handlePress = (task) => {
+        navigation.navigate("Task", { pram: task });
+    };
+
     return (
-        <LayoutAuth>
-            <View className="">
-                <Text className="text-xl font-semibold text-text-color">
-                    Search
-                </Text>
-            </View>
+        <LayoutAuth title={"Search"}>
             <View className="mt-5">
                 <View className="flex-row relative h-[48px]">
                     <View className="absolute top-3 left-3 justify-center items-center">
@@ -79,6 +82,7 @@ const SearchScreen = () => {
                             key={task.id}
                             data={task}
                             allowPress={false}
+                            onPress={() => handlePress(task)}
                         />
                     );
                 })}

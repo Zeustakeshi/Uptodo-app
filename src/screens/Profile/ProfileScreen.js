@@ -7,7 +7,6 @@ import {
     TouchableOpacity,
     StyleSheet,
 } from "react-native";
-import LayoutWrapper from "../../components/Layout/LayoutWrapper";
 import { fakeImg } from "../../const";
 import {
     AntDesign,
@@ -16,19 +15,19 @@ import {
     SimpleLineIcons,
 } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
+import LayoutAuth from "../../components/Layout/LayoutAuth";
+import { useNavigation } from "@react-navigation/native";
 const ProfileScreen = () => {
     const { avatar, userName } = useSelector((state) => state.user);
+    const navigation = useNavigation();
 
     return (
-        <LayoutWrapper showNavigate={true}>
-            {/* Title */}
-            <View className="py-4">
-                <Text className=" text-xl font-semibold text-text-color">
-                    Profile
-                </Text>
-            </View>
+        <LayoutAuth title={"Profile"}>
             {/* Avatar and Name*/}
-            <ScrollView className="mt-2" showsVerticalScrollIndicator={false}>
+            <ScrollView
+                className="mt-2 mb-5 pb-2"
+                showsVerticalScrollIndicator={false}
+            >
                 <View className=" justify-center items-center ">
                     <Image
                         className=" w-[120px] h-[120px] rounded-full object-cover"
@@ -53,6 +52,7 @@ const ProfileScreen = () => {
                     {/* setting */}
                     <SettingWrapper title="Setting">
                         <SettingItem
+                            onPress={() => navigation.navigate("Setting")}
                             title="App Settings"
                             icon={
                                 <AntDesign
@@ -151,7 +151,7 @@ const ProfileScreen = () => {
                     />
                 </View>
             </ScrollView>
-        </LayoutWrapper>
+        </LayoutAuth>
     );
 };
 
@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
 const SettingWrapper = ({ title = "", children }) => {
     return (
         <View>
-            <Text className="mb-1 font-medium text-sm text-gray-500">
+            <Text className="mb-2 mt-2 font-medium text-sm text-gray-500">
                 {title}
             </Text>
             {children}
@@ -190,10 +190,7 @@ const SettingItem = ({
             {...props}
         >
             {icon}
-            <Text
-                className="text-base font-normal text-text-color"
-                style={textStyle}
-            >
+            <Text className=" font-normal text-text-color" style={textStyle}>
                 {title}
             </Text>
         </TouchableOpacity>
