@@ -3,12 +3,13 @@ import { Text, TouchableOpacity, View } from "react-native";
 import { timeFomat } from "../../const";
 import { MaterialIcons, FontAwesome5 } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
     addCompletedTask,
     addUnCompleteTask,
 } from "../../redux/slice/tasksSlice";
 import { useNavigation } from "@react-navigation/native";
+import CategoryIcon from "../CategoryIcon";
 
 const TaskItem = ({
     data,
@@ -17,6 +18,8 @@ const TaskItem = ({
     allowPress = true,
     allowLongPress = true,
 }) => {
+    const { categrories } = useSelector((state) => state.tasks);
+
     const { name, time, categrory, priority, isCompleted } = data;
 
     const dispacth = useDispatch();
@@ -66,17 +69,24 @@ const TaskItem = ({
                         </Text>
                         <View className="flex-1 flex-row justify-end items-center gap-x-2">
                             {/* categrory */}
-                            <View className=" overflow-hidden flex-row justify-between items-center gap-x-1 px-1 pr-2 py-1 bg-[#809CFF] rounded-md">
-                                <FontAwesome5
-                                    name="home"
+                            <View
+                                className={` overflow-hidden flex-row justify-between items-center gap-x-1 px-1 pr-2 py-1 bg-[#809CFF] rounded-md `}
+                                style={{
+                                    backgroundColor:
+                                        categrories[categrory - 1].color,
+                                }}
+                            >
+                                <CategoryIcon
+                                    name={categrories[categrory - 1].icon}
                                     size={10}
-                                    color={"#fff"}
+                                    color="#fff"
                                 />
+
                                 <Text
                                     numberOfLines={1}
                                     className="max-w-[50px] text-[10px] text-gray-200"
                                 >
-                                    {categrory.title}
+                                    {categrories[categrory - 1].name}
                                 </Text>
                             </View>
                             {/* priority */}

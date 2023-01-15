@@ -39,4 +39,4 @@ export const validatePassword = (pass) => {
     );
 };
 
-export const getIcon = (name) => {};
+export const getIcon = (index) => {};

@@ -2,15 +2,11 @@ import React from "react";
 import { Text, View, ScrollView, TouchableOpacity } from "react-native";
 import ModalPoup2 from "./ModalPoup2";
 import { AntDesign, Feather } from "@expo/vector-icons";
-const categories = [
-    {
-        icon: "",
-        name: "",
-        color: "",
-    },
-];
+import { useSelector } from "react-redux";
+import CategoryIcon from "../CategoryIcon";
 
 const CategoryModal = ({ buttonShow = () => {} }) => {
+    const { categrories } = useSelector((state) => state.tasks);
     return (
         <ModalPoup2
             buttonShow={buttonShow}
@@ -27,26 +23,31 @@ const CategoryModal = ({ buttonShow = () => {} }) => {
                         className="flex-1  "
                     >
                         <View className=" flex-row justify-start  flex-wrap gap-x-12 gap-y-6">
-                            {new Array(6).fill(0).map((item, index) => {
+                            {categrories.map((categrory, index) => {
                                 return (
                                     <TouchableOpacity
                                         key={index}
                                         className="justify-center items-center"
                                     >
-                                        <View className="w-[64px] h-[64px] bg-[#FF9680] justify-center items-center rounded-md">
-                                            <AntDesign
-                                                name="book"
-                                                size={40}
-                                                color="#e65531"
+                                        <View
+                                            className="w-[64px] h-[64px] bg-[#FF9680] justify-center items-center rounded-md"
+                                            style={{
+                                                backgroundColor:
+                                                    categrory.color,
+                                            }}
+                                        >
+                                            <CategoryIcon
+                                                name={categrory.icon}
+                                                color={"#fff"}
                                             />
                                         </View>
                                         <Text className="mt-2 text-sm font-normal text-text-color">
-                                            Book
+                                            {categrory.name}
                                         </Text>
                                     </TouchableOpacity>
                                 );
                             })}
-                            <TouchableOpacity className="justify-center items-center">
+                            {/* <TouchableOpacity className="justify-center items-center">
                                 <View className="w-[64px] h-[64px] bg-[#FF9680] justify-center items-center rounded-md">
                                     <Feather
                                         name="plus"
@@ -57,7 +58,7 @@ const CategoryModal = ({ buttonShow = () => {} }) => {
                                 <Text className="mt-2 text-sm font-normal text-text-color">
                                     Create New
                                 </Text>
-                            </TouchableOpacity>
+                            </TouchableOpacity> */}
                         </View>
                     </ScrollView>
                     <TouchableOpacity

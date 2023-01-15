@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import {
     MaterialIcons,
@@ -10,8 +10,13 @@ import ModalPoup1 from "./ModalPoup1";
 import CategoryModal from "./CategoryModal";
 import PriorityModal from "./PriorityModal";
 import TimeModal from "./TimeModal";
+import { timeFomat } from "../../const";
 
 const AddTaskModal = ({ buttonShow = () => {} }) => {
+    const [inputTaskName, setInputTashName] = useState("");
+    const [inputDesc, setInputDesc] = useState("");
+    const [chooseDate, setChooseDate] = useState(timeFomat(new Date()));
+    const [choosePriority, setChoosePriority] = useState(5);
     return (
         <ModalPoup1 buttonShow={buttonShow}>
             <View className="p-6">
@@ -20,6 +25,7 @@ const AddTaskModal = ({ buttonShow = () => {} }) => {
                 </Text>
                 <View className="m-4">
                     <TextInput
+                        autoFocus
                         selectionColor="#6651f0"
                         className="px-5 py-2 border border-gray-200 rounded-md focus:border-primary"
                         placeholder="Enter your task"
@@ -66,6 +72,8 @@ const AddTaskModal = ({ buttonShow = () => {} }) => {
                         />
                         {/* Priority */}
                         <PriorityModal
+                            currChoose={choosePriority}
+                            setChoose={setChoosePriority}
                             buttonShow={(setModalVisible) => (
                                 <TouchableOpacity
                                     onPress={() => setModalVisible(true)}

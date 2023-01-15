@@ -1,9 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import { Text, View, ScrollView, TouchableOpacity } from "react-native";
 import ModalPoup2 from "./ModalPoup2";
 import { MaterialIcons } from "@expo/vector-icons";
 
-const PriorityModal = ({ buttonShow = () => {} }) => {
+let prevChoose = 5;
+
+const PriorityModal = ({
+    buttonShow = () => {},
+    lableOk = "Save",
+    lableCancle = "Cancel",
+    currChoose = prevChoose,
+    setChoose = () => {},
+}) => {
+    const [currPriority, setCurrPriority] = useState(prevChoose);
+
+    // handle save
+    const handleSave = (setModalVisible) => {
+        setModalVisible(false);
+        setChoose(currPriority);
+        prevChoose = currPriority;
+    };
+
+    // handle cancle
+    const handleCancle = (setModalVisible) => {
+        setModalVisible(false);
+        setCurrPriority(prevChoose);
+        setChoose(prevChoose);
+    };
+
     return (
         <ModalPoup2
             buttonShow={buttonShow}
@@ -23,9 +47,12 @@ const PriorityModal = ({ buttonShow = () => {} }) => {
                             {new Array(12).fill(0).map((item, index) => {
                                 return (
                                     <PriorityItem
+                                        onPress={() =>
+                                            setCurrPriority(index + 1)
+                                        }
                                         key={index}
                                         index={index + 1}
-                                        isActive={index === 5}
+                                        isActive={index + 1 === currPriority}
                                     />
                                 );
                             })}
@@ -33,19 +60,19 @@ const PriorityModal = ({ buttonShow = () => {} }) => {
                     </ScrollView>
                     <View className="mt-5 flex-row gap-x-5 justify-center items-center">
                         <TouchableOpacity
-                            onPress={() => setModalVisible(false)}
+                            onPress={() => handleCancle(setModalVisible)}
                             className="flex-1 h-[48px] rounded justify-center items-center "
                         >
                             <Text className="p-3 text-primary text-base font-normal">
-                                Cancel
+                                {lableCancle}
                             </Text>
                         </TouchableOpacity>
                         <TouchableOpacity
-                            onPress={() => setModalVisible(false)}
+                            onPress={() => handleSave(setModalVisible)}
                             className="flex-1 h-[48px] rounded justify-center items-center bg-primary2 "
                         >
                             <Text className="p-3 text-white text-base font-normal">
-                                Save
+                                {lableOk}
                             </Text>
                         </TouchableOpacity>
                     </View>
@@ -55,9 +82,10 @@ const PriorityModal = ({ buttonShow = () => {} }) => {
     );
 };
 
-const PriorityItem = ({ isActive, index }) => {
+const PriorityItem = ({ isActive, index, onPress }) => {
     return (
         <TouchableOpacity
+            onPress={onPress}
             className={`justify-center items-center rounded-md p-2 m-4 w-[64px] h-[64px] ${
                 isActive ? "bg-primary2" : "bg-gray-100"
             }`}

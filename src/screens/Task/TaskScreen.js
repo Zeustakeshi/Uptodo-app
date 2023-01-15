@@ -4,10 +4,12 @@ import LayoutAuth from "../../components/Layout/LayoutAuth";
 import { Feather, MaterialIcons } from "@expo/vector-icons";
 import { timeFomat } from "../../const";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useSelector } from "react-redux";
+import CategoryIcon from "../../components/CategoryIcon";
 
 const TaskScreen = ({ route }) => {
     const task = route?.params?.pram;
-
+    const { categrories } = useSelector((state) => state.tasks);
     return (
         <LayoutAuth>
             {/* title and desc */}
@@ -47,12 +49,12 @@ const TaskScreen = ({ route }) => {
                     icon={<Feather name="tag" size={24} color="#4b5563" />}
                     title="Task Category : "
                     data={{
-                        lable: task?.categrory?.title || "Learn",
+                        lable: categrories[task.categrory - 1]?.name || "Learn",
                         icon: (
-                            <Feather
-                                name="pen-tool"
-                                size={20}
-                                color="#4b5563"
+                            <CategoryIcon
+                                name={categrories[task.categrory - 1]?.icon}
+                                color={categrories[task.categrory - 1]?.color}
+                                size={16}
                             />
                         ),
                     }}
