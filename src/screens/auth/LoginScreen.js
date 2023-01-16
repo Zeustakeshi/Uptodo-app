@@ -9,14 +9,14 @@ import { setUserInfo } from "../../redux/slice/userSlice";
 
 const LoginScreen = () => {
     const navigation = useNavigation();
+
     const dispatch = useDispatch();
 
     const handleLogin = () => {
-        // navigation.reset({
-        //     index: 1,
-        //     routes: [{ name: "Home" }],
-        // });
-        // navigation.navigate("Home");
+        navigation.reset({
+            index: 1,
+            routes: [{ name: "Home" }],
+        });
 
         dispatch(
             setUserInfo({
@@ -81,7 +81,7 @@ const LoginScreen = () => {
             {/* auth with google */}
             <View className="gap-y-5">
                 <TouchableOpacity
-                    onPress={handleLoginWithGoogle}
+                    onPress={handleLogin}
                     className="h-[48px] flex-row border border-primary rounded justify-center items-center gap-x-3"
                 >
                     <Image className="w-[24px] h-[24px]" source={googleIcon} />

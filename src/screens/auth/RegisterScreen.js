@@ -1,11 +1,94 @@
 import { useNavigation } from "@react-navigation/native";
-import React from "react";
-import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+import React, { useState } from "react";
+import {
+    ActivityIndicator,
+    Image,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View,
+} from "react-native";
+import { useDispatch } from "react-redux";
 import { appleIcon, googleIcon } from "../../../assets";
 import LayoutAuth from "../../components/Layout/LayoutAuth";
+import {
+    fakeImg,
+    validateEmail,
+    validatePassword,
+    validateUserName,
+} from "../../const";
+import { auth, db } from "../../firebase/firebase-config";
+import { setUserInfo } from "../../redux/slice/userSlice";
 
 const RegisterScreen = () => {
+    const [userName, setUserName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
+    //navigation
     const navigation = useNavigation();
+
+    //dispatch
+    const dispatch = useDispatch();
+
+    // handle register
+    const handleRegister = async () => {
+        if (!validateEmail(email)) {
+            alert("Please enter valid email and try again!");
+            return;
+        } else if (!validateUserName(userName)) {
+            alert("Please enter valid userName and try again!");
+            return;
+        } else if (!validatePassword(password)) {
+            alert("Plese enter valid password and try again!");
+            return;
+        }
+        try {
+            setLoading(true);
+            await createUserWithEmailAndPassword(auth, email, password);
+            await updateProfile(auth.currentUser, {
+                displayName: userName,
+            });
+            await setDoc(doc(db, "users", auth.currentUser.uid), {
+                userName: userName,
+                email: email,
+                password: password,
+                avatar: "",
+                task: {
+                    taskLeft: 0,
+                    taskDone: 0,
+                },
+            });
+            dispatch(
+                setUserInfo({
+                    userName: userName,
+                    email: email,
+                    password: password,
+                    avatar: fakeImg,
+                    task: {
+                        taskLeft: 0,
+                        taskDone: 0,
+                    },
+                })
+            );
+            navigation.reset({
+                index: 1,
+                routes: [{ name: "Home" }],
+            });
+        } catch (error) {
+            alert(error);
+            console.log(error);
+        }
+
+        setLoading(false);
+    };
+
+    const toogleLoading = () => {
+        setLoading((prev) => !prev);
+    };
+
     return (
         <LayoutAuth>
             <View>
@@ -21,7 +104,27 @@ const RegisterScreen = () => {
                     </Text>
                     <View className="bg-gray-100 rounded w-[100%]">
                         <TextInput
+                            value={userName}
+                            onChangeText={(text) => setUserName(text)}
                             placeholder="Enter your Username"
+                            className="font-medium text-sm text-text-color p-3"
+                        />
+                    </View>
+                </View>
+                <View className="mt-3">
+                    <Text className="font-medium text-base text-text-color mb-2">
+                        Email
+                    </Text>
+                    <View className="bg-gray-100 rounded w-[100%]">
+                        <TextInput
+                            testID="LoginEmailAddress"
+                            textContentType="emailAddress"
+                            keyboardType="email-address"
+                            value={email}
+                            onChangeText={(text) => {
+                                setEmail(text);
+                            }}
+                            placeholder="Enter your Email"
                             className="font-medium text-sm text-text-color p-3"
                         />
                     </View>
@@ -32,26 +135,30 @@ const RegisterScreen = () => {
                     </Text>
                     <View className="bg-gray-100 rounded w-[100%]">
                         <TextInput
+                            value={password}
+                            onChangeText={(text) => setPassword(text)}
                             secureTextEntry={true}
                             placeholder="Enter your Password"
                             className="font-medium text-sm text-text-color p-3"
                         />
                     </View>
                 </View>
-                <View className="mt-3">
-                    <Text className="font-medium text-base text-text-color mb-2">
-                        Confirm Password
-                    </Text>
-                    <View className="bg-gray-100 rounded w-[100%]">
-                        <TextInput
-                            secureTextEntry={true}
-                            placeholder="Enter your Confirm Password"
-                            className="font-medium text-sm text-text-color p-3"
+                <TouchableOpacity
+                    disabled={loading}
+                    onPress={handleRegister}
+                    className="flex-row realtive  mt-8 bg-primary2 px-6 py-3 h-[48px] rounded justify-center items-center"
+                >
+                    {loading && (
+                        <ActivityIndicator
+                            className="absolute"
+                            size="large"
+                            color="#fff"
                         />
-                    </View>
-                </View>
-                <TouchableOpacity className="mt-8 bg-primary2 px-6 py-3 h-[48px] rounded justify-center items-center">
-                    <Text className="font-normal text-base text-white">
+                    )}
+                    <Text
+                        className="font-normal text-base text-white"
+                        style={{ opacity: loading ? 0.5 : 1 }}
+                    >
                         Register
                     </Text>
                 </TouchableOpacity>
