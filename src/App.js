@@ -16,10 +16,15 @@ import { store } from "./redux/store";
 import SearchScreen from "./screens/Search/SearchScreen";
 import TaskScreen from "./screens/Task/TaskScreen";
 import SettingScreen from "./screens/Profile/SettingScreen";
+import { useEffect } from "react";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+    useEffect(() => {
+        
+    }, []);
+
     return (
         <Provider store={store}>
             <NavigationContainer>
@@ -32,9 +37,9 @@ export default function App() {
                     <Stack.Screen name="Welcome2" component={WelcomeScreen2} />
                     <Stack.Screen name="Welcome3" component={WelcomeScreen3} />
                     <Stack.Screen name="MainWelcome" component={MainWelcome} />
+                    <Stack.Screen name="Home" component={HomeScreen} />
                     <Stack.Screen name="Login" component={LoginScreen} />
                     <Stack.Screen name="Register" component={RegisterScreen} />
-                    <Stack.Screen name="Home" component={HomeScreen} />
                     <Stack.Screen name="Profile" component={ProfileScreen} />
                     <Stack.Screen name="Search" component={SearchScreen} />
                     <Stack.Screen name="Task" component={TaskScreen} />

@@ -1,7 +1,8 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     ActivityIndicator,
     Image,
@@ -19,14 +20,20 @@ import { setTasksInfo } from "../../redux/slice/tasksSlice";
 import { setUserInfo } from "../../redux/slice/userSlice";
 
 const LoginScreen = () => {
+    // state
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
 
+    // navigation
     const navigation = useNavigation();
 
-    const dispatch = useDispatch();
+    //effect
+    useEffect(() => {}, []);
 
+    //dispatch
+    const dispatch = useDispatch();
+    //handler
     const handleLogin = async () => {
         if (!validateEmail(email)) {
             alert("Please enter valid email and try again!");
@@ -43,31 +50,39 @@ const LoginScreen = () => {
                 email,
                 password
             );
+            // get user id from method sign
+            //then call firestore to get user data stored from firestore
 
             const docRef = doc(db, "users", data.user.uid);
             const docSnap = await getDoc(docRef);
-
             if (docSnap.exists()) {
-                const userInfo = docSnap.data();
-                dispatch(
-                    setUserInfo({
-                        id: userInfo.id,
-                        email: userInfo.email,
-                        userName: userInfo.userName,
-                        password: userInfo.password,
-                        avatar: userInfo.avatar,
-                        task: {
-                            taskLeft: userInfo?.task.taskLeft,
-                            taskDone: userInfo?.task.taskDone,
-                        },
-                    })
-                );
-                dispatch(
-                    setTasksInfo({
-                        uncomplete: userInfo?.tasks?.uncomplete,
-                        completed: userInfo?.tasks?.completed,
-                    })
-                );
+                const userData = docSnap.data();
+                const userInfo = {
+                    id: userData.id,
+                    email: userData.email,
+                    userName: userData.userName,
+                    password: userData.password,
+                    avatar: userData.avatar,
+                    task: {
+                        taskLeft: userData?.task.taskLeft,
+                        taskDone: userData?.task.taskDone,
+                    },
+                };
+                const tasks = {
+                    uncomplete: userData?.tasks?.uncomplete,
+                    completed: userData?.tasks?.completed,
+                };
+                // dispatch set current user data to store
+                dispatch(setUserInfo(userInfo));
+                // dispatch set current user tasks to store
+                dispatch(setTasksInfo(tasks));
+                // remove all old data from storage
+                await AsyncStorage.clear();
+                // stored new data
+                await AsyncStorage.multiSet([
+                    ["user", JSON.stringify(userInfo)],
+                    ["tasks", JSON.stringify(tasks)],
+                ]);
             }
 
             navigation.reset({

@@ -5,6 +5,7 @@ import LayoutWrapper from "./LayoutWrapper";
 
 const LayoutWelCome = ({ imgSrc, total = 1, order = 1, title, desc }) => {
     const navigation = useNavigation();
+
     const handleNextScreen = () => {
         if (order >= total) {
             navigation.navigate(`MainWelcome`);
