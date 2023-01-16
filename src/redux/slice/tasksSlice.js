@@ -21,6 +21,16 @@ const tasksSlice = createSlice({
     name: "tasks",
     initialState: initialState,
     reducers: {
+        resetTasks(state, action) {
+            state = initialState;
+        },
+
+        setTasksInfo(state, { payload }) {
+            state.uncomplete = payload.uncomplete || [];
+            state.completed = payload.completed || [];
+            state.categrories = payload.categrories || initialState.categrories;
+        },
+
         addCompletedTask(state, action) {
             state.completed.push(action.payload);
             state.uncomplete = state.uncomplete.filter(
@@ -47,6 +57,8 @@ const tasksSlice = createSlice({
 });
 
 export const {
+    resetTasks,
+    setTasksInfo,
     addCompletedTask,
     addUnCompleteTask,
     removeCompletedTask,

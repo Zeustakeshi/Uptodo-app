@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { validateEmail, validatePassword } from "../../const";
 
 const initialState = {
+    id: "",
     email: "",
     userName: "",
     password: "",
@@ -16,7 +17,12 @@ const userSlice = createSlice({
     name: "user",
     initialState: initialState,
     reducers: {
+        resetUserInfo(state, payload) {
+            state = initialState;
+        },
+
         setUserInfo(state, { payload }) {
+            state.id = payload.id || "";
             state.userName = payload.userName || "";
             state.email = payload.email || "";
             state.password = payload.password || "";
@@ -58,6 +64,7 @@ const userSlice = createSlice({
 });
 
 export const {
+    resetUserInfo,
     setUserInfo,
     setUserName,
     setEmail,

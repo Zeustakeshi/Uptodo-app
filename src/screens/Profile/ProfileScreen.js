@@ -14,12 +14,30 @@ import {
     Ionicons,
     SimpleLineIcons,
 } from "@expo/vector-icons";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import LayoutAuth from "../../components/Layout/LayoutAuth";
 import { useNavigation } from "@react-navigation/native";
+import { signOut } from "firebase/auth";
+import { auth } from "../../firebase/firebase-config";
+import { resetUserInfo } from "../../redux/slice/userSlice";
+import { resetTasks } from "../../redux/slice/tasksSlice";
 const ProfileScreen = () => {
     const { avatar, userName } = useSelector((state) => state.user);
     const navigation = useNavigation();
+
+    //dispatch
+    const dispatch = useDispatch();
+
+    // handler
+    const handleLogout = () => {
+        signOut(auth);
+        dispatch(resetUserInfo());
+        dispatch(resetTasks());
+        navigation.reset({
+            index: 1,
+            routes: [{ name: "Login" }],
+        });
+    };
 
     return (
         <LayoutAuth title={"Profile"}>
@@ -138,6 +156,7 @@ const ProfileScreen = () => {
 
                     {/* logout */}
                     <SettingItem
+                        onPress={handleLogout}
                         title="Log out"
                         icon={
                             <AntDesign

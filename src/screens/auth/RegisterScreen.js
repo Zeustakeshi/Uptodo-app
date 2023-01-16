@@ -52,6 +52,7 @@ const RegisterScreen = () => {
                 displayName: userName,
             });
             await setDoc(doc(db, "users", auth.currentUser.uid), {
+                id: auth.currentUser.uid,
                 userName: userName,
                 email: email,
                 password: password,
@@ -60,9 +61,15 @@ const RegisterScreen = () => {
                     taskLeft: 0,
                     taskDone: 0,
                 },
+                tasks: {
+                    uncomplete: [],
+                    completed: [],
+                    categrories: [],
+                },
             });
             dispatch(
                 setUserInfo({
+                    id: auth.currentUser.uid,
                     userName: userName,
                     email: email,
                     password: password,
@@ -83,10 +90,6 @@ const RegisterScreen = () => {
         }
 
         setLoading(false);
-    };
-
-    const toogleLoading = () => {
-        setLoading((prev) => !prev);
     };
 
     return (
