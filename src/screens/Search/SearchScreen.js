@@ -15,7 +15,7 @@ const SearchScreen = () => {
     const navigation = useNavigation();
 
     // get tasks from store
-    const tasks = useSelector((state) => state.tasks);
+    const { tasks } = useSelector((state) => state.tasks);
 
     // handle search
     useEffect(() => {
@@ -25,17 +25,7 @@ const SearchScreen = () => {
         }
 
         const results = [
-            ...tasks.completed.filter((task) => {
-                return (
-                    task.name
-                        .toLowerCase()
-                        .includes(searchValue.toLocaleLowerCase()) ||
-                    task.desc
-                        .toLowerCase()
-                        .includes(searchValue.toLocaleLowerCase())
-                );
-            }),
-            ...tasks.uncomplete.filter((task) => {
+            ...tasks.filter((task) => {
                 return (
                     task.name
                         .toLowerCase()

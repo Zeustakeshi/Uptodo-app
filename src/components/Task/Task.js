@@ -5,15 +5,11 @@ import TaskWapper from "./TaskWapper";
 import { useSelector } from "react-redux";
 
 const Task = () => {
-    const tasks = useSelector((state) => state.tasks);
+    const { tasks } = useSelector((state) => state.tasks);
 
     return (
         <View className="flex-1">
-            {tasks.uncomplete.length > 0 || tasks.completed.length > 0 ? (
-                <TaskWapper />
-            ) : (
-                <EmptyTask />
-            )}
+            {tasks.length > 0 ? <TaskWapper /> : <EmptyTask />}
         </View>
     );
 };

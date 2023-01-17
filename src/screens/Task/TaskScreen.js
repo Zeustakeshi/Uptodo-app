@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import CategoryIcon from "../../components/CategoryIcon";
 import {
     removeCompletedTask,
+    removeTask,
     removeUnCompleteTask,
 } from "../../redux/slice/tasks/tasksSlice";
 import { useNavigation } from "@react-navigation/native";
@@ -26,11 +27,7 @@ const TaskScreen = ({ route }) => {
             index: 1,
             routes: [{ name: "Home" }],
         });
-        if (task.isCompleted) {
-            dispatch(removeCompletedTask(task.id));
-        } else {
-            dispatch(removeUnCompleteTask(task.id));
-        }
+        dispatch(removeTask(task.id));
     };
 
     return (

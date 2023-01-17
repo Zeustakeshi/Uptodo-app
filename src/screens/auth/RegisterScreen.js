@@ -62,11 +62,7 @@ const RegisterScreen = () => {
                     taskLeft: 0,
                     taskDone: 0,
                 },
-                tasks: {
-                    uncomplete: [],
-                    completed: [],
-                    categrories: [],
-                },
+                tasks: [],
             });
             //update user info to store and Storage
             dispatch(

@@ -84,10 +84,7 @@ const LoginScreen = () => {
                         taskDone: userData?.task.taskDone,
                     },
                 };
-                const tasks = {
-                    uncomplete: userData?.tasks?.uncomplete,
-                    completed: userData?.tasks?.completed,
-                };
+                const tasks = userData?.tasks;
                 // dispatch set current user data to store
                 dispatch(setUserInfo({ ...userInfo, isLogin: true }));
                 // dispatch set current user tasks to store

@@ -5,27 +5,29 @@ import SearchTask from "./SearchTask";
 import TaskList from "./TaskList";
 
 const TaskWapper = () => {
-    const tasks = useSelector((state) => state.tasks);
+    const { tasks } = useSelector((state) => state.tasks);
+    const uncompleteTasks = tasks.filter((task) => !task.isComplete);
+    const completeTasks = tasks.filter((task) => task.isComplete);
 
     return (
         <View className="flex-1 mt-5">
             {/* Search */}
             <ScrollView showsVerticalScrollIndicator={false} className="flex-1">
                 <SearchTask />
-                {tasks.uncomplete.length > 0 && (
+                {uncompleteTasks.length > 0 && (
                     <View className="flex-1">
                         <Text className="text-gray-600 font-medium mb-2">
                             Uncomplete
                         </Text>
-                        <TaskList tasks={tasks.uncomplete}></TaskList>
+                        <TaskList tasks={uncompleteTasks}></TaskList>
                     </View>
                 )}
-                {tasks.completed.length > 0 && (
+                {completeTasks.length > 0 && (
                     <View className="flex-1">
                         <Text className="text-gray-600 font-medium mb-2">
                             Completed
                         </Text>
-                        <TaskList tasks={tasks.completed}></TaskList>
+                        <TaskList tasks={completeTasks}></TaskList>
                     </View>
                 )}
             </ScrollView>

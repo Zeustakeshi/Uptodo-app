@@ -26,21 +26,6 @@ const TaskItem = ({
 
     const navigation = useNavigation();
 
-    const handlePress = () => {
-        if (!allowPress) return;
-
-        if (isCompleted) {
-            dispacth(addUnCompleteTask({ ...data, isCompleted: false }));
-        } else {
-            dispacth(addCompletedTask({ ...data, isCompleted: true }));
-        }
-    };
-
-    const handleLongPress = () => {
-        if (!allowLongPress) return;
-        navigation.navigate("Task", { pram: data });
-    };
-
     return (
         <TouchableOpacity
             onPress={() => onPress()}

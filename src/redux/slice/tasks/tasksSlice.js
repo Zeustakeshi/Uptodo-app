@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
-    uncomplete: [],
-    completed: [],
+    tasks: [],
     categrories: [
         { id: 1, name: "Home", icon: "home", color: "#4ade80" },
         { id: 2, name: "Cook", icon: "cook", color: "#f59e0b" },
@@ -25,47 +24,31 @@ const tasksSlice = createSlice({
         reset(state) {
             state = initialState;
         },
-
         setTasks(state, action) {},
         updateTasks(state, { payload }) {
-            state.uncomplete = payload.uncomplete || [];
-            state.completed = payload.completed || [];
-            state.categrories = payload.categrories || initialState.categrories;
+            state.tasks = payload;
         },
-
-        addCompletedTask(state, action) {
-            state.completed.push(action.payload);
-            state.uncomplete = state.uncomplete.filter(
-                (task) => task.id !== action.payload.id
-            );
+        removeTask(state, action) {},
+        remove(state, action) {
+            state.tasks = state.tasks.filter((task) => action.payload !== task);
         },
-        removeCompletedTask(state, action) {
-            state.completed = state.completed.filter(
-                (task) => task.id !== action.payload
-            );
+        addTasks(state, action) {},
+        add(state, action) {
+            state.tasks.push(action.payload);
         },
-        addUnCompleteTask(state, action) {
-            state.uncomplete.push(action.payload);
-            state.completed = state.completed.filter(
-                (task) => task.id !== action.payload.id
-            );
-        },
-        removeUnCompleteTask(state, action) {
-            state.uncomplete = state.uncomplete.filter(
-                (task) => task.id !== action.payload
-            );
-        },
+        setIsCompleteTask(state, action) {},
     },
 });
 
 export const {
+    setIsCompleteTask,
     reset,
     resetTasks,
     updateTasks,
     setTasks,
-    addCompletedTask,
-    addUnCompleteTask,
-    removeCompletedTask,
-    removeUnCompleteTask,
+    removeTask,
+    remove,
+    addTasks,
+    add,
 } = tasksSlice.actions;
 export default tasksSlice.reducer;
