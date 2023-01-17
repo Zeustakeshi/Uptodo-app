@@ -13,7 +13,7 @@ import TimeModal from "./TimeModal";
 import { timeFomat } from "../../const";
 import { useDispatch } from "react-redux";
 import uuid from "react-native-uuid";
-import { addUnCompleteTask } from "../../redux/slice/tasksSlice";
+import { addUnCompleteTask } from "../../redux/slice/tasks/tasksSlice";
 
 const AddTaskModal = ({ buttonShow = () => {} }) => {
     const [inputTaskName, setInputTaskName] = useState("");

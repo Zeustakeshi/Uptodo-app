@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { validateEmail, validatePassword } from "../../const";
+import { validateEmail, validatePassword } from "../../../const";
 
 const initialState = {
     id: "",
@@ -11,17 +11,19 @@ const initialState = {
         taskLeft: 0,
         taskDone: 0,
     },
+    isLogin: false,
 };
 
 const userSlice = createSlice({
     name: "user",
     initialState: initialState,
     reducers: {
-        resetUserInfo(state, payload) {
+        resetUserInfo() {},
+        reset(state) {
             state = initialState;
         },
 
-        setUserInfo(state, { payload }) {
+        updateUserInfo(state, { payload }) {
             state.id = payload.id || "";
             state.userName = payload.userName || "";
             state.email = payload.email || "";
@@ -29,7 +31,9 @@ const userSlice = createSlice({
             state.avatar = payload.avatar || "";
             state.task.taskLeft = payload.task.taskLeft || 0;
             state.task.taskDone = payload.task.taskDone || 0;
+            state.isLogin = payload.isLogin;
         },
+        setUserInfo(state, action) {},
 
         setEmail(state, action) {
             if (validateEmail(action.payload)) {
@@ -64,7 +68,9 @@ const userSlice = createSlice({
 });
 
 export const {
+    reset,
     resetUserInfo,
+    updateUserInfo,
     setUserInfo,
     setUserName,
     setEmail,

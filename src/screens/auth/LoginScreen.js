@@ -14,10 +14,10 @@ import {
 import { useDispatch } from "react-redux";
 import { appleIcon, googleIcon } from "../../../assets";
 import LayoutAuth from "../../components/Layout/LayoutAuth";
-import { fakeImg, validateEmail, validatePassword } from "../../const";
+import { validateEmail, validatePassword } from "../../const";
 import { auth, db } from "../../firebase/firebase-config";
-import { setTasksInfo } from "../../redux/slice/tasksSlice";
-import { setUserInfo } from "../../redux/slice/userSlice";
+import { setTasks } from "../../redux/slice/tasks/tasksSlice";
+import { resetUserInfo, setUserInfo } from "../../redux/slice/user/userSlice";
 
 const LoginScreen = () => {
     // state
@@ -28,11 +28,27 @@ const LoginScreen = () => {
     // navigation
     const navigation = useNavigation();
 
-    //effect
-    useEffect(() => {}, []);
-
     //dispatch
     const dispatch = useDispatch();
+
+    //effect
+    // useEffect(() => {
+    //     const checkUserLogin = async () => {
+    //         const user = await AsyncStorage.getItem("user");
+    //         if (user !== null) {
+    //             const userInfo = JSON.parse(user);
+    //             if (userInfo.isLogin) {
+    //                 dispatch(setUserInfo(userInfo));
+    //                 navigation.reset({
+    //                     index: 1,
+    //                     routes: [{ name: "Home" }],
+    //                 });
+    //             }
+    //         }
+    //     };
+    //     checkUserLogin();
+    // }, []);
+
     //handler
     const handleLogin = async () => {
         if (!validateEmail(email)) {
@@ -73,16 +89,9 @@ const LoginScreen = () => {
                     completed: userData?.tasks?.completed,
                 };
                 // dispatch set current user data to store
-                dispatch(setUserInfo(userInfo));
+                dispatch(setUserInfo({ ...userInfo, isLogin: true }));
                 // dispatch set current user tasks to store
-                dispatch(setTasksInfo(tasks));
-                // remove all old data from storage
-                await AsyncStorage.clear();
-                // stored new data
-                await AsyncStorage.multiSet([
-                    ["user", JSON.stringify(userInfo)],
-                    ["tasks", JSON.stringify(tasks)],
-                ]);
+                dispatch(setTasks(tasks));
             }
 
             navigation.reset({

@@ -1,0 +1,11 @@
+
+- change store and storage
++ update userInfo : 
+    dispatch action setUserInfo(userInfo)
++ update tasks:
+    dispatch action setTasks(tasks)
+
++ reset userIfo :
+    dispatch action resetUserInfo
++ reset tasks
+    dispatch action resetTasks

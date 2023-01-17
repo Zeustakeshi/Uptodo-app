@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import {
     addCompletedTask,
     addUnCompleteTask,
-} from "../../redux/slice/tasksSlice";
+} from "../../redux/slice/tasks/tasksSlice";
 import TaskItem from "./TaskItem";
 
 const TaskList = ({ tasks }) => {

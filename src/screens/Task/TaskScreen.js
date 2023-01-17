@@ -9,7 +9,7 @@ import CategoryIcon from "../../components/CategoryIcon";
 import {
     removeCompletedTask,
     removeUnCompleteTask,
-} from "../../redux/slice/tasksSlice";
+} from "../../redux/slice/tasks/tasksSlice";
 import { useNavigation } from "@react-navigation/native";
 
 const TaskScreen = ({ route }) => {

@@ -20,7 +20,7 @@ import {
     validateUserName,
 } from "../../const";
 import { auth, db } from "../../firebase/firebase-config";
-import { setUserInfo } from "../../redux/slice/userSlice";
+import { setUserInfo, updateUserInfo } from "../../redux/slice/user/userSlice";
 
 const RegisterScreen = () => {
     const [userName, setUserName] = useState("");
@@ -51,6 +51,7 @@ const RegisterScreen = () => {
             await updateProfile(auth.currentUser, {
                 displayName: userName,
             });
+            // create user to firestore
             await setDoc(doc(db, "users", auth.currentUser.uid), {
                 id: auth.currentUser.uid,
                 userName: userName,
@@ -67,8 +68,9 @@ const RegisterScreen = () => {
                     categrories: [],
                 },
             });
+            //update user info to store and Storage
             dispatch(
-                setUserInfo({
+                updateUserInfo({
                     id: auth.currentUser.uid,
                     userName: userName,
                     email: email,
@@ -78,6 +80,7 @@ const RegisterScreen = () => {
                         taskLeft: 0,
                         taskDone: 0,
                     },
+                    isLogin: true,
                 })
             );
             navigation.reset({

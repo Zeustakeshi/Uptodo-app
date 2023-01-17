@@ -1,8 +1,7 @@
-import React, { useState } from "react";
-import { Text, View } from "react-native";
+import React from "react";
+import { View } from "react-native";
 import EmptyTask from "./EmptyTask";
 import TaskWapper from "./TaskWapper";
-import { FontAwesome5 } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
 
 const Task = () => {

@@ -11,22 +11,22 @@ import {
 import LoginScreen from "./screens/auth/LoginScreen";
 import RegisterScreen from "./screens/auth/RegisterScreen";
 import ProfileScreen from "./screens/Profile/ProfileScreen";
-import { Provider } from "react-redux";
+import { Provider, useDispatch } from "react-redux";
 import { store } from "./redux/store";
 import SearchScreen from "./screens/Search/SearchScreen";
 import TaskScreen from "./screens/Task/TaskScreen";
 import SettingScreen from "./screens/Profile/SettingScreen";
 import { useEffect } from "react";
+import { Text, View } from "react-native";
+import { setMess } from "./redux/slice/test/helloSlice";
+import Test from "./components/Test";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-    useEffect(() => {
-        
-    }, []);
-
     return (
         <Provider store={store}>
+            {/* <Test></Test> */}
             <NavigationContainer>
                 <Stack.Navigator
                     screenOptions={{

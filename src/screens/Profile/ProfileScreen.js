@@ -19,8 +19,8 @@ import LayoutAuth from "../../components/Layout/LayoutAuth";
 import { useNavigation } from "@react-navigation/native";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase/firebase-config";
-import { resetUserInfo } from "../../redux/slice/userSlice";
-import { resetTasks } from "../../redux/slice/tasksSlice";
+import { resetUserInfo } from "../../redux/slice/user/userSlice";
+import { resetTasks } from "../../redux/slice/tasks/tasksSlice";
 const ProfileScreen = () => {
     const { avatar, userName } = useSelector((state) => state.user);
     const navigation = useNavigation();

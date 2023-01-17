@@ -1,10 +1,30 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
-import React from "react";
+import React, { useEffect } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import LayoutWrapper from "./LayoutWrapper";
+import uuid from "react-native-uuid";
 
 const LayoutWelCome = ({ imgSrc, total = 1, order = 1, title, desc }) => {
     const navigation = useNavigation();
+
+    /// check this first
+    // useEffect(() => {
+    //     const checkAlreadyLaunched = async () => {
+    //         const alreadyLaunched = await AsyncStorage.getItem(
+    //             "alreadyLaunched"
+    //         );
+    //         if (alreadyLaunched == null) {
+    //             await AsyncStorage.setItem("alreadyLaunched", "true");
+    //         } else {
+    //             navigation.reset({
+    //                 index: 1,
+    //                 routes: [{ name: "Login" }],
+    //             });
+    //         }
+    //     };
+    //     checkAlreadyLaunched();
+    // }, []);
 
     const handleNextScreen = () => {
         if (order >= total) {
@@ -41,7 +61,7 @@ const LayoutWelCome = ({ imgSrc, total = 1, order = 1, title, desc }) => {
                 {new Array(total).fill(0).map((item, index) => {
                     return (
                         <View
-                            key={index}
+                            key={uuid.v4()}
                             className={`w-7 h-1 rounded-md ${
                                 index + 1 === order
                                     ? "bg-primary"

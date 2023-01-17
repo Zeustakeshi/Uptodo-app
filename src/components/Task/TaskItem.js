@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
     addCompletedTask,
     addUnCompleteTask,
-} from "../../redux/slice/tasksSlice";
+} from "../../redux/slice/tasks/tasksSlice";
 import { useNavigation } from "@react-navigation/native";
 import CategoryIcon from "../CategoryIcon";
 
