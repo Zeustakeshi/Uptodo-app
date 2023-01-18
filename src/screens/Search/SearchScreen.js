@@ -71,7 +71,7 @@ const SearchScreen = () => {
                         <TaskItem
                             key={task.id}
                             data={task}
-                            allowPress={false}
+                            allowPress={true}
                             onPress={() => handlePress(task)}
                         />
                     );

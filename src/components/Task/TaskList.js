@@ -1,12 +1,8 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { View } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
-import {
-    addTasks,
-    removeTask,
-    setIsCompleteTask,
-} from "../../redux/slice/tasks/tasksSlice";
+import { useDispatch } from "react-redux";
+import { setIsCompleteTask } from "../../redux/slice/tasks/tasksSlice";
 import TaskItem from "./TaskItem";
 
 const TaskList = ({ tasks }) => {
@@ -14,12 +10,11 @@ const TaskList = ({ tasks }) => {
     const navigation = useNavigation();
 
     const handlePressTaskItem = (task) => {
-        dispacth(setIsCompleteTask(task.id));
-        // if (task.isCompleted) {
-        //     dispacth(addTasks({ ...task, isCompleted: false }));
-        // } else {
-        //     dispacth(addTasks({ ...task, isCompleted: true }));
-        // }
+        if (task.isCompleted) {
+            dispacth(setIsCompleteTask({ id: task.id, value: false }));
+        } else {
+            dispacth(setIsCompleteTask({ id: task.id, value: true }));
+        }
     };
 
     const handleLongPressTaskItem = (task) => {
@@ -35,6 +30,7 @@ const TaskList = ({ tasks }) => {
                         onLongPress={() => handleLongPressTaskItem(task)}
                         key={task.id}
                         data={task}
+                        allowLongPress={false}
                     />
                 ))}
         </View>

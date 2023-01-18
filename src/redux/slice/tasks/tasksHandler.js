@@ -33,8 +33,8 @@ export function* handleAddTasks(action) {
 export function* handleSetIsCompleteTask(action) {
     const { tasks } = yield select((state) => state.tasks);
     const newTasks = tasks.map((task) => {
-        if (task.id === action.payload) {
-            return { ...task, isCompleted: !task.isCompleted };
+        if (task.id === action.payload.id) {
+            return { ...task, isCompleted: action.payload.value };
         }
         return task;
     });

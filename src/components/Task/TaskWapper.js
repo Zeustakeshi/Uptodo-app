@@ -6,8 +6,8 @@ import TaskList from "./TaskList";
 
 const TaskWapper = () => {
     const { tasks } = useSelector((state) => state.tasks);
-    const uncompleteTasks = tasks.filter((task) => !task.isComplete);
-    const completeTasks = tasks.filter((task) => task.isComplete);
+    const uncompleteTasks = tasks.filter((task) => !task.isCompleted);
+    const completeTasks = tasks.filter((task) => task.isCompleted);
 
     return (
         <View className="flex-1 mt-5">

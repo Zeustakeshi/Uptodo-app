@@ -32,22 +32,26 @@ const LoginScreen = () => {
     const dispatch = useDispatch();
 
     //effect
-    // useEffect(() => {
-    //     const checkUserLogin = async () => {
-    //         const user = await AsyncStorage.getItem("user");
-    //         if (user !== null) {
-    //             const userInfo = JSON.parse(user);
-    //             if (userInfo.isLogin) {
-    //                 dispatch(setUserInfo(userInfo));
-    //                 navigation.reset({
-    //                     index: 1,
-    //                     routes: [{ name: "Home" }],
-    //                 });
-    //             }
-    //         }
-    //     };
-    //     checkUserLogin();
-    // }, []);
+    useEffect(() => {
+        const checkUserLogin = async () => {
+            const user = await AsyncStorage.getItem("user");
+            const tasks = await AsyncStorage.getItem("tasks");
+            if (user !== null && tasks !== null) {
+                const userInfo = JSON.parse(user);
+                const tasksInfo = JSON.parse(tasks);
+                if (userInfo.isLogin) {
+                    dispatch(setUserInfo(userInfo));
+                    dispatch(setTasks(tasksInfo));
+
+                    navigation.reset({
+                        index: 1,
+                        routes: [{ name: "Home" }],
+                    });
+                }
+            }
+        };
+        checkUserLogin();
+    }, []);
 
     //handler
     const handleLogin = async () => {

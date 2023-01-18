@@ -8,23 +8,23 @@ import uuid from "react-native-uuid";
 const LayoutWelCome = ({ imgSrc, total = 1, order = 1, title, desc }) => {
     const navigation = useNavigation();
 
-    /// check this first
-    // useEffect(() => {
-    //     const checkAlreadyLaunched = async () => {
-    //         const alreadyLaunched = await AsyncStorage.getItem(
-    //             "alreadyLaunched"
-    //         );
-    //         if (alreadyLaunched == null) {
-    //             await AsyncStorage.setItem("alreadyLaunched", "true");
-    //         } else {
-    //             navigation.reset({
-    //                 index: 1,
-    //                 routes: [{ name: "Login" }],
-    //             });
-    //         }
-    //     };
-    //     checkAlreadyLaunched();
-    // }, []);
+    //  check this first
+    useEffect(() => {
+        const checkAlreadyLaunched = async () => {
+            const alreadyLaunched = await AsyncStorage.getItem(
+                "alreadyLaunched"
+            );
+            if (alreadyLaunched == null) {
+                await AsyncStorage.setItem("alreadyLaunched", "true");
+            } else {
+                navigation.reset({
+                    index: 1,
+                    routes: [{ name: "Login" }],
+                });
+            }
+        };
+        checkAlreadyLaunched();
+    }, []);
 
     const handleNextScreen = () => {
         if (order >= total) {
