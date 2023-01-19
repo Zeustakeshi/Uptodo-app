@@ -1,14 +1,34 @@
-import React from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import React, { useState } from "react";
+import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
 import LayoutAuth from "../../components/Layout/LayoutAuth";
 import {
     AntDesign,
     Entypo,
+    Feather,
     MaterialCommunityIcons,
     Octicons,
 } from "@expo/vector-icons";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../../firebase/firebase-config";
+import { useSelector } from "react-redux";
 
 const SettingScreen = () => {
+    const { id: userId } = useSelector((state) => state.user);
+    const { tasks } = useSelector((state) => state.tasks);
+
+    const [asycServerLoading, setAsyncServerLoading] = useState(false);
+    const handleAsyncServer = async () => {
+        try {
+            setAsyncServerLoading(true);
+            const userRef = doc(db, "users", userId);
+            await updateDoc(userRef, { tasks: tasks });
+        } catch (error) {
+            alert(error);
+            console.log(error);
+        }
+        setAsyncServerLoading(false);
+    };
+
     return (
         <LayoutAuth title={"Settings"}>
             <View className="mt-2">
@@ -49,6 +69,18 @@ const SettingScreen = () => {
                             }
                         />
                     </View>
+                    <SettingItem
+                        isLoading={asycServerLoading}
+                        onPress={handleAsyncServer}
+                        title="Async to server"
+                        icon={
+                            <Feather
+                                name="upload-cloud"
+                                size={24}
+                                color="black"
+                            />
+                        }
+                    />
                 </View>
                 <View>
                     <Text className="mt-2 text-sm text-gray-500 font-semibold">
@@ -72,14 +104,20 @@ const SettingScreen = () => {
     );
 };
 
-const SettingItem = ({ title, icon, ...props }) => {
+const SettingItem = ({ title, icon, isLoading = false, ...props }) => {
     return (
         <TouchableOpacity
             {...props}
             className="flex-row gap-x-2  py-3 items-center"
         >
-            {icon}
-            <Text>{title}</Text>
+            <View className="flex-row justify-start items-center">
+                {isLoading ? (
+                    <ActivityIndicator size="small" color={"#6651f0"} />
+                ) : (
+                    icon
+                )}
+                <Text className="ml-4">{title}</Text>
+            </View>
         </TouchableOpacity>
     );
 };

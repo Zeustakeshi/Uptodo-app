@@ -22,7 +22,11 @@ import { auth } from "../../firebase/firebase-config";
 import { resetUserInfo } from "../../redux/slice/user/userSlice";
 import { resetTasks } from "../../redux/slice/tasks/tasksSlice";
 const ProfileScreen = () => {
-    const { avatar, userName } = useSelector((state) => state.user);
+    const {
+        avatar,
+        userName,
+        task: userTask,
+    } = useSelector((state) => state.user);
     const navigation = useNavigation();
 
     //dispatch
@@ -59,11 +63,13 @@ const ProfileScreen = () => {
                 <View className="mt-4 flex-row justify-center items-center gap-x-5">
                     <View className="px-6 py-3 bg-gray-100 rounded-lg">
                         <Text className="font-normal text-sm">
-                            10 Task left
+                            {userTask.taskLeft} Task left
                         </Text>
                     </View>
                     <View className="px-6 py-3 bg-gray-100 rounded-lg">
-                        <Text className="font-normal text-sm">5 Task done</Text>
+                        <Text className="font-normal text-sm">
+                            {userTask.taskDone} Task done
+                        </Text>
                     </View>
                 </View>
                 <View className="mt-5">
