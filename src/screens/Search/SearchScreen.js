@@ -15,24 +15,64 @@ const SearchScreen = () => {
     const navigation = useNavigation();
 
     // get tasks from store
-    const { tasks } = useSelector((state) => state.tasks);
+    const { tasks, categrories } = useSelector((state) => state.tasks);
 
     // handle search
+    //get categrories
+    const getCategrories = () => {
+        return categrories.filter((categrory, index) => {
+            return categrory.name
+                .toLowerCase()
+                .includes(searchValue.trim().toLowerCase());
+        });
+    };
+
+    //convertViToEn
+    const convertViToEn = (str, toUpperCase = false) => {
+        str = str.toLowerCase();
+        str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+        str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+        str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+        str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+        str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+        str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+        str = str.replace(/đ/g, "d");
+        // Some system encode vietnamese combining accent as individual utf-8 characters
+        str = str.replace(/\u0300|\u0301|\u0303|\u0309|\u0323/g, ""); // Huyền sắc hỏi ngã nặng
+        str = str.replace(/\u02C6|\u0306|\u031B/g, ""); // Â, Ê, Ă, Ơ, Ư
+
+        return toUpperCase ? str.toUpperCase() : str;
+    };
+
     useEffect(() => {
         if (searchValue.trim() === "") {
             setResults([]);
             return;
         }
-
+        const matchCategrory = getCategrories();
         const results = [
             ...tasks.filter((task) => {
                 return (
-                    task.name
+                    convertViToEn(task.name)
                         .toLowerCase()
-                        .includes(searchValue.toLocaleLowerCase()) ||
-                    task.desc
+                        .trim()
+
+                        .includes(
+                            convertViToEn(
+                                searchValue.toLocaleLowerCase().trim()
+                            )
+                        ) ||
+                    convertViToEn(task.desc)
                         .toLowerCase()
-                        .includes(searchValue.toLocaleLowerCase())
+                        .trim()
+                        .includes(
+                            convertViToEn(
+                                searchValue.toLocaleLowerCase().trim()
+                            )
+                        ) ||
+                    matchCategrory.some(
+                        (matchValue) => matchValue.id === task.categrory
+                    )
                 );
             }),
         ];
