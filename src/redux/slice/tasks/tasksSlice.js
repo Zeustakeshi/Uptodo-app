@@ -37,10 +37,13 @@ const tasksSlice = createSlice({
             state.tasks.push(action.payload);
         },
         setIsCompleteTask(state, action) {},
+
+        clearCompletedTask() {},
     },
 });
 
 export const {
+    clearCompletedTask,
     setIsCompleteTask,
     reset,
     resetTasks,

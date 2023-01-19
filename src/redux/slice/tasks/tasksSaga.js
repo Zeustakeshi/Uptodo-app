@@ -1,6 +1,7 @@
 import { all, take, takeLatest } from "redux-saga/effects";
 import {
     handleAddTasks,
+    handleClearCompletedTask,
     handleRemoveTask,
     handleResetTasks,
     handleSetIsCompleteTask,
@@ -8,6 +9,7 @@ import {
 } from "./tasksHandler";
 import {
     addTasks,
+    clearCompletedTask,
     removeTask,
     resetTasks,
     setIsCompleteTask,
@@ -21,5 +23,6 @@ export default function* tasksSaga() {
         takeLatest(removeTask.type, handleRemoveTask),
         takeLatest(addTasks.type, handleAddTasks),
         takeLatest(setIsCompleteTask.type, handleSetIsCompleteTask),
+        takeLatest(clearCompletedTask.type, handleClearCompletedTask),
     ]);
 }

@@ -38,6 +38,13 @@ export function* handleSetIsCompleteTask(action) {
         }
         return task;
     });
+    yield AsyncStorage.setItem("tasks", JSON.stringify(newTasks));
+    yield put(updateTasks(newTasks));
+}
 
+export function* handleClearCompletedTask() {
+    const { tasks } = yield select((state) => state.tasks);
+    const newTasks = tasks.filter((task) => !task.isCompleted);
+    yield AsyncStorage.setItem("tasks", JSON.stringify(newTasks));
     yield put(updateTasks(newTasks));
 }

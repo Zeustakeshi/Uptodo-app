@@ -22,7 +22,7 @@ const TaskList = ({ tasks }) => {
     };
 
     return (
-        <View>
+        <View className="mb-10">
             {tasks.length > 0 &&
                 tasks?.map((task) => (
                     <TaskItem
