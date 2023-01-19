@@ -48,3 +48,20 @@ export function* handleClearCompletedTask() {
     yield AsyncStorage.setItem("tasks", JSON.stringify(newTasks));
     yield put(updateTasks(newTasks));
 }
+
+export function* handleSetTaskNameAndDesc(action) {
+    const { tasks } = yield select((state) => state.tasks);
+    let tasksClone = [...tasks];
+    if (tasksClone.length > 0) {
+        const oldTaskIndex = tasksClone
+            .map((task) => task.id)
+            .indexOf(action.payload.id);
+        tasksClone[oldTaskIndex] = {
+            ...tasksClone[oldTaskIndex],
+            name: action.payload.name || "",
+            desc: action.payload.desc,
+        };
+        yield AsyncStorage.setItem("tasks", JSON.stringify(tasksClone));
+        yield put(updateTasks(tasksClone));
+    }
+}

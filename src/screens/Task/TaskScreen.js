@@ -12,6 +12,7 @@ import {
     removeUnCompleteTask,
 } from "../../redux/slice/tasks/tasksSlice";
 import { useNavigation } from "@react-navigation/native";
+import EditNameAndDescModal from "../../components/Modals/EditNameAndDescModal";
 
 const TaskScreen = ({ route }) => {
     const task = route?.params?.pram;
@@ -48,9 +49,14 @@ const TaskScreen = ({ route }) => {
                         {task?.desc || "Task"}
                     </Text>
                 </View>
-                <TouchableOpacity>
-                    <Feather name="edit" size={24} color="#4b5563" />
-                </TouchableOpacity>
+                <EditNameAndDescModal
+                    oldData={task}
+                    buttonShow={(setModalVisible) => (
+                        <TouchableOpacity onPress={() => setModalVisible(true)}>
+                            <Feather name="edit" size={24} color="#4b5563" />
+                        </TouchableOpacity>
+                    )}
+                />
             </View>
             {/* Task infomation */}
             <View className="mt-5">

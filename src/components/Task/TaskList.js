@@ -30,7 +30,7 @@ const TaskList = ({ tasks }) => {
                         onLongPress={() => handleLongPressTaskItem(task)}
                         key={task.id}
                         data={task}
-                        allowLongPress={false}
+                        // allowLongPress={false}
                     />
                 ))}
         </View>

@@ -15,7 +15,7 @@ export const store = configureStore({
         tasks: tasksSlice,
         hello: helloSlice,
     },
-    middleware: (gDM) => gDM({ thunk: false }).concat(sagaMiddleware),
+    middleware: (gDM) => gDM({ thunk: false }).concat(logger, sagaMiddleware),
 });
 
 sagaMiddleware.run(rootSaga);

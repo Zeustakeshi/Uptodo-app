@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Modal, Pressable, StyleSheet, Text, View } from "react-native";
 
-const ModalPoup2 = ({ buttonShow = () => {}, title, children }) => {
+const ModalPoup2 = ({ buttonShow = () => {}, title, style, children }) => {
     const [modalVisible, setModalVisible] = useState(false);
     return (
-        <View>
+        <View style={style}>
             {buttonShow(setModalVisible)}
             <Modal
                 animationType="fade"
