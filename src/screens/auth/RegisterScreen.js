@@ -1,10 +1,17 @@
+import { async } from "@firebase/util";
 import { useNavigation } from "@react-navigation/native";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import {
+    getAuth,
+    signInWithPhoneNumber,
+    PhoneAuthProvider,
+} from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import React, { useState } from "react";
 import {
     ActivityIndicator,
+    Button,
     Image,
+    Platform,
     Text,
     TextInput,
     TouchableOpacity,
@@ -15,8 +22,10 @@ import { appleIcon, googleIcon } from "../../../assets";
 import LayoutAuth from "../../components/Layout/LayoutAuth";
 import {
     fakeImg,
+    formatNumberPhone,
     validateEmail,
     validatePassword,
+    validatePhoneNumber,
     validateUserName,
 } from "../../const";
 import { auth, db } from "../../firebase/firebase-config";
@@ -24,8 +33,9 @@ import { setUserInfo, updateUserInfo } from "../../redux/slice/user/userSlice";
 
 const RegisterScreen = () => {
     const [userName, setUserName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [numberPhone, setNumberPhone] = useState("");
+    const [verificationCode, setVerificationCode] = useState("");
+    const [verificationId, setVerificationId] = useState("");
     const [loading, setLoading] = useState(false);
     //navigation
     const navigation = useNavigation();
@@ -34,61 +44,114 @@ const RegisterScreen = () => {
     const dispatch = useDispatch();
 
     // handle register
-    const handleRegister = async () => {
-        if (!validateEmail(email)) {
-            alert("Please enter valid email and try again!");
-            return;
-        } else if (!validateUserName(userName)) {
-            alert("Please enter valid userName and try again!");
-            return;
-        } else if (!validatePassword(password)) {
-            alert("Plese enter valid password and try again!");
-            return;
-        }
+    // const handleSendCode = async () => {
+    //     if (!validatePhoneNumber(numberPhone)) {
+    //         alert("invalid phone number");
+    //         return;
+    //     }
+    //     if (!validateUserName(userName)) {
+    //         alert("invalid username");
+    //         return;
+    //     }
+
+    //     try {
+    //         setLoading(true);
+
+    //         const phoneProvider = new PhoneAuthProvider();
+    //         try {
+    //             const verifica = await phoneProvider.verifyPhoneNumber(
+    //                 formatNumberPhone(numberPhone),
+    //                 60 // thời gian sống của mã xác thực (giây)
+    //             );
+    //             console.log(verifica);
+    //             setVerificationId(verifica);
+    //         } catch (error) {
+    //             console.log(error);
+    //         }
+
+    //         //     await updateProfile(auth.currentUser, {
+    //         //         displayName: userName,
+    //         //     });
+    //         //     // create user to firestore
+    //         //     await setDoc(doc(db, "users", auth.currentUser.uid), {
+    //         //         id: auth.currentUser.uid,
+    //         //         userName: userName,
+    //         //         email: email,
+    //         //         password: password,
+    //         //         avatar: "",
+    //         //         task: {
+    //         //             taskLeft: 0,
+    //         //             taskDone: 0,
+    //         //         },
+    //         //         tasks: [],
+    //         //     });
+    //         //     //update user info to store and Storage
+    //         //     dispatch(
+    //         //         updateUserInfo({
+    //         //             id: auth.currentUser.uid,
+    //         //             userName: userName,
+    //         //             email: email,
+    //         //             password: password,
+    //         //             avatar: fakeImg,
+    //         //             task: {
+    //         //                 taskLeft: 0,
+    //         //                 taskDone: 0,
+    //         //             },
+    //         //             isLogin: true,
+    //         //         })
+    //         //     );
+    //         //     navigation.reset({
+    //         //         index: 1,
+    //         //         routes: [{ name: "Home" }],
+    //         //     });
+    //     } catch (error) {
+    //         alert(error);
+    //         console.log(error);
+    //     }
+    //     setLoading(false);
+    // };
+
+    const handleSendCode = async () => {
         try {
-            setLoading(true);
-            await createUserWithEmailAndPassword(auth, email, password);
-            await updateProfile(auth.currentUser, {
-                displayName: userName,
-            });
-            // create user to firestore
-            await setDoc(doc(db, "users", auth.currentUser.uid), {
-                id: auth.currentUser.uid,
-                userName: userName,
-                email: email,
-                password: password,
-                avatar: "",
-                task: {
-                    taskLeft: 0,
-                    taskDone: 0,
-                },
-                tasks: [],
-            });
-            //update user info to store and Storage
-            dispatch(
-                updateUserInfo({
-                    id: auth.currentUser.uid,
-                    userName: userName,
-                    email: email,
-                    password: password,
-                    avatar: fakeImg,
-                    task: {
-                        taskLeft: 0,
-                        taskDone: 0,
-                    },
-                    isLogin: true,
-                })
+            // Lấy số điện thoại từ input của người dùng
+            const phoneNumber = "+84916561440";
+
+            // Khởi tạo PhoneAuthProvider
+            const phoneProvider = new PhoneAuthProvider(auth);
+
+            // Gửi mã xác minh đến số điện thoại
+            const verificationId = await phoneProvider.verifyPhoneNumber(
+                "+84916561440",
+                window.recaptchaVerifier
             );
-            navigation.reset({
-                index: 1,
-                routes: [{ name: "Home" }],
-            });
+
+            console.log(
+                "Mã xác minh đã được gửi đến số điện thoại",
+                phoneNumber,
+                verificationId
+            );
+        } catch (error) {
+            console.error("Lỗi khi gửi mã xác minh", error);
+        }
+    };
+
+    const handleVerifyCode = async () => {
+        const credential = PhoneAuthProvider.credential(
+            verificationId,
+            verificationCode
+        );
+        try {
+            const { user } = await signInWithCredential(credential);
+
+            // Lưu thông tin người dùng vào Cloud Firestore
+            // firebase.firestore().collection("users").doc(user.uid).set({
+            //     name: name,
+            //     phoneNumber: user.phoneNumber,
+            // });
+            console.log(user);
         } catch (error) {
             alert(error);
-            console.log(error);
         }
-
-        setLoading(false);
     };
 
     return (
@@ -106,48 +169,42 @@ const RegisterScreen = () => {
                     </Text>
                     <View className="bg-gray-100 rounded w-[100%]">
                         <TextInput
+                            autoFocus
                             value={userName}
                             onChangeText={(text) => setUserName(text)}
                             placeholder="Enter your Username"
                             className="font-medium text-sm text-text-color p-3"
+                            selectionColor="#6651f0"
                         />
                     </View>
                 </View>
+
                 <View className="mt-3">
                     <Text className="font-medium text-base text-text-color mb-2">
-                        Email
+                        Number Phone
                     </Text>
-                    <View className="bg-gray-100 rounded w-[100%]">
+                    <View className="bg-gray-100 rounded w-[100%] flex-row">
+                        <View className=" pl-3 flex-row h-full justify-center items-center ">
+                            <Text className="text-center font-bold text-primary ">
+                                +84
+                            </Text>
+                        </View>
                         <TextInput
-                            testID="LoginEmailAddress"
-                            textContentType="emailAddress"
-                            keyboardType="email-address"
-                            value={email}
+                            value={numberPhone}
                             onChangeText={(text) => {
-                                setEmail(text);
+                                setNumberPhone(text);
                             }}
-                            placeholder="Enter your Email"
-                            className="font-medium text-sm text-text-color p-3"
-                        />
-                    </View>
-                </View>
-                <View className="mt-3">
-                    <Text className="font-medium text-base text-text-color mb-2">
-                        Password
-                    </Text>
-                    <View className="bg-gray-100 rounded w-[100%]">
-                        <TextInput
-                            value={password}
-                            onChangeText={(text) => setPassword(text)}
-                            secureTextEntry={true}
-                            placeholder="Enter your Password"
-                            className="font-medium text-sm text-text-color p-3"
+                            placeholder="Enter your number phone"
+                            className="flex-1 font-medium text-sm text-text-color p-3 placeholder:text-text-color"
+                            maxLength={11}
+                            keyboardType="numeric"
+                            selectionColor="#6651f0"
                         />
                     </View>
                 </View>
                 <TouchableOpacity
                     disabled={loading}
-                    onPress={handleRegister}
+                    // onPress={handleRegister}
                     className="flex-row realtive  mt-8 bg-primary2 px-6 py-3 h-[48px] rounded justify-center items-center"
                 >
                     {loading && (
@@ -164,6 +221,13 @@ const RegisterScreen = () => {
                         Register
                     </Text>
                 </TouchableOpacity>
+                <Button title="Gửi mã xác thực" onPress={handleSendCode} />
+                <TextInput
+                    placeholder="Mã xác thực"
+                    value={verificationCode}
+                    onChangeText={setVerificationCode}
+                />
+                <Button title="Xác thực" onPress={handleVerifyCode} />
             </View>
             <View className="flex-row my-3 items-center">
                 <View className="flex-1 h-[1px] bg-gray-300"></View>

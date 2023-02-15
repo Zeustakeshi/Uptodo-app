@@ -52,4 +52,18 @@ export const validateUserName = (name) => {
     return name.trim().length > 0;
 };
 
+export const validatePhoneNumber = (phone) => {
+    const regex = /^(\+84|0)?(9[0-9]|1[2-9])[0-9]{7}$/;
+    return regex.test(phone);
+};
+
+export const formatNumberPhone = (phone) => {
+    if (phone[0] === "0") {
+        phone = "+84" + phone.slice(1, phone.length);
+    } else {
+        phone = "+84" + phone;
+    }
+    return phone;
+};
+
 export const getIcon = (index) => {};
