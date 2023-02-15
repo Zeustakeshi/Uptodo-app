@@ -34,14 +34,15 @@ export const timeFomat = (dateString) => {
 };
 
 export const validatePassword = (pass) => {
-    return String(pass).match(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(\W|_)).{5,}$/
-    );
+    return String(pass)
+        .trim()
+        .match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(\W|_)).{5,}$/);
 };
 
 export const validateEmail = (email) => {
     return email
         .toLowerCase()
+        .trim()
         .match(
             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         );

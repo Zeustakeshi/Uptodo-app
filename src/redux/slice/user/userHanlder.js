@@ -5,6 +5,7 @@ import {
     updateUserAvatar,
     updateUserInfo,
     updateUserName,
+    updateUserPassword,
 } from "./userSlice";
 import uuid from "react-native-uuid";
 
@@ -13,10 +14,11 @@ import {
     ref,
     getDownloadURL,
     uploadBytesResumable,
-    uploadString,
 } from "@firebase/storage";
-import { db } from "../../../firebase/firebase-config";
+import { auth, db } from "../../../firebase/firebase-config";
 import { doc, updateDoc } from "firebase/firestore";
+import * as authX from "firebase/auth";
+import { useNavigation } from "@react-navigation/native";
 
 export function* handleUpdateUser(action) {
     // add to storage
@@ -90,4 +92,23 @@ export function* handleUpdateUserName(action) {
 
     // update to store
     yield put(updateUserName(action.payload));
+}
+
+export function* handleUpdateUserPassword(action) {
+    const navigation = useNavigation();
+    const { oldPassword, newPassword } = action.payload;
+    if (!oldPassword.trim() || !newPassword.trim()) return;
+
+    try {
+        // const result = yield authX.reauthenticateWithCredential(
+        //     user,
+        //     credential
+        // );
+        // if (result) {
+        //     authX.updatePassword(user, newPassword);
+        //     yield put(updateUserPassword(newPassword));
+        // }
+    } catch (error) {
+        alert(error);
+    }
 }

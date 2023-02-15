@@ -36,7 +36,7 @@ const LoginScreen = () => {
             alert("Please enter valid email and try again!");
             return;
         } else if (!validatePassword(password)) {
-            alert("Plese enter valid password and try again!");
+            alert("Please enter valid password and try again!");
             return;
         }
 
@@ -54,7 +54,6 @@ const LoginScreen = () => {
             const docSnap = await getDoc(docRef);
             if (docSnap.exists()) {
                 const userData = docSnap.data();
-                console.log(userData);
                 const userInfo = {
                     id: userData.id,
                     email: userData.email,

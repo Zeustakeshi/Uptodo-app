@@ -4,12 +4,14 @@ import {
     handleUpdateUser,
     handleUpdateUserAvatar,
     handleUpdateUserName,
+    handleUpdateUserPassword,
 } from "./userHanlder";
 import {
     resetUserInfo,
     setUserAvatar,
     setUserInfo,
     setUserName,
+    setUserPassword,
 } from "./userSlice";
 
 export default function* userSaga() {
@@ -18,5 +20,6 @@ export default function* userSaga() {
         takeLatest(setUserInfo.type, handleUpdateUser),
         takeLatest(setUserAvatar.type, handleUpdateUserAvatar),
         takeLatest(setUserName.type, handleUpdateUserName),
+        takeLatest(setUserPassword.type, handleUpdateUserPassword),
     ]);
 }

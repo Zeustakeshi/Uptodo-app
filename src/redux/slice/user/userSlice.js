@@ -49,7 +49,8 @@ const userSlice = createSlice({
             }
         },
 
-        setUserPassword(state, action) {
+        setUserPassword(state, action) {},
+        updateUserPassword(state, action) {
             if (validatePassword(action.payload)) {
                 state.password = action.payload;
             }
@@ -84,6 +85,7 @@ export const {
     setUserAvatar,
     updateUserAvatar,
     setUserPassword,
+    updateUserPassword,
     setUserTaskDone,
     setUserTaskLeft,
 } = userSlice.actions;
