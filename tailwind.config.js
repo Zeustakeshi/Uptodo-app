@@ -14,6 +14,7 @@ module.exports = {
                 primary2: "#8875FF",
                 "text-color": "#2A2B4B",
             },
+            fontFamily: {},
         },
     },
     plugins: [],

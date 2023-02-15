@@ -80,7 +80,7 @@ export function* handleUpdateUserName(action) {
     // update data to firebase firestore
     const userRef = doc(db, "users", user.id);
     yield updateDoc(userRef, {
-        avatar: action.payload,
+        userName: action.payload,
     });
     // update to storage
     AsyncStorage.setItem(

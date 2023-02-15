@@ -1,80 +1,45 @@
-import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import HomeScreen from "./screens/Home/HomeScreen";
-import RegisterScreen from "./screens/auth/RegisterScreen";
-import ProfileScreen from "./screens/Profile/ProfileScreen";
-import { Provider, useDispatch } from "react-redux";
+import { StatusBar } from "expo-status-bar";
+import { Provider } from "react-redux";
 import { store } from "./redux/store";
+import LoginScreen from "./screens/auth/LoginScreen";
+import RegisterScreen from "./screens/auth/RegisterScreen";
+import HomeScreen from "./screens/Home/HomeScreen";
+import LoadingScreen from "./screens/Loading/LoadingScreen";
+import ProfileScreen from "./screens/Profile/ProfileScreen";
+import SettingScreen from "./screens/Profile/SettingScreen";
 import SearchScreen from "./screens/Search/SearchScreen";
 import TaskScreen from "./screens/Task/TaskScreen";
-import SettingScreen from "./screens/Profile/SettingScreen";
-// import Test from "./components/Test";
-import Welcome from "./screens/welcome/Welcome";
-import MainWelcome from "./screens/welcome";
-import { useEffect, useState } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import LoginScreen from "./screens/auth/LoginScreen";
 import WebviewScreen from "./screens/Webview/WebviewScreen";
+import MainWelcome from "./screens/welcome";
+import Welcome from "./screens/welcome/Welcome";
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-    const [isFirstLauched, setIsFirstLauched] = useState(null);
-    useEffect(() => {
-        const checkFirstLauched = async () => {
-            const appData = await AsyncStorage.getItem("isFirstLauched");
-            if (appData === null) {
-                setIsFirstLauched(true);
-                await AsyncStorage.setItem("isFirstLauched", "false");
-            } else {
-                setIsFirstLauched(false);
-            }
-        };
-        checkFirstLauched();
-    }, []);
-
     return (
         <Provider store={store}>
-            {isFirstLauched !== null && (
-                <NavigationContainer>
-                    <Stack.Navigator
-                        screenOptions={{
-                            headerShown: false,
-                        }}
-                    >
-                        {isFirstLauched && (
-                            <Stack.Screen name="Welcome" component={Welcome} />
-                        )}
-                        {isFirstLauched && (
-                            <Stack.Screen
-                                name="MainWelcome"
-                                component={MainWelcome}
-                            />
-                        )}
-                        <Stack.Screen name="Login" component={LoginScreen} />
-                        <Stack.Screen name="Home" component={HomeScreen} />
-                        <Stack.Screen
-                            name="Register"
-                            component={RegisterScreen}
-                        />
-                        <Stack.Screen
-                            name="Profile"
-                            component={ProfileScreen}
-                        />
-                        <Stack.Screen name="Search" component={SearchScreen} />
-                        <Stack.Screen name="Task" component={TaskScreen} />
-                        <Stack.Screen
-                            name="Setting"
-                            component={SettingScreen}
-                        />
-                        <Stack.Screen
-                            name="Webview"
-                            component={WebviewScreen}
-                        />
-                    </Stack.Navigator>
-                    <StatusBar style="auto" />
-                </NavigationContainer>
-            )}
+            <NavigationContainer>
+                <Stack.Navigator
+                    screenOptions={{
+                        headerShown: false,
+                    }}
+                >
+                    <Stack.Screen name="Loading" component={LoadingScreen} />
+                    <Stack.Screen name="Welcome" component={Welcome} />
+                    <Stack.Screen name="MainWelcome" component={MainWelcome} />
+                    <Stack.Screen name="Login" component={LoginScreen} />
+                    <Stack.Screen name="Home" component={HomeScreen} />
+                    <Stack.Screen name="Register" component={RegisterScreen} />
+                    <Stack.Screen name="Profile" component={ProfileScreen} />
+                    <Stack.Screen name="Search" component={SearchScreen} />
+                    <Stack.Screen name="Task" component={TaskScreen} />
+                    <Stack.Screen name="Setting" component={SettingScreen} />
+                    <Stack.Screen name="Webview" component={WebviewScreen} />
+                </Stack.Navigator>
+                <StatusBar style="auto" />
+            </NavigationContainer>
         </Provider>
     );
 }

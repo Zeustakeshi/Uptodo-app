@@ -1,8 +1,7 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
     ActivityIndicator,
     Image,
@@ -17,7 +16,7 @@ import LayoutAuth from "../../components/Layout/LayoutAuth";
 import { validateEmail, validatePassword } from "../../const";
 import { auth, db } from "../../firebase/firebase-config";
 import { setTasks } from "../../redux/slice/tasks/tasksSlice";
-import { resetUserInfo, setUserInfo } from "../../redux/slice/user/userSlice";
+import { setUserInfo } from "../../redux/slice/user/userSlice";
 
 const LoginScreen = () => {
     // state
@@ -30,28 +29,6 @@ const LoginScreen = () => {
 
     //dispatch
     const dispatch = useDispatch();
-
-    //effect
-    useEffect(() => {
-        const checkUserLogin = async () => {
-            const user = await AsyncStorage.getItem("user");
-            const tasks = await AsyncStorage.getItem("tasks");
-            if (user !== null && tasks !== null) {
-                const userInfo = JSON.parse(user);
-                const tasksInfo = JSON.parse(tasks);
-                if (userInfo.isLogin) {
-                    dispatch(setUserInfo(userInfo));
-                    dispatch(setTasks(tasksInfo));
-
-                    navigation.reset({
-                        index: 1,
-                        routes: [{ name: "Home" }],
-                    });
-                }
-            }
-        };
-        checkUserLogin();
-    }, []);
 
     //handler
     const handleLogin = async () => {
@@ -77,6 +54,7 @@ const LoginScreen = () => {
             const docSnap = await getDoc(docRef);
             if (docSnap.exists()) {
                 const userData = docSnap.data();
+                console.log(userData);
                 const userInfo = {
                     id: userData.id,
                     email: userData.email,

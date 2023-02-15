@@ -5,7 +5,7 @@ import Nav from "../Nav";
 
 const LayoutWrapper = ({ style, children, showNavigate = false }) => {
     return (
-        <SafeAreaView className={`flex-1 bg-white`}>
+        <SafeAreaView className={`flex-1 bg-white `}>
             <View className="flex-1 px-6 bg-white pt-2" style={style}>
                 {children}
             </View>
