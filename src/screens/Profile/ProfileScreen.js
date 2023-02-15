@@ -29,6 +29,7 @@ import Avatar from "../../components/Avatar/Avatar";
 import * as ImagePicker from "expo-image-picker";
 import { useState } from "react";
 import axios from "axios";
+import ChangeUserNameModal from "../../components/Modals/ChangeUserNameModal";
 
 const ProfileScreen = () => {
     const { userName, task: userTask } = useSelector((state) => state.user);
@@ -38,7 +39,6 @@ const ProfileScreen = () => {
     const dispatch = useDispatch();
 
     // handler
-
     const handleChooseAvatar = async () => {
         const { status } =
             await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -138,12 +138,22 @@ const ProfileScreen = () => {
                     </SettingWrapper>
                     {/* Account */}
                     <SettingWrapper title="Account">
-                        <SettingItem
-                            title="Change account name"
-                            icon={
-                                <Feather name="user" size={24} color="black" />
-                            }
+                        <ChangeUserNameModal
+                            buttonShow={(setModalVisible) => (
+                                <SettingItem
+                                    onPress={() => setModalVisible(true)}
+                                    title="Change account name"
+                                    icon={
+                                        <Feather
+                                            name="user"
+                                            size={24}
+                                            color="black"
+                                        />
+                                    }
+                                />
+                            )}
                         />
+
                         <SettingItem
                             title="Change account password"
                             icon={

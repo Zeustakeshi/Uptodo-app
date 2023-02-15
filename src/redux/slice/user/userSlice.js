@@ -41,11 +41,14 @@ const userSlice = createSlice({
             }
         },
 
-        setUserName(state, action) {
+        setUserName(state, action) {},
+
+        updateUserName(state, action) {
             if (action.payload.trim() !== "") {
                 state.userName = action.payload;
             }
         },
+
         setUserPassword(state, action) {
             if (validatePassword(action.payload)) {
                 state.password = action.payload;
@@ -76,6 +79,7 @@ export const {
     updateUserInfo,
     setUserInfo,
     setUserName,
+    updateUserName,
     setEmail,
     setUserAvatar,
     updateUserAvatar,

@@ -1,6 +1,11 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { put, select } from "redux-saga/effects";
-import { reset, updateUserAvatar, updateUserInfo } from "./userSlice";
+import {
+    reset,
+    updateUserAvatar,
+    updateUserInfo,
+    updateUserName,
+} from "./userSlice";
 import uuid from "react-native-uuid";
 
 import {
@@ -41,9 +46,9 @@ export function* handleUpdateUserAvatar(action) {
         yield uploadBytesResumable(storageRef, blob);
         const downloadURL = yield getDownloadURL(storageRef);
         if (downloadURL) {
-            // add to store
+            // update to store
             yield put(updateUserAvatar(downloadURL));
-            // add to storage
+            // update to storage
             AsyncStorage.setItem(
                 "user",
                 JSON.stringify({ ...user, avatar: downloadURL })
@@ -54,9 +59,9 @@ export function* handleUpdateUserAvatar(action) {
                 avatar: downloadURL,
             });
         } else {
-            // add to store
+            // update to store
             yield put(updateUserAvatar(action.payload));
-            // add to storage
+            // update to storage
             AsyncStorage.setItem(
                 "user",
                 JSON.stringify({ ...user, avatar: action.payload })
@@ -66,4 +71,23 @@ export function* handleUpdateUserAvatar(action) {
         console.log(`Failed to upload image: ${error}`);
         return null;
     }
+}
+
+export function* handleUpdateUserName(action) {
+    const user = yield select((state) => state.user);
+    if (!action.payload.trim() || action.payload === user.userName) return;
+
+    // update data to firebase firestore
+    const userRef = doc(db, "users", user.id);
+    yield updateDoc(userRef, {
+        avatar: action.payload,
+    });
+    // update to storage
+    AsyncStorage.setItem(
+        "user",
+        JSON.stringify({ ...user, userName: action.payload })
+    );
+
+    // update to store
+    yield put(updateUserName(action.payload));
 }
