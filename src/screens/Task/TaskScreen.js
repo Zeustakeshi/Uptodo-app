@@ -2,15 +2,10 @@ import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import LayoutAuth from "../../components/Layout/LayoutAuth";
 import { Feather, MaterialIcons } from "@expo/vector-icons";
-import { timeFomat } from "../../const";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import CategoryIcon from "../../components/CategoryIcon";
-import {
-    removeCompletedTask,
-    removeTask,
-    removeUnCompleteTask,
-} from "../../redux/slice/tasks/tasksSlice";
+import { removeTask } from "../../redux/slice/tasks/tasksSlice";
 import { useNavigation } from "@react-navigation/native";
 import EditNameAndDescModal from "../../components/Modals/EditNameAndDescModal";
 

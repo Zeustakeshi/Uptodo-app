@@ -15,6 +15,7 @@ import MainWelcome from "./screens/welcome";
 import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import LoginScreen from "./screens/auth/LoginScreen";
+import WebviewScreen from "./screens/Webview/WebviewScreen";
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -65,6 +66,10 @@ export default function App() {
                         <Stack.Screen
                             name="Setting"
                             component={SettingScreen}
+                        />
+                        <Stack.Screen
+                            name="Webview"
+                            component={WebviewScreen}
                         />
                     </Stack.Navigator>
                     <StatusBar style="auto" />

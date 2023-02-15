@@ -179,6 +179,7 @@ const ProfileScreen = () => {
                     {/* About */}
                     <SettingWrapper title="Uptodo">
                         <SettingItem
+                            to="https://sites.google.com/view/phamminhhieu/trang-ch%E1%BB%A7?authuser=1"
                             title="About US"
                             icon={
                                 <AntDesign
@@ -266,19 +267,31 @@ const SettingItem = ({
     title = "",
     textStyle,
     buttonStyle,
+    to = "",
     ...props
 }) => {
+    const navigation = useNavigation();
+    const gotoWebview = () => {
+        if (to === "") return;
+        navigation.navigate("Webview", { pram: to });
+    };
     return (
-        <TouchableOpacity
-            className="flex-row py-3 gap-x-3 justify-start items-center "
-            style={buttonStyle}
-            {...props}
-        >
-            {icon}
-            <Text className=" font-normal text-text-color" style={textStyle}>
-                {title}
-            </Text>
-        </TouchableOpacity>
+        <>
+            <TouchableOpacity
+                onPress={gotoWebview}
+                className="flex-row py-3 gap-x-3 justify-start items-center "
+                style={buttonStyle}
+                {...props}
+            >
+                {icon}
+                <Text
+                    className=" font-normal text-text-color"
+                    style={textStyle}
+                >
+                    {title}
+                </Text>
+            </TouchableOpacity>
+        </>
     );
 };
 
