@@ -19,20 +19,68 @@ import LayoutAuth from "../../components/Layout/LayoutAuth";
 import { useNavigation } from "@react-navigation/native";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase/firebase-config";
-import { resetUserInfo } from "../../redux/slice/user/userSlice";
+import {
+    resetUserInfo,
+    setUserAvatar,
+    updateUserAvatar,
+} from "../../redux/slice/user/userSlice";
 import { resetTasks } from "../../redux/slice/tasks/tasksSlice";
+import Avatar from "../../components/Avatar/Avatar";
+import * as ImagePicker from "expo-image-picker";
+import { useState } from "react";
+import axios from "axios";
+
 const ProfileScreen = () => {
-    const {
-        avatar,
-        userName,
-        task: userTask,
-    } = useSelector((state) => state.user);
+    const { userName, task: userTask } = useSelector((state) => state.user);
     const navigation = useNavigation();
 
     //dispatch
     const dispatch = useDispatch();
 
     // handler
+
+    const handleChooseAvatar = async () => {
+        const { status } =
+            await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== "granted") {
+            alert("Sorry, we need camera roll permissions to make this work!");
+            return;
+        }
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            aspect: [1, 1],
+            quality: 1,
+        });
+
+        if (!result.canceled) {
+            // Image was selected from photo library
+            const selectedAsset = result.assets[0];
+
+            if (selectedAsset) {
+                // console.log(selectedAsset);
+                dispatch(setUserAvatar(selectedAsset.uri));
+            }
+        } else {
+            let cameraResult = await ImagePicker.launchCameraAsync({
+                allowsEditing: true,
+                aspect: [1, 1],
+                quality: 1,
+            });
+            if (!cameraResult.canceled) {
+                // Image was taken with camera
+                try {
+                    const selectedAsset = cameraResult.assets[0];
+                    if (selectedAsset) {
+                        dispatch(setUserAvatar(selectedAsset.uri));
+                    }
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+        }
+    };
+
     const handleLogout = () => {
         signOut(auth);
         dispatch(resetUserInfo());
@@ -51,10 +99,11 @@ const ProfileScreen = () => {
                 showsVerticalScrollIndicator={false}
             >
                 <View className=" justify-center items-center ">
-                    <Image
-                        className=" w-[120px] h-[120px] rounded-full object-cover"
-                        source={{ uri: avatar || fakeImg }}
-                    />
+                    <Avatar
+                        width={120}
+                        height={120}
+                        onPress={handleChooseAvatar}
+                    ></Avatar>
                     <Text className="font-semibold text-2xl mt-3 ">
                         {userName}
                     </Text>
@@ -106,6 +155,7 @@ const ProfileScreen = () => {
                             }
                         />
                         <SettingItem
+                            onPress={handleChooseAvatar}
                             title="Change account Image"
                             icon={
                                 <Ionicons

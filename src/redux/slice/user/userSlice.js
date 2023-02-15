@@ -51,9 +51,12 @@ const userSlice = createSlice({
                 state.password = action.payload;
             }
         },
-        setUserAvatar(state, action) {
+
+        updateUserAvatar(state, action) {
             state.avatar = action.payload;
         },
+        setUserAvatar(state, action) {},
+
         setUserTaskLeft(state, action) {
             if (action.payload >= 0) {
                 state.task.taskLeft = action.payload;
@@ -75,6 +78,7 @@ export const {
     setUserName,
     setEmail,
     setUserAvatar,
+    updateUserAvatar,
     setUserPassword,
     setUserTaskDone,
     setUserTaskLeft,
