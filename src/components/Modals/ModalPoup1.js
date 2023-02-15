@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Modal, Pressable, StyleSheet, View } from "react-native";
 
-const ModalPoup1 = ({ buttonShow = () => {}, children }) => {
+const ModalPoup1 = ({ buttonShow = () => {}, height = 65, children }) => {
     const [modalVisible, setModalVisible] = useState(false);
+
     return (
         <View>
             {buttonShow(setModalVisible)}
@@ -20,8 +21,8 @@ const ModalPoup1 = ({ buttonShow = () => {}, children }) => {
                         onPress={() => setModalVisible(false)}
                     ></Pressable>
                     <View
-                        className="h-[65%] bg-white opacity-100 rounded-tr-3xl rounded-tl-3xl"
-                        style={styles.shadow}
+                        style={{ ...styles.shadow, height: height + "%" }}
+                        className={`bg-white opacity-100 rounded-tr-3xl rounded-tl-3xl`}
                     >
                         {children(setModalVisible)}
                     </View>

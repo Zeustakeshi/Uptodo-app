@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from "expo-status-bar";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
+import ChangePassword from "./screens/auth/ChangePassword";
 import LoginScreen from "./screens/auth/LoginScreen";
 import RegisterScreen from "./screens/auth/RegisterScreen";
 import HomeScreen from "./screens/Home/HomeScreen";
@@ -30,8 +31,12 @@ export default function App() {
                     <Stack.Screen name="Welcome" component={Welcome} />
                     <Stack.Screen name="MainWelcome" component={MainWelcome} />
                     <Stack.Screen name="Login" component={LoginScreen} />
-                    <Stack.Screen name="Home" component={HomeScreen} />
+                    <Stack.Screen
+                        name="ChangePassword"
+                        component={ChangePassword}
+                    />
                     <Stack.Screen name="Register" component={RegisterScreen} />
+                    <Stack.Screen name="Home" component={HomeScreen} />
                     <Stack.Screen name="Profile" component={ProfileScreen} />
                     <Stack.Screen name="Search" component={SearchScreen} />
                     <Stack.Screen name="Task" component={TaskScreen} />

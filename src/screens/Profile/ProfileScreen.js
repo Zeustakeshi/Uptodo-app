@@ -153,8 +153,10 @@ const ProfileScreen = () => {
                                 />
                             )}
                         />
-
                         <SettingItem
+                            onPress={() =>
+                                navigation.navigate("ChangePassword")
+                            }
                             title="Change account password"
                             icon={
                                 <Ionicons
