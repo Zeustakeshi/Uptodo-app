@@ -4,7 +4,7 @@
         "slug": "UpTodo",
         "version": "1.0.0",
         "orientation": "portrait",
-        "icon": "./assets/logo.jpg",
+        "icon": "./assets/logo.png",
         "userInterfaceStyle": "light",
         "splash": {
             "image": "./assets/splash2.png",

@@ -15,9 +15,11 @@ import LayoutAuth from "../../components/Layout/LayoutAuth";
 import firebase from "firebase/compat/app";
 import { FirebaseRecaptchaVerifierModal } from "expo-firebase-recaptcha";
 import { useRef } from "react";
-import { PhoneAuthProvider } from "firebase/auth";
-import { auth, firebaseConfig } from "../../firebase/firebase-config";
-import { formatPhone, isValidPhone } from "../../const";
+import { PhoneAuthProvider, updateProfile } from "firebase/auth";
+import { auth, db, firebaseConfig } from "../../firebase/firebase-config";
+import { fakeImg, formatPhone, isValidPhone } from "../../const";
+import { doc, setDoc } from "firebase/firestore";
+import { updateUserInfo } from "../../redux/slice/user/userSlice";
 
 const RegisterScreen = () => {
     const [userName, setUserName] = useState("");
@@ -27,7 +29,55 @@ const RegisterScreen = () => {
     const recaptchaVerifier = useRef(null);
     //navigation
     const navigation = useNavigation();
-    // handle
+    // dispatch
+    const dispatch = useDispatch();
+    // handler
+    const handleVerifiSuccess = async (userCredential) => {
+        try {
+            // update usename to account user
+            await updateProfile(auth.currentUser, {
+                displayName: userName,
+            });
+
+            // create user to firestore
+            await setDoc(doc(db, "users", auth.currentUser.uid), {
+                id: auth.currentUser.uid,
+                userName: userName,
+                email: "",
+                phone: formatPhone(phoneNumber),
+                password: "",
+                avatar: "",
+                task: {
+                    taskLeft: 0,
+                    taskDone: 0,
+                },
+                tasks: [],
+            });
+            //update user info to store and Storage
+            dispatch(
+                updateUserInfo({
+                    id: auth.currentUser.uid,
+                    userName: userName,
+                    email: "",
+                    phone: formatPhone(phoneNumber),
+                    password: "",
+                    avatar: fakeImg,
+                    task: {
+                        taskLeft: 0,
+                        taskDone: 0,
+                    },
+                    isLogin: true,
+                })
+            );
+            navigation.reset({
+                index: 1,
+                routes: [{ name: "Home" }],
+            });
+        } catch (error) {
+            alert(error);
+        }
+    };
+
     const handleRegister = async () => {
         if (!isValidPhone(formatPhone(phoneNumber))) {
             alert("invalid phone number, please check again!!!");
@@ -44,6 +94,7 @@ const RegisterScreen = () => {
                         phoneNumber: formatPhone(phoneNumber),
                         verificationId,
                         type: "Register",
+                        handleVerifiSuccess,
                     });
                 }
             } catch (error) {

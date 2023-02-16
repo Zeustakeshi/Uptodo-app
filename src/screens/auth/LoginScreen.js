@@ -1,5 +1,8 @@
 import { useNavigation } from "@react-navigation/native";
-import React, { useState } from "react";
+import { FirebaseRecaptchaVerifierModal } from "expo-firebase-recaptcha";
+import { PhoneAuthProvider } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
+import React, { useRef, useState } from "react";
 import {
     ActivityIndicator,
     Image,
@@ -11,6 +14,10 @@ import {
 import { useDispatch } from "react-redux";
 import { appleIcon, googleIcon } from "../../../assets";
 import LayoutAuth from "../../components/Layout/LayoutAuth";
+import { formatPhone, isValidPhone } from "../../const";
+import { auth, db, firebaseConfig } from "../../firebase/firebase-config";
+import { setTasks } from "../../redux/slice/tasks/tasksSlice";
+import { setUserInfo } from "../../redux/slice/user/userSlice";
 
 const LoginScreen = () => {
     // state
@@ -18,6 +25,8 @@ const LoginScreen = () => {
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
 
+    //ref
+    const recaptchaVerifier = useRef(null);
     // navigation
     const navigation = useNavigation();
 
@@ -25,12 +34,73 @@ const LoginScreen = () => {
     const dispatch = useDispatch();
 
     //handler
-    const handleLogin = () => {
-        navigation.navigate("OTP", { phoneNumber, type: "Login" });
+
+    const handleVerifiSuccess = async (data) => {
+        try {
+            // get user id from method sign then call firestore to get user data stored from firestore
+            const docRef = doc(db, "users", data.user.uid);
+            const docSnap = await getDoc(docRef);
+            if (docSnap.exists()) {
+                const userData = docSnap.data();
+                const userInfo = {
+                    id: userData.id,
+                    email: userData.email,
+                    phone: userData.phone,
+                    userName: userData.userName,
+                    password: userData.password,
+                    avatar: userData.avatar,
+                    task: {
+                        taskLeft: userData?.task.taskLeft,
+                        taskDone: userData?.task.taskDone,
+                    },
+                };
+                const tasks = userData?.tasks;
+                // dispatch set current user data to store
+                dispatch(setUserInfo({ ...userInfo, isLogin: true }));
+                // dispatch set current user tasks to store
+                dispatch(setTasks(tasks));
+            }
+            navigation.reset({
+                index: 1,
+                routes: [{ name: "Home" }],
+            });
+        } catch (error) {
+            alert(error);
+        }
+    };
+
+    const handleLogin = async () => {
+        if (!isValidPhone(formatPhone(phoneNumber))) {
+            alert("invalid phone number, please check again!!!");
+        } else {
+            const phoneProvider = new PhoneAuthProvider(auth);
+            try {
+                setLoading(true);
+                const verificationId = await phoneProvider.verifyPhoneNumber(
+                    formatPhone(phoneNumber),
+                    recaptchaVerifier.current
+                );
+                if (verificationId) {
+                    navigation.navigate("OTP", {
+                        phoneNumber: formatPhone(phoneNumber),
+                        verificationId,
+                        type: "Login",
+                        handleVerifiSuccess,
+                    });
+                }
+            } catch (error) {
+                alert(error);
+            }
+            setLoading(false);
+        }
     };
 
     return (
         <LayoutAuth>
+            <FirebaseRecaptchaVerifierModal
+                ref={recaptchaVerifier}
+                firebaseConfig={firebaseConfig}
+            ></FirebaseRecaptchaVerifierModal>
             <View>
                 <Text className="text-[32px] font-bold text-primary">
                     Login

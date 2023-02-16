@@ -4,6 +4,7 @@ import { validateEmail, validatePassword } from "../../../const";
 const initialState = {
     id: "",
     email: "",
+    phone: "",
     userName: "",
     password: "",
     avatar: "",
@@ -27,6 +28,7 @@ const userSlice = createSlice({
             state.id = payload.id || "";
             state.userName = payload.userName || "";
             state.email = payload.email || "";
+            state.phone = payload.phone || "";
             state.password = payload.password || "";
             state.avatar = payload.avatar || "";
             state.task.taskLeft = payload.task.taskLeft || 0;

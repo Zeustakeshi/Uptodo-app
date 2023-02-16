@@ -1,5 +1,12 @@
 import React, { useRef } from "react";
-import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
+import {
+    ActivityIndicator,
+    Image,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View,
+} from "react-native";
 import LayoutAuth from "../../components/Layout/LayoutAuth";
 import { protectionIcon } from "../../../assets";
 import { useState } from "react";
@@ -7,7 +14,12 @@ import { PhoneAuthProvider, signInWithCredential } from "firebase/auth";
 import { auth } from "../../firebase/firebase-config";
 
 const OTPVerifyScreen = ({ route }) => {
-    const { phoneNumber, type, verificationId } = route?.params;
+    const {
+        phoneNumber,
+        type,
+        verificationId,
+        handleVerifiSuccess = () => {},
+    } = route?.params;
     const [verificationCode, setVerificationCode] = useState([
         "*",
         "*",
@@ -49,11 +61,15 @@ const OTPVerifyScreen = ({ route }) => {
         const credential = PhoneAuthProvider.credential(verificationId, code);
 
         try {
-            await signInWithCredential(auth, credential);
-            alert("ok");
+            setLoading(true);
+            const userCredential = await signInWithCredential(auth, credential);
+            if (userCredential) {
+                handleVerifiSuccess(userCredential);
+            }
         } catch (error) {
             alert(error);
         }
+        setLoading(false);
     };
 
     return (

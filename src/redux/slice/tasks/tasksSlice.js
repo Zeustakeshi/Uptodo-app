@@ -1,25 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
-    tasks: [
-        {
-            categrory: 7,
-            desc: "",
-            id: "1101191a-9627-4e9f-ae6c-5e6d3817ca96",
-            isCompleted: false,
-            name: "Hoc c++",
-            priority: 2,
-            time: { end: "Today At 05:30", start: "Today At 13:56" },
-        },
-        {
-            categrory: 7,
-            desc: "",
-            id: "1201191a-9627-4e9f-ae6c-5e6d3817ca96",
-            isCompleted: false,
-            name: "Hoc c++ 2",
-            priority: 2,
-            time: { end: "Today At 05:30", start: "Today At 13:56" },
-        },
-    ],
+    tasks: [],
     categrories: [
         { id: 1, name: "Home", icon: "home", color: "#4ade80" },
         { id: 2, name: "Cook", icon: "cook", color: "#f59e0b" },
