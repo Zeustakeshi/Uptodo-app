@@ -11,24 +11,54 @@ import {
 import { useDispatch } from "react-redux";
 import { appleIcon, googleIcon } from "../../../assets";
 import LayoutAuth from "../../components/Layout/LayoutAuth";
+// import { getAuth, RecaptchaVerifier } from "firebase/auth";
+import firebase from "firebase/compat/app";
+import { FirebaseRecaptchaVerifierModal } from "expo-firebase-recaptcha";
+import { useRef } from "react";
+import { PhoneAuthProvider } from "firebase/auth";
+import { auth, firebaseConfig } from "../../firebase/firebase-config";
+import { formatPhone, isValidPhone } from "../../const";
 
 const RegisterScreen = () => {
     const [userName, setUserName] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
     const [loading, setLoading] = useState(false);
+
+    const recaptchaVerifier = useRef(null);
     //navigation
     const navigation = useNavigation();
-
-    //dispatch
-    const dispatch = useDispatch();
-
     // handle
-    const handleRegister = () => {
-        navigation.navigate("OTP", { phoneNumber, type: "Register" });
+    const handleRegister = async () => {
+        if (!isValidPhone(formatPhone(phoneNumber))) {
+            alert("invalid phone number, please check again!!!");
+        } else {
+            const phoneProvider = new PhoneAuthProvider(auth);
+            try {
+                setLoading(true);
+                const verificationId = await phoneProvider.verifyPhoneNumber(
+                    formatPhone(phoneNumber),
+                    recaptchaVerifier.current
+                );
+                if (verificationId) {
+                    navigation.navigate("OTP", {
+                        phoneNumber: formatPhone(phoneNumber),
+                        verificationId,
+                        type: "Register",
+                    });
+                }
+            } catch (error) {
+                alert(error);
+            }
+            setLoading(false);
+        }
     };
 
     return (
         <LayoutAuth>
+            <FirebaseRecaptchaVerifierModal
+                ref={recaptchaVerifier}
+                firebaseConfig={firebaseConfig}
+            ></FirebaseRecaptchaVerifierModal>
             <View>
                 <Text className="text-[32px] font-bold text-primary">
                     Register

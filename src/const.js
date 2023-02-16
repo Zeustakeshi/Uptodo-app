@@ -52,4 +52,16 @@ export const validateUserName = (name) => {
     return name.trim().length > 0;
 };
 
+export const isValidPhone = (phoneNumber) => {
+    const phoneRegex = /^(\+84|0)\d{9,10}$/; // số điện thoại Việt Nam bắt đầu bằng +84 hoặc 0, độ dài từ 10 đến 11 số
+    return phoneRegex.test(phoneNumber);
+};
+
+export const formatPhone = (phoneNumber) => {
+    if (phoneNumber[0] === "0") {
+        phoneNumber = "84" + phoneNumber.slice(1);
+    }
+    return `+${phoneNumber}`;
+};
+
 export const getIcon = (index) => {};

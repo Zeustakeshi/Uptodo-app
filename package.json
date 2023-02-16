@@ -18,6 +18,7 @@
         "@reduxjs/toolkit": "^1.9.1",
         "axios": "^1.3.3",
         "expo": "~47.0.12",
+        "expo-firebase-recaptcha": "^2.3.1",
         "expo-image-picker": "~14.0.2",
         "expo-status-bar": "~1.4.2",
         "firebase": "^9.15.0",
