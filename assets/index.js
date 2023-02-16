@@ -4,3 +4,4 @@ export { default as welcome3Img } from "./welcome3.png";
 export { default as googleIcon } from "./google.png";
 export { default as appleIcon } from "./apple.png";
 export { default as homeTask } from "./homeTask.png";
+export { default as protectionIcon } from "./protectionIcon.png";

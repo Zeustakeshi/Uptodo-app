@@ -1,10 +1,8 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import React from "react";
 import ChangePassword from "../../screens/auth/ChangePassword";
 import LoginScreen from "../../screens/auth/LoginScreen";
+import OTPVerifyScreen from "../../screens/auth/OTPVerifyScreen";
 import RegisterScreen from "../../screens/auth/RegisterScreen";
 import HomeScreen from "../../screens/Home/HomeScreen";
 import LoadingScreen from "../../screens/Loading/LoadingScreen";
@@ -17,44 +15,17 @@ import MainWelcome from "../../screens/welcome";
 import Welcome from "../../screens/welcome/Welcome";
 const Stack = createNativeStackNavigator();
 const StackNavigator = () => {
-    const navigation = useNavigation();
-    const userInfo = useSelector((state) => state.user);
-
-    useEffect(() => {
-        (async () => {
-            const appData = await AsyncStorage.getItem("isFirstLauched");
-            if (appData === null) {
-                await AsyncStorage.setItem("isFirstLauched", "false");
-                navigation.reset({
-                    index: 1,
-                    routes: [{ name: "Welcome" }],
-                });
-            } else {
-                if (userInfo.isLogin) {
-                    navigation.reset({
-                        index: 1,
-                        routes: [{ name: "Home" }],
-                    });
-                } else {
-                    navigation.reset({
-                        index: 1,
-                        routes: [{ name: "Login" }],
-                    });
-                }
-            }
-        })();
-    });
-
     return (
         <Stack.Navigator
             screenOptions={{
                 headerShown: false,
             }}
         >
-            {/* <Stack.Screen name="Loading" component={LoadingScreen} /> */}
+            <Stack.Screen name="Loading" component={LoadingScreen} />
             <Stack.Screen name="Welcome" component={Welcome} />
             <Stack.Screen name="MainWelcome" component={MainWelcome} />
             <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="OTP" component={OTPVerifyScreen} />
             <Stack.Screen name="ChangePassword" component={ChangePassword} />
             <Stack.Screen name="Register" component={RegisterScreen} />
             <Stack.Screen name="Home" component={HomeScreen} />

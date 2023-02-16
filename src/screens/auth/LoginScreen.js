@@ -1,6 +1,4 @@
 import { useNavigation } from "@react-navigation/native";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
 import React, { useState } from "react";
 import {
     ActivityIndicator,
@@ -13,14 +11,10 @@ import {
 import { useDispatch } from "react-redux";
 import { appleIcon, googleIcon } from "../../../assets";
 import LayoutAuth from "../../components/Layout/LayoutAuth";
-import { validateEmail, validatePassword } from "../../const";
-import { auth, db } from "../../firebase/firebase-config";
-import { setTasks } from "../../redux/slice/tasks/tasksSlice";
-import { setUserInfo } from "../../redux/slice/user/userSlice";
 
 const LoginScreen = () => {
     // state
-    const [email, setEmail] = useState("");
+    const [phoneNumber, setPhoneNumber] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
 
@@ -31,56 +25,8 @@ const LoginScreen = () => {
     const dispatch = useDispatch();
 
     //handler
-    const handleLogin = async () => {
-        if (!validateEmail(email)) {
-            alert("Please enter valid email and try again!");
-            return;
-        } else if (!validatePassword(password)) {
-            alert("Please enter valid password and try again!");
-            return;
-        }
-
-        try {
-            setLoading(true);
-            const data = await signInWithEmailAndPassword(
-                auth,
-                email,
-                password
-            );
-            // get user id from method sign
-            //then call firestore to get user data stored from firestore
-
-            const docRef = doc(db, "users", data.user.uid);
-            const docSnap = await getDoc(docRef);
-            if (docSnap.exists()) {
-                const userData = docSnap.data();
-                const userInfo = {
-                    id: userData.id,
-                    email: userData.email,
-                    userName: userData.userName,
-                    password: userData.password,
-                    avatar: userData.avatar,
-                    task: {
-                        taskLeft: userData?.task.taskLeft,
-                        taskDone: userData?.task.taskDone,
-                    },
-                };
-                const tasks = userData?.tasks;
-                // dispatch set current user data to store
-                dispatch(setUserInfo({ ...userInfo, isLogin: true }));
-                // dispatch set current user tasks to store
-                dispatch(setTasks(tasks));
-            }
-
-            navigation.reset({
-                index: 1,
-                routes: [{ name: "Home" }],
-            });
-        } catch (error) {
-            alert(error);
-            console.log(error);
-        }
-        setLoading(false);
+    const handleLogin = () => {
+        navigation.navigate("OTP", { phoneNumber, type: "Login" });
     };
 
     return (
@@ -91,36 +37,23 @@ const LoginScreen = () => {
                 </Text>
             </View>
             {/* form */}
-            <View className="mt-12">
+            <View className="mt-20">
                 <View className="">
-                    <Text className="font-medium text-base text-text-color mb-2">
-                        Email
+                    <Text className="font-medium text-base text-text-color mb-5">
+                        Phone Number
                     </Text>
-                    <View className="bg-gray-100 rounded w-[100%]">
+                    <View className="bg-gray-100 rounded w-[100%] flex-row justify-start">
+                        <View className="p-3 justify-center items-center">
+                            <Text className="text-primary font-bold">+84</Text>
+                        </View>
                         <TextInput
-                            testID="LoginEmailAddress"
-                            textContentType="emailAddress"
-                            keyboardType="email-address"
-                            value={email}
-                            onChangeText={(text) => {
-                                setEmail(text);
-                            }}
-                            placeholder="Enter your Email"
-                            className="font-medium text-sm text-text-color p-3"
-                        />
-                    </View>
-                </View>
-                <View className="mt-5">
-                    <Text className="font-medium text-base text-text-color mb-2">
-                        Password
-                    </Text>
-                    <View className="bg-gray-100 rounded w-[100%]">
-                        <TextInput
-                            value={password}
-                            onChangeText={(text) => setPassword(text)}
-                            placeholder="Enter your Password"
-                            className="font-medium text-sm text-text-color p-3"
-                            secureTextEntry={true}
+                            value={phoneNumber}
+                            onChangeText={(text) => setPhoneNumber(text)}
+                            keyboardType="numeric"
+                            placeholder="Enter your phone"
+                            className=" font-medium text-sm text-text-color p-3 pl-0 flex-1"
+                            selectionColor="#6651f0"
+                            maxLength={11}
                         />
                     </View>
                 </View>
@@ -140,7 +73,7 @@ const LoginScreen = () => {
                         className="font-normal text-base text-white"
                         style={{ opacity: loading ? 0.5 : 1 }}
                     >
-                        Login
+                        Send Code
                     </Text>
                 </TouchableOpacity>
             </View>
@@ -174,7 +107,7 @@ const LoginScreen = () => {
                 <TouchableOpacity
                     onPress={() => navigation.navigate("Register")}
                 >
-                    <Text className="text-sm font-normal text-primary">
+                    <Text className="text-sm font-bold text-primary">
                         Register
                     </Text>
                 </TouchableOpacity>

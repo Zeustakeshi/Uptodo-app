@@ -1,6 +1,4 @@
 import { useNavigation } from "@react-navigation/native";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
 import React, { useState } from "react";
 import {
     ActivityIndicator,
@@ -13,19 +11,10 @@ import {
 import { useDispatch } from "react-redux";
 import { appleIcon, googleIcon } from "../../../assets";
 import LayoutAuth from "../../components/Layout/LayoutAuth";
-import {
-    fakeImg,
-    validateEmail,
-    validatePassword,
-    validateUserName,
-} from "../../const";
-import { auth, db } from "../../firebase/firebase-config";
-import { setUserInfo, updateUserInfo } from "../../redux/slice/user/userSlice";
 
 const RegisterScreen = () => {
     const [userName, setUserName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [phoneNumber, setPhoneNumber] = useState("");
     const [loading, setLoading] = useState(false);
     //navigation
     const navigation = useNavigation();
@@ -33,62 +22,9 @@ const RegisterScreen = () => {
     //dispatch
     const dispatch = useDispatch();
 
-    // handle register
-    const handleRegister = async () => {
-        if (!validateEmail(email)) {
-            alert("Please enter valid email and try again!");
-            return;
-        } else if (!validateUserName(userName)) {
-            alert("Please enter valid userName and try again!");
-            return;
-        } else if (!validatePassword(password)) {
-            alert("Plese enter valid password and try again!");
-            return;
-        }
-        try {
-            setLoading(true);
-            await createUserWithEmailAndPassword(auth, email, password);
-            await updateProfile(auth.currentUser, {
-                displayName: userName,
-            });
-            // create user to firestore
-            await setDoc(doc(db, "users", auth.currentUser.uid), {
-                id: auth.currentUser.uid,
-                userName: userName,
-                email: email,
-                password: password,
-                avatar: "",
-                task: {
-                    taskLeft: 0,
-                    taskDone: 0,
-                },
-                tasks: [],
-            });
-            //update user info to store and Storage
-            dispatch(
-                updateUserInfo({
-                    id: auth.currentUser.uid,
-                    userName: userName,
-                    email: email,
-                    password: password,
-                    avatar: fakeImg,
-                    task: {
-                        taskLeft: 0,
-                        taskDone: 0,
-                    },
-                    isLogin: true,
-                })
-            );
-            navigation.reset({
-                index: 1,
-                routes: [{ name: "Home" }],
-            });
-        } catch (error) {
-            alert(error);
-            console.log(error);
-        }
-
-        setLoading(false);
+    // handle
+    const handleRegister = () => {
+        navigation.navigate("OTP", { phoneNumber, type: "Register" });
     };
 
     return (
@@ -110,41 +46,30 @@ const RegisterScreen = () => {
                             onChangeText={(text) => setUserName(text)}
                             placeholder="Enter your Username"
                             className="font-medium text-sm text-text-color p-3"
+                            selectionColor="#6651f0"
                         />
                     </View>
                 </View>
                 <View className="mt-3">
                     <Text className="font-medium text-base text-text-color mb-2">
-                        Email
+                        Phone Number
                     </Text>
-                    <View className="bg-gray-100 rounded w-[100%]">
+                    <View className="bg-gray-100 rounded w-[100%] flex-row">
+                        <View className="p-3 justify-center items-center">
+                            <Text className="text-primary font-bold">+84</Text>
+                        </View>
                         <TextInput
-                            testID="LoginEmailAddress"
-                            textContentType="emailAddress"
-                            keyboardType="email-address"
-                            value={email}
-                            onChangeText={(text) => {
-                                setEmail(text);
-                            }}
-                            placeholder="Enter your Email"
-                            className="font-medium text-sm text-text-color p-3"
+                            keyboardType="numeric"
+                            placeholder="Enter your phone"
+                            className=" font-medium text-sm text-text-color p-3 pl-0"
+                            selectionColor="#6651f0"
+                            maxLength={11}
+                            value={phoneNumber}
+                            onChangeText={(text) => setPhoneNumber(text)}
                         />
                     </View>
                 </View>
-                <View className="mt-3">
-                    <Text className="font-medium text-base text-text-color mb-2">
-                        Password
-                    </Text>
-                    <View className="bg-gray-100 rounded w-[100%]">
-                        <TextInput
-                            value={password}
-                            onChangeText={(text) => setPassword(text)}
-                            secureTextEntry={true}
-                            placeholder="Enter your Password"
-                            className="font-medium text-sm text-text-color p-3"
-                        />
-                    </View>
-                </View>
+
                 <TouchableOpacity
                     disabled={loading}
                     onPress={handleRegister}
@@ -161,7 +86,7 @@ const RegisterScreen = () => {
                         className="font-normal text-base text-white"
                         style={{ opacity: loading ? 0.5 : 1 }}
                     >
-                        Register
+                        Send Code
                     </Text>
                 </TouchableOpacity>
             </View>
@@ -191,7 +116,7 @@ const RegisterScreen = () => {
                     Don’t have an account?{" "}
                 </Text>
                 <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-                    <Text className="text-sm font-normal text-primary">
+                    <Text className="text-sm font-bold text-primary">
                         Login
                     </Text>
                 </TouchableOpacity>
