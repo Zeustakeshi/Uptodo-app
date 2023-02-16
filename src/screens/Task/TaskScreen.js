@@ -8,6 +8,7 @@ import CategoryIcon from "../../components/CategoryIcon";
 import { removeTask } from "../../redux/slice/tasks/tasksSlice";
 import { useNavigation } from "@react-navigation/native";
 import EditNameAndDescModal from "../../components/Modals/EditNameAndDescModal";
+import EditTaskPriorityModal from "../../components/Modals/EditTaskPriorityModal";
 
 const TaskScreen = ({ route }) => {
     const task = route?.params?.pram;
@@ -80,19 +81,27 @@ const TaskScreen = ({ route }) => {
                         ),
                     }}
                 />
-                <TaskInfoItem
-                    icon={
-                        <MaterialIcons
-                            name="outlined-flag"
-                            size={24}
-                            color="#4b5563"
+
+                <EditTaskPriorityModal
+                    oldData={task}
+                    buttonShow={(setModalVisible) => (
+                        <TaskInfoItem
+                            onPress={() => setModalVisible(true)}
+                            icon={
+                                <MaterialIcons
+                                    name="outlined-flag"
+                                    size={24}
+                                    color="#4b5563"
+                                />
+                            }
+                            title="Task Priority :"
+                            data={{
+                                lable: task.priority || 6,
+                            }}
                         />
-                    }
-                    title="Task Priority :"
-                    data={{
-                        lable: task.priority || 6,
-                    }}
+                    )}
                 />
+
                 {/* delete */}
                 <TouchableOpacity
                     onPress={handleDeleteTask}

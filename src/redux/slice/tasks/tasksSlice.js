@@ -41,10 +41,12 @@ const tasksSlice = createSlice({
         clearCompletedTask() {},
 
         setTaskNameAndDesc(state, action) {},
+        setTaskPriority(state, action) {},
     },
 });
 
 export const {
+    setTaskPriority,
     setTaskNameAndDesc,
     clearCompletedTask,
     setIsCompleteTask,

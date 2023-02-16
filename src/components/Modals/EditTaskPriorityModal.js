@@ -1,31 +1,21 @@
-import React, { useState } from "react";
-import { Text, View, ScrollView, TouchableOpacity } from "react-native";
-import ModalPoup2 from "./ModalPoup2";
 import { MaterialIcons } from "@expo/vector-icons";
+import React, { useState } from "react";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { useDispatch } from "react-redux";
+import { setTaskPriority } from "../../redux/slice/tasks/tasksSlice";
+import ModalPoup2 from "./ModalPoup2";
 
-let prevChoose = 5;
+const EditTaskPriorityModal = ({ buttonShow = () => {}, oldData }) => {
+    const [currPriority, setCurrPriority] = useState(oldData.priority);
 
-const PriorityModal = ({
-    buttonShow = () => {},
-    lableOk = "Save",
-    lableCancle = "Cancel",
-    currChoose = prevChoose,
-    setChoose = () => {},
-}) => {
-    const [currPriority, setCurrPriority] = useState(prevChoose);
+    const dispatch = useDispatch();
 
-    // handle save
-    const handleSave = (setModalVisible) => {
-        setModalVisible(false);
-        setChoose(currPriority);
-        prevChoose = currPriority;
-    };
-
-    // handle cancle
     const handleCancel = (setModalVisible) => {
         setModalVisible(false);
-        setCurrPriority(prevChoose);
-        setChoose(prevChoose);
+    };
+    const handleSave = (setModalVisible) => {
+        dispatch(setTaskPriority({ ...oldData, currPriority: currPriority }));
+        setModalVisible(false);
     };
 
     return (
@@ -33,7 +23,7 @@ const PriorityModal = ({
             buttonShow={buttonShow}
             title={
                 <Text className="p-3 text-center text-base font-normal">
-                    Task Priority
+                    Edit Task Priority
                 </Text>
             }
         >
@@ -64,7 +54,7 @@ const PriorityModal = ({
                             className="flex-1 h-[48px] rounded justify-center items-center "
                         >
                             <Text className="p-3 text-primary text-base font-normal">
-                                {lableCancle}
+                                Cancel
                             </Text>
                         </TouchableOpacity>
                         <TouchableOpacity
@@ -72,7 +62,7 @@ const PriorityModal = ({
                             className="flex-1 h-[48px] rounded justify-center items-center bg-primary2 "
                         >
                             <Text className="p-3 text-white text-base font-normal">
-                                {lableOk}
+                                Save
                             </Text>
                         </TouchableOpacity>
                     </View>
@@ -106,4 +96,4 @@ const PriorityItem = ({ isActive, index, onPress }) => {
     );
 };
 
-export default PriorityModal;
+export default EditTaskPriorityModal;
