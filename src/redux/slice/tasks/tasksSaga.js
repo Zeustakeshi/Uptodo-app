@@ -5,6 +5,7 @@ import {
     handleRemoveTask,
     handleResetTasks,
     handleSetIsCompleteTask,
+    handleSetTaskCategory,
     handleSetTaskNameAndDesc,
     handleSetTaskPriority,
     handleUpdateTasks,
@@ -15,6 +16,7 @@ import {
     removeTask,
     resetTasks,
     setIsCompleteTask,
+    setTaskCategory,
     setTaskNameAndDesc,
     setTaskPriority,
     setTasks,
@@ -30,5 +32,6 @@ export default function* tasksSaga() {
         takeLatest(clearCompletedTask.type, handleClearCompletedTask),
         takeLatest(setTaskNameAndDesc.type, handleSetTaskNameAndDesc),
         takeLatest(setTaskPriority.type, handleSetTaskPriority),
+        takeLatest(setTaskCategory.type, handleSetTaskCategory),
     ]);
 }

@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     tasks: [],
-    categrories: [
+    categories: [
         { id: 1, name: "Home", icon: "home", color: "#4ade80" },
         { id: 2, name: "Cook", icon: "cook", color: "#f59e0b" },
         { id: 3, name: "Game", icon: "game", color: "#6d28d9" },
@@ -42,10 +42,12 @@ const tasksSlice = createSlice({
 
         setTaskNameAndDesc(state, action) {},
         setTaskPriority(state, action) {},
+        setTaskCategory(state, action) {},
     },
 });
 
 export const {
+    setTaskCategory,
     setTaskPriority,
     setTaskNameAndDesc,
     clearCompletedTask,

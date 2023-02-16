@@ -15,13 +15,13 @@ const SearchScreen = () => {
     const navigation = useNavigation();
 
     // get tasks from store
-    const { tasks, categrories } = useSelector((state) => state.tasks);
+    const { tasks, categories } = useSelector((state) => state.tasks);
 
     // handle search
-    //get categrories
-    const getCategrories = () => {
-        return categrories.filter((categrory, index) => {
-            return categrory.name
+    //get categories
+    const getcategories = () => {
+        return categories.filter((category, index) => {
+            return category.name
                 .toLowerCase()
                 .includes(searchValue.trim().toLowerCase());
         });
@@ -49,7 +49,7 @@ const SearchScreen = () => {
             setResults([]);
             return;
         }
-        const matchCategrory = getCategrories();
+        const matchCategrory = getcategories();
         const results = [
             ...tasks.filter((task) => {
                 return (

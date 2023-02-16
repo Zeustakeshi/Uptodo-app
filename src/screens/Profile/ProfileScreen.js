@@ -154,19 +154,6 @@ const ProfileScreen = () => {
                             )}
                         />
                         <SettingItem
-                            onPress={() =>
-                                navigation.navigate("ChangePassword")
-                            }
-                            title="Change account password"
-                            icon={
-                                <Ionicons
-                                    name="key-outline"
-                                    size={24}
-                                    color="black"
-                                />
-                            }
-                        />
-                        <SettingItem
                             onPress={handleChooseAvatar}
                             title="Change account Image"
                             icon={

@@ -80,7 +80,25 @@ export function* handleSetTaskPriority(action) {
                 tasksClone[oldTaskIndex].priority,
         };
 
-        console.log(tasksClone[oldTaskIndex]);
+        yield AsyncStorage.setItem("tasks", JSON.stringify(tasksClone));
+        yield put(updateTasks(tasksClone));
+    }
+}
+
+export function* handleSetTaskCategory(action) {
+    const { tasks } = yield select((state) => state.tasks);
+    let tasksClone = [...tasks];
+    if (tasksClone.length > 0) {
+        const oldTaskIndex = tasksClone
+            .map((task) => task.id)
+            .indexOf(action.payload.id);
+        tasksClone[oldTaskIndex] = {
+            ...tasksClone[oldTaskIndex],
+            categrory:
+                action.payload.currCategrory ||
+                tasksClone[oldTaskIndex].categrory,
+        };
+
         yield AsyncStorage.setItem("tasks", JSON.stringify(tasksClone));
         yield put(updateTasks(tasksClone));
     }

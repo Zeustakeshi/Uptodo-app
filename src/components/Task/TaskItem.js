@@ -18,7 +18,7 @@ const TaskItem = ({
     allowPress = true,
     allowLongPress = true,
 }) => {
-    const { categrories } = useSelector((state) => state.tasks);
+    const { categories } = useSelector((state) => state.tasks);
 
     const { name, time, categrory, priority, isCompleted } = data;
 
@@ -58,11 +58,11 @@ const TaskItem = ({
                                 className={` overflow-hidden flex-row justify-between items-center gap-x-1 px-1 pr-2 py-1 bg-[#809CFF] rounded-md `}
                                 style={{
                                     backgroundColor:
-                                        categrories[categrory - 1].color,
+                                        categories[categrory - 1].color,
                                 }}
                             >
                                 <CategoryIcon
-                                    name={categrories[categrory - 1].icon}
+                                    name={categories[categrory - 1].icon}
                                     size={10}
                                     color="#fff"
                                 />
@@ -71,7 +71,7 @@ const TaskItem = ({
                                     numberOfLines={1}
                                     className="max-w-[50px] text-[10px] text-gray-200"
                                 >
-                                    {categrories[categrory - 1].name}
+                                    {categories[categrory - 1].name}
                                 </Text>
                             </View>
                             {/* priority */}

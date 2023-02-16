@@ -9,10 +9,11 @@ import { removeTask } from "../../redux/slice/tasks/tasksSlice";
 import { useNavigation } from "@react-navigation/native";
 import EditNameAndDescModal from "../../components/Modals/EditNameAndDescModal";
 import EditTaskPriorityModal from "../../components/Modals/EditTaskPriorityModal";
+import EditTaskCategory from "../../components/Modals/EditTaskCategory";
 
 const TaskScreen = ({ route }) => {
     const task = route?.params?.pram;
-    const { categrories } = useSelector((state) => state.tasks);
+    const { categories } = useSelector((state) => state.tasks);
     // dispatch
     const dispatch = useDispatch();
 
@@ -67,24 +68,45 @@ const TaskScreen = ({ route }) => {
                     title="Task Time :"
                     data={{ lable: task?.time?.end }}
                 />
-                <TaskInfoItem
-                    icon={<Feather name="tag" size={24} color="#4b5563" />}
-                    title="Task Category : "
-                    data={{
-                        lable: categrories[task.categrory - 1]?.name || "Learn",
-                        icon: (
-                            <CategoryIcon
-                                name={categrories[task.categrory - 1]?.icon}
-                                color={categrories[task.categrory - 1]?.color}
-                                size={16}
-                            />
-                        ),
-                    }}
+                <EditTaskCategory
+                    oldData={task}
+                    buttonShow={(setModalVisible, currCategrory) => (
+                        <TaskInfoItem
+                            onPress={() => setModalVisible(true)}
+                            icon={
+                                <Feather name="tag" size={24} color="#4b5563" />
+                            }
+                            title="Task Category : "
+                            data={{
+                                lable:
+                                    categories[
+                                        currCategrory - 1 || task.categrory - 1
+                                    ]?.name || "Learn",
+                                icon: (
+                                    <CategoryIcon
+                                        name={
+                                            categories[
+                                                currCategrory - 1 ||
+                                                    task.categrory - 1
+                                            ]?.icon
+                                        }
+                                        color={
+                                            categories[
+                                                currCategrory - 1 ||
+                                                    task.categrory - 1
+                                            ]?.color
+                                        }
+                                        size={16}
+                                    />
+                                ),
+                            }}
+                        />
+                    )}
                 />
 
                 <EditTaskPriorityModal
                     oldData={task}
-                    buttonShow={(setModalVisible) => (
+                    buttonShow={(setModalVisible, currPriority) => (
                         <TaskInfoItem
                             onPress={() => setModalVisible(true)}
                             icon={
@@ -96,7 +118,7 @@ const TaskScreen = ({ route }) => {
                             }
                             title="Task Priority :"
                             data={{
-                                lable: task.priority || 6,
+                                lable: currPriority || task.priority || 6,
                             }}
                         />
                     )}

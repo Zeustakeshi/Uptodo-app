@@ -53,9 +53,9 @@ const ChangeUserNameModal = ({ buttonShow = () => {} }) => {
                     <View className="flex-row gap-x-20 justify-between items-center">
                         <TouchableOpacity
                             onPress={() => handleCancel(setModalVisible)}
-                            className="flex-1 h-[48px] rounded justify-center items-center bg-primary2 "
+                            className="flex-1 h-[48px] rounded justify-center items-center "
                         >
-                            <Text className="p-3 text-white text-base font-normal">
+                            <Text className="p-3 text-primary text-base font-normal">
                                 Cancel
                             </Text>
                         </TouchableOpacity>
@@ -63,7 +63,7 @@ const ChangeUserNameModal = ({ buttonShow = () => {} }) => {
                             onPress={() => handleSave(setModalVisible)}
                             className="flex-1 h-[48px] rounded justify-center items-center bg-primary2 "
                         >
-                            <Text className="p-3 text-white text-base font-normal">
+                            <Text className="p-2 text-white text-base font-normal">
                                 Save
                             </Text>
                         </TouchableOpacity>

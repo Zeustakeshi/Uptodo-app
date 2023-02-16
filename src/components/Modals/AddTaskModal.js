@@ -26,10 +26,10 @@ const AddTaskModal = ({ buttonShow = () => {} }) => {
     const [choosePriority, setChoosePriority] = useState(5);
 
     //dispatch
-
     const dispatch = useDispatch();
 
     const handleAddTask = (setModalVisible) => {
+        if (!inputTaskName.trim()) return;
         const task = {
             id: uuid.v4(),
             name: inputTaskName,

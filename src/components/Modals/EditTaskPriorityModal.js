@@ -20,7 +20,9 @@ const EditTaskPriorityModal = ({ buttonShow = () => {}, oldData }) => {
 
     return (
         <ModalPoup2
-            buttonShow={buttonShow}
+            buttonShow={(setModalVisible) =>
+                buttonShow(setModalVisible, currPriority)
+            }
             title={
                 <Text className="p-3 text-center text-base font-normal">
                     Edit Task Priority

@@ -1,5 +1,8 @@
 import { useNavigation } from "@react-navigation/native";
-import React, { useState } from "react";
+import { FirebaseRecaptchaVerifierModal } from "expo-firebase-recaptcha";
+import { PhoneAuthProvider, updateProfile } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+import React, { useRef, useState } from "react";
 import {
     ActivityIndicator,
     Image,
@@ -11,14 +14,8 @@ import {
 import { useDispatch } from "react-redux";
 import { appleIcon, googleIcon } from "../../../assets";
 import LayoutAuth from "../../components/Layout/LayoutAuth";
-// import { getAuth, RecaptchaVerifier } from "firebase/auth";
-import firebase from "firebase/compat/app";
-import { FirebaseRecaptchaVerifierModal } from "expo-firebase-recaptcha";
-import { useRef } from "react";
-import { PhoneAuthProvider, updateProfile } from "firebase/auth";
-import { auth, db, firebaseConfig } from "../../firebase/firebase-config";
 import { fakeImg, formatPhone, isValidPhone } from "../../const";
-import { doc, setDoc } from "firebase/firestore";
+import { auth, db, firebaseConfig } from "../../firebase/firebase-config";
 import { updateUserInfo } from "../../redux/slice/user/userSlice";
 
 const RegisterScreen = () => {

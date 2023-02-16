@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import CategoryIcon from "../CategoryIcon";
 
 const CategoryModal = ({ setChooseCategory, buttonShow = () => {} }) => {
-    const { categrories } = useSelector((state) => state.tasks);
+    const { categories } = useSelector((state) => state.tasks);
 
     const handleChooseItem = (setModalVisible, index) => {
         setChooseCategory(index + 1);
@@ -29,7 +29,7 @@ const CategoryModal = ({ setChooseCategory, buttonShow = () => {} }) => {
                         className="flex-1  "
                     >
                         <View className=" flex-row justify-start  flex-wrap gap-x-12 gap-y-6">
-                            {categrories.map((categrory, index) => {
+                            {categories.map((categrory, index) => {
                                 return (
                                     <TouchableOpacity
                                         onPress={() =>
