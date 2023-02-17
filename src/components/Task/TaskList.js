@@ -22,7 +22,7 @@ const TaskList = ({ tasks }) => {
     };
 
     return (
-        <View className="mb-10">
+        <View className="mb-10 flex-1">
             {tasks.length > 0 &&
                 tasks?.map((task) => (
                     <TaskItem

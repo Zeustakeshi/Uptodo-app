@@ -5,7 +5,7 @@ import { clearCompletedTask } from "../../redux/slice/tasks/tasksSlice";
 import SearchTask from "./SearchTask";
 import TaskList from "./TaskList";
 
-const TaskWapper = () => {
+const TaskWapper = ({ showSearchTask = true }) => {
     const { tasks } = useSelector((state) => state.tasks);
     const uncompleteTasks = tasks.filter((task) => !task.isCompleted);
     const completeTasks = tasks.filter((task) => task.isCompleted);
@@ -17,9 +17,9 @@ const TaskWapper = () => {
 
     return (
         <View className="flex-1 mt-5">
-            {/* Search */}
             <ScrollView showsVerticalScrollIndicator={false} className="flex-1">
-                <SearchTask />
+                {/* Search */}
+                {showSearchTask && <SearchTask />}
                 {/* Task content */}
                 {uncompleteTasks.length > 0 && (
                     <View className="flex-1">

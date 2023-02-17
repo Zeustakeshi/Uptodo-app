@@ -5,3 +5,5 @@ export { default as googleIcon } from "./google.png";
 export { default as appleIcon } from "./apple.png";
 export { default as homeTask } from "./homeTask.png";
 export { default as protectionIcon } from "./protectionIcon.png";
+export { default as calendar } from "./calendar.png";
+export { default as teamwork } from "./team-work.png";

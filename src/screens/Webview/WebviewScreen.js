@@ -1,9 +1,10 @@
 import React from "react";
-import { SafeAreaView, View } from "react-native";
+import { Linking, SafeAreaView, View } from "react-native";
 import WebView from "react-native-webview";
 
 const WebviewScreen = ({ route }) => {
     const uri = route?.params?.pram;
+
     return (
         <SafeAreaView className={`flex-1  bg-white`}>
             <View className="flex-1 pt-10">

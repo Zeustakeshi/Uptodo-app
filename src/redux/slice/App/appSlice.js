@@ -9,9 +9,14 @@ const initialState = {
         primary: "",
         secondary: "",
     },
+    focusSetting: {
+        time: 60,
+        notify: false,
+        music: "",
+    },
 };
 
-const userSlice = createSlice({
+const appSlice = createSlice({
     name: "user",
     initialState: initialState,
     reducers: {
@@ -83,5 +88,5 @@ export const {
     setUserPassword,
     setUserTaskDone,
     setUserTaskLeft,
-} = userSlice.actions;
-export default userSlice.reducer;
+} = appSlice.actions;
+export default appSlice.reducer;

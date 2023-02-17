@@ -30,7 +30,7 @@ const TaskItem = ({
         <TouchableOpacity
             onPress={() => allowPress && onPress()}
             onLongPress={() => allowLongPress && onLongPress()}
-            className={`flex-1 ${isCompleted && "opacity-50"}`}
+            className={` ${isCompleted && "opacity-50"}`}
         >
             <View className="p-3 flex-row justify-start items-center bg-gray-50 mb-3 rounded-lg">
                 {/* icon circle */}
