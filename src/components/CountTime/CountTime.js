@@ -3,10 +3,13 @@ import { Text, TouchableHighlight } from "react-native";
 import { View } from "react-native-animatable";
 import * as Progress from "react-native-progress";
 
-const defaultFocusTime = 1;
-const defaultRelaxTime = 0.5;
 let initialElapsedTime = 0;
-const CountTime = ({ desc }) => {
+const CountTime = ({
+    defaultFocusTime = 1,
+    defaultRelaxTime = 0.5,
+    desc,
+    onTimeEnd = () => {},
+}) => {
     const [focus, setFocus] = useState({
         inProcess: false,
         isFirstStart: true,
@@ -29,8 +32,7 @@ const CountTime = ({ desc }) => {
             clearInterval(intervalRef.current);
             setFocus({ inProcess: false, isFirstStart: true });
             initialElapsedTime = 0;
-            alert("You are completed focus today");
-            // console.log("handleSuccessCalled");
+            onTimeEnd();
         } else if (
             mode === "relax" &&
             elapsedTime / 60000 >= defaultRelaxTime

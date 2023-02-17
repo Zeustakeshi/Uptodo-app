@@ -1,13 +1,21 @@
 import React from "react";
+import { useState } from "react";
 import { Text } from "react-native";
 import { View } from "react-native-animatable";
 import CountTime from "../../components/CountTime/CountTime";
 import LayoutAuth from "../../components/Layout/LayoutAuth";
+import CongratulationsModal from "../../components/Modals/CongratulationsModal";
 
 const FocusMainScreen = () => {
+    const [modalVisible, setModalVisible] = useState(false);
     return (
         <LayoutAuth title="Focus">
             <CountTime
+                defaultFocusTime={0.2}
+                defaultRelaxTime={0.2}
+                onTimeEnd={() => {
+                    setModalVisible(true);
+                }}
                 desc={
                     <View className="my-5">
                         <Text className="text-gray-500 font-semibold text-center">
@@ -21,6 +29,11 @@ const FocusMainScreen = () => {
                     </View>
                 }
             ></CountTime>
+            <CongratulationsModal
+                title="chuc mung"
+                modalVisible={modalVisible}
+                setModalVisible={setModalVisible}
+            ></CongratulationsModal>
         </LayoutAuth>
     );
 };

@@ -12,6 +12,8 @@ module.exports = {
             colors: {
                 primary: "#6651f0",
                 primary2: "#8875FF",
+                ["primary-pink"]: "#C44C68",
+                ["primary-pink2"]: "#BF88EC",
                 "text-color": "#2A2B4B",
             },
             fontFamily: {},

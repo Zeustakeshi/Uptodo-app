@@ -7,3 +7,5 @@ export { default as homeTask } from "./homeTask.png";
 export { default as protectionIcon } from "./protectionIcon.png";
 export { default as calendar } from "./calendar.png";
 export { default as teamwork } from "./team-work.png";
+export { default as congratulationsTask } from "./congratulationsTask.png";
+export { default as medalIcon } from "./medal.png";
