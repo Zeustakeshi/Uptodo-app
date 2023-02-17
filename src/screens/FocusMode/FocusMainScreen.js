@@ -6,7 +6,7 @@ import LayoutAuth from "../../components/Layout/LayoutAuth";
 
 const FocusMainScreen = () => {
     return (
-        <LayoutAuth title="Focuse">
+        <LayoutAuth title="Focus">
             <CountTime
                 desc={
                     <View className="my-5">
