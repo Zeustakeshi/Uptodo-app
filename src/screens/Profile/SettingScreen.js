@@ -6,15 +6,20 @@ import {
     Entypo,
     Feather,
     MaterialCommunityIcons,
+    MaterialIcons,
     Octicons,
 } from "@expo/vector-icons";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase/firebase-config";
 import { useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
+import SettingItem from "../../components/SettingItem/SettingItem";
 
 const SettingScreen = () => {
     const { id: userId } = useSelector((state) => state.user);
     const { tasks } = useSelector((state) => state.tasks);
+
+    const navigation = useNavigation();
 
     const [asycServerLoading, setAsyncServerLoading] = useState(false);
     const handleAsyncServer = async () => {
@@ -68,20 +73,32 @@ const SettingScreen = () => {
                                 />
                             }
                         />
+                        <SettingItem
+                            onPress={() => navigation.navigate("FocusSetting")}
+                            title="Focus mode setting"
+                            icon={
+                                <MaterialIcons
+                                    name="access-time"
+                                    size={24}
+                                    color="black"
+                                />
+                            }
+                        />
+                        <SettingItem
+                            isLoading={asycServerLoading}
+                            onPress={handleAsyncServer}
+                            title="Async to server"
+                            icon={
+                                <Feather
+                                    name="upload-cloud"
+                                    size={24}
+                                    color="black"
+                                />
+                            }
+                        />
                     </View>
-                    <SettingItem
-                        isLoading={asycServerLoading}
-                        onPress={handleAsyncServer}
-                        title="Async to server"
-                        icon={
-                            <Feather
-                                name="upload-cloud"
-                                size={24}
-                                color="black"
-                            />
-                        }
-                    />
                 </View>
+
                 <View>
                     <Text className="mt-2 text-sm text-gray-500 font-semibold">
                         Import
@@ -104,22 +121,42 @@ const SettingScreen = () => {
     );
 };
 
-const SettingItem = ({ title, icon, isLoading = false, ...props }) => {
-    return (
-        <TouchableOpacity
-            {...props}
-            className="flex-row gap-x-2  py-3 items-center"
-        >
-            <View className="flex-row justify-start items-center">
-                {isLoading ? (
-                    <ActivityIndicator size="small" color={"#6651f0"} />
-                ) : (
-                    icon
-                )}
-                <Text className="ml-4">{title}</Text>
-            </View>
-        </TouchableOpacity>
-    );
-};
+// const SettingItem = ({
+//     icon = "",
+//     title = "",
+//     textStyle,
+//     buttonStyle,
+//     to = "",
+//     isLoading = false,
+//     ...props
+// }) => {
+//     const navigation = useNavigation();
+//     const gotoWebview = () => {
+//         if (to === "") return;
+//         navigation.navigate("Webview", { pram: to });
+//     };
+//     return (
+//         <>
+//             <TouchableOpacity
+//                 onPress={gotoWebview}
+//                 className="flex-row py-3 gap-x-3 justify-start items-center "
+//                 style={buttonStyle}
+//                 {...props}
+//             >
+//                 {isLoading ? (
+//                     <ActivityIndicator size="small" color={"#6651f0"} />
+//                 ) : (
+//                     icon
+//                 )}
+//                 <Text
+//                     className=" font-normal text-text-color"
+//                     style={textStyle}
+//                 >
+//                     {title}
+//                 </Text>
+//             </TouchableOpacity>
+//         </>
+//     );
+// };
 
 export default SettingScreen;

@@ -30,6 +30,7 @@ import * as ImagePicker from "expo-image-picker";
 import { useState } from "react";
 import axios from "axios";
 import ChangeUserNameModal from "../../components/Modals/ChangeUserNameModal";
+import SettingItem from "../../components/SettingItem/SettingItem";
 
 const ProfileScreen = () => {
     const { userName, task: userTask } = useSelector((state) => state.user);
@@ -248,39 +249,6 @@ const SettingWrapper = ({ title = "", children }) => {
             </Text>
             {children}
         </View>
-    );
-};
-
-const SettingItem = ({
-    icon = "",
-    title = "",
-    textStyle,
-    buttonStyle,
-    to = "",
-    ...props
-}) => {
-    const navigation = useNavigation();
-    const gotoWebview = () => {
-        if (to === "") return;
-        navigation.navigate("Webview", { pram: to });
-    };
-    return (
-        <>
-            <TouchableOpacity
-                onPress={gotoWebview}
-                className="flex-row py-3 gap-x-3 justify-start items-center "
-                style={buttonStyle}
-                {...props}
-            >
-                {icon}
-                <Text
-                    className=" font-normal text-text-color"
-                    style={textStyle}
-                >
-                    {title}
-                </Text>
-            </TouchableOpacity>
-        </>
     );
 };
 

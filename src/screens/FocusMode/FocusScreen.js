@@ -44,7 +44,9 @@ const FocusScreen = () => {
         >
             <View className="py-4 flex-row justify-between items-center">
                 <Text className="font-medium text-xl">Focus Mode</Text>
-                <TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate("FocusSetting")}
+                >
                     <AntDesign name="setting" size={24} color="black" />
                 </TouchableOpacity>
             </View>

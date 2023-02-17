@@ -2,7 +2,6 @@ import React from "react";
 import { Text } from "react-native";
 import { View } from "react-native-animatable";
 import CountTime from "../../components/CountTime/CountTime";
-import CountTime2 from "../../components/CountTime/CountTime2";
 import LayoutAuth from "../../components/Layout/LayoutAuth";
 
 const FocusMainScreen = () => {
