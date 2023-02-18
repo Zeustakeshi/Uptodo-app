@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import {
     MaterialIcons,
@@ -145,4 +145,4 @@ const AddTaskModal = ({ buttonShow = () => {} }) => {
     );
 };
 
-export default AddTaskModal;
+export default memo(AddTaskModal);

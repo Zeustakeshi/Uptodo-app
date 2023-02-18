@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { useState } from "react";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
@@ -109,4 +109,4 @@ const EditTaskCategory = ({ oldData, buttonShow = () => {} }) => {
     );
 };
 
-export default EditTaskCategory;
+export default memo(EditTaskCategory);

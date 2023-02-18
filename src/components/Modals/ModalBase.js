@@ -1,4 +1,5 @@
 import React from "react";
+import { memo } from "react";
 import { Modal, Pressable, StyleSheet, Text } from "react-native";
 import { View } from "react-native-animatable";
 
@@ -41,4 +42,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default ModalBase;
+export default memo(ModalBase);

@@ -1,5 +1,6 @@
 import { SimpleLineIcons } from "@expo/vector-icons";
 import React from "react";
+import { memo } from "react";
 import { Image, Text, TouchableOpacity } from "react-native";
 import { View } from "react-native-animatable";
 import { medalIcon } from "../../../assets";
@@ -55,4 +56,4 @@ const CongratulationsModal = ({ modalVisible, setModalVisible }) => {
     );
 };
 
-export default CongratulationsModal;
+export default memo(CongratulationsModal);

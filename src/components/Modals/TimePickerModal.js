@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import ModalBase from "./ModalBase";
 
@@ -9,6 +10,8 @@ const TimePickerModal = ({
     onSave = () => {},
     title = "Time",
 }) => {
+    const [currentIndex, setCurrentIndex] = useState(0);
+
     const handleSave = () => {
         onSave();
         setModalVisible(false);
@@ -17,6 +20,12 @@ const TimePickerModal = ({
     const handleCancel = () => {
         setModalVisible(false);
     };
+
+    const updateCurrIndex = ({ nativeEvent }) => {
+        const contentOffsetY = nativeEvent.contentOffset.y;
+        setCurrentIndex(Math.floor(contentOffsetY / 80));
+    };
+    console.log(currentIndex);
 
     return (
         <ModalBase
@@ -43,6 +52,7 @@ const TimePickerModal = ({
                         pagingEnabled
                         bounces={false}
                         keyExtractor={(item, index) => index}
+                        onMomentumScrollEnd={updateCurrIndex}
                     />
                 </View>
                 <View className="flex-row justify-between items-center gap-x-2">

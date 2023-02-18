@@ -1,5 +1,5 @@
 import { MaterialIcons } from "@expo/vector-icons";
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { useDispatch } from "react-redux";
 import { setTaskPriority } from "../../redux/slice/tasks/tasksSlice";
@@ -98,4 +98,4 @@ const PriorityItem = ({ isActive, index, onPress }) => {
     );
 };
 
-export default EditTaskPriorityModal;
+export default memo(EditTaskPriorityModal);

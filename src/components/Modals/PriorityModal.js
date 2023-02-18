@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import { Text, View, ScrollView, TouchableOpacity } from "react-native";
 import ModalPoup2 from "./ModalPoup2";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -106,4 +106,4 @@ const PriorityItem = ({ isActive, index, onPress }) => {
     );
 };
 
-export default PriorityModal;
+export default memo(PriorityModal);

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View } from "react-native";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
 import { timeFomat } from "../../const";
+import { memo } from "react";
 
 const fomatDate = (date) => {
     return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
@@ -48,4 +49,4 @@ const TimeModal = ({
     );
 };
 
-export default TimeModal;
+export default memo(TimeModal);

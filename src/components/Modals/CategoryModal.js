@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Text, View, ScrollView, TouchableOpacity } from "react-native";
 import ModalPoup2 from "./ModalPoup2";
 import { AntDesign, Feather } from "@expo/vector-icons";
@@ -87,4 +87,4 @@ const CategoryModal = ({ setChooseCategory, buttonShow = () => {} }) => {
     );
 };
 
-export default CategoryModal;
+export default memo(CategoryModal);

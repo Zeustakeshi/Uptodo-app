@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { memo } from "react";
 import { Modal, Pressable, StyleSheet, Text, View } from "react-native";
 
 const ModalPoup2 = ({ buttonShow = () => {}, title, style, children }) => {
@@ -46,4 +47,4 @@ const styles = StyleSheet.create({
         elevation: 3,
     },
 });
-export default ModalPoup2;
+export default memo(ModalPoup2);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
@@ -74,4 +74,4 @@ const ChangeUserNameModal = ({ buttonShow = () => {} }) => {
     );
 };
 
-export default ChangeUserNameModal;
+export default memo(ChangeUserNameModal);

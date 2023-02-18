@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import { useDispatch } from "react-redux";
 import { setTaskNameAndDesc } from "../../redux/slice/tasks/tasksSlice";
@@ -62,4 +62,4 @@ const EditNameAndDescModal = ({ oldData, buttonShow = () => {} }) => {
     );
 };
 
-export default EditNameAndDescModal;
+export default memo(EditNameAndDescModal);
