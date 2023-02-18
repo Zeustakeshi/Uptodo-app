@@ -1,14 +1,8 @@
+import { Entypo, FontAwesome5, MaterialIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
-import { timeFomat } from "../../const";
-import { MaterialIcons, FontAwesome5 } from "@expo/vector-icons";
-import { Entypo } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
-import {
-    addCompletedTask,
-    addUnCompleteTask,
-} from "../../redux/slice/tasks/tasksSlice";
-import { useNavigation } from "@react-navigation/native";
 import CategoryIcon from "../CategoryIcon";
 
 const TaskItem = ({
@@ -21,10 +15,6 @@ const TaskItem = ({
     const { categories } = useSelector((state) => state.tasks);
 
     const { name, time, categrory, priority, isCompleted } = data;
-
-    const dispacth = useDispatch();
-
-    const navigation = useNavigation();
 
     return (
         <TouchableOpacity

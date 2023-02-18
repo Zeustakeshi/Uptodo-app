@@ -1,14 +1,12 @@
+import { AntDesign, FontAwesome } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
-import LayoutWrapper from "../../components/Layout/LayoutWrapper";
 import * as Animatable from "react-native-animatable";
-import { AntDesign, FontAwesome } from "@expo/vector-icons";
-import Task from "../../components/Task/Task";
-import TaskList from "../../components/Task/TaskList";
 import { useSelector } from "react-redux";
+import { teamwork } from "../../../assets";
+import LayoutWrapper from "../../components/Layout/LayoutWrapper";
 import TaskItem from "../../components/Task/TaskItem";
-import { calendar, teamwork } from "../../../assets";
-import { useNavigation } from "@react-navigation/native";
 
 const FocusScreen = () => {
     const { tasks } = useSelector((state) => state.tasks);
