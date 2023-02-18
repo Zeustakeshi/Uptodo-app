@@ -1,5 +1,6 @@
 import React from "react";
 import { useEffect } from "react";
+import { memo } from "react";
 import { useState } from "react";
 import { ScrollView, Text } from "react-native";
 import { View } from "react-native-animatable";
@@ -12,25 +13,6 @@ import { setIsCompleteTask } from "../../redux/slice/tasks/tasksSlice";
 
 const FocusMainScreen = () => {
     const [modalVisible, setModalVisible] = useState(false);
-    const { tasks } = useSelector((state) => state.tasks);
-    const [uncompleteTasks, setUncompleteTasks] = useState([]);
-
-    const dispacth = useDispatch();
-    useEffect(() => {
-        setUncompleteTasks(
-            tasks
-                .filter((task) => !task.isCompleted)
-                .sort((task1, task2) => task1.priority - task2.priority)
-        );
-    }, [tasks]);
-
-    const handlePressTaskItem = (task) => {
-        if (task.isCompleted) {
-            dispacth(setIsCompleteTask({ id: task.id, value: false }));
-        } else {
-            dispacth(setIsCompleteTask({ id: task.id, value: true }));
-        }
-    };
 
     return (
         <LayoutAuth title="Focus">
@@ -60,29 +42,50 @@ const FocusMainScreen = () => {
                             </View>
                         }
                     ></CountTime>
-                    {uncompleteTasks.length > 0 && (
-                        <View className="">
-                            <Text className="my-2 text-sm text-gray-400 font-bold ">
-                                Your uncomplete tasks
-                            </Text>
-                            {uncompleteTasks?.map((task, index) => {
-                                return (
-                                    <TaskItem
-                                        key={task.id}
-                                        data={task}
-                                        allowPress={true}
-                                        onPress={() =>
-                                            handlePressTaskItem(task)
-                                        }
-                                    />
-                                );
-                            })}
-                        </View>
-                    )}
+
+                    <UnCompleteTask></UnCompleteTask>
                 </View>
             </ScrollView>
         </LayoutAuth>
     );
 };
+
+const UnCompleteTask = memo(() => {
+    const { tasks } = useSelector((state) => state.tasks);
+    const [uncompleteTasks, setUncompleteTasks] = useState([]);
+    const dispacth = useDispatch();
+    useEffect(() => {
+        setUncompleteTasks(
+            tasks
+                .filter((task) => !task.isCompleted)
+                .sort((task1, task2) => task1.priority - task2.priority)
+        );
+    }, [tasks]);
+    const handlePressTaskItem = (task) => {
+        if (task.isCompleted) {
+            dispacth(setIsCompleteTask({ id: task.id, value: false }));
+        } else {
+            dispacth(setIsCompleteTask({ id: task.id, value: true }));
+        }
+    };
+    if (uncompleteTasks.length <= 0) return <></>;
+    return (
+        <View className="">
+            <Text className="my-2 text-sm text-gray-400 font-bold ">
+                Your uncomplete tasks
+            </Text>
+            {uncompleteTasks?.map((task, index) => {
+                return (
+                    <TaskItem
+                        key={task.id}
+                        data={task}
+                        allowPress={true}
+                        onPress={() => handlePressTaskItem(task)}
+                    />
+                );
+            })}
+        </View>
+    );
+});
 
 export default FocusMainScreen;

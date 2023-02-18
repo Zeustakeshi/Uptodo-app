@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import React from "react";
+import React, { useState } from "react";
 import { ActivityIndicator, Text, TouchableOpacity } from "react-native";
 
 const SettingItem = ({
@@ -9,17 +9,27 @@ const SettingItem = ({
     buttonStyle,
     to = "",
     isLoading = false,
+    modal = () => {},
+    onPress = () => {},
     ...props
 }) => {
+    const [modalVisible, setModalVisible] = useState(false);
+
     const navigation = useNavigation();
     const gotoWebview = () => {
         if (to === "") return;
         navigation.navigate("Webview", { pram: to });
     };
+
+    const handlePress = () => {
+        onPress(setModalVisible);
+    };
+
     return (
         <>
+            {modal(modalVisible, setModalVisible)}
             <TouchableOpacity
-                onPress={gotoWebview}
+                onPress={to ? gotoWebview : handlePress}
                 className="flex-row py-3 gap-x-3 justify-start items-center "
                 style={buttonStyle}
                 {...props}

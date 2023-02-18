@@ -1,17 +1,17 @@
 import { configureStore } from "@reduxjs/toolkit";
-import tasksSlice from "./slice/tasks/tasksSlice";
-import userReducer from "./slice/user/userSlice";
 import createSagaMiddleware from "redux-saga";
-import helloSlice from "./slice/test/helloSlice";
-import helloSaga from "./slice/test/helloSaga";
 import rootSaga from "./rootSaga";
-import logger from "redux-logger";
+import appSlice from "./slice/App/appSlice";
+import tasksSlice from "./slice/tasks/tasksSlice";
+import helloSlice from "./slice/test/helloSlice";
+import userSlide from "./slice/user/userSlice";
 
 const sagaMiddleware = createSagaMiddleware();
 
 export const store = configureStore({
     reducer: {
-        user: userReducer,
+        app: appSlice,
+        user: userSlide,
         tasks: tasksSlice,
         hello: helloSlice,
     },

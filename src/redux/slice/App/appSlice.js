@@ -6,87 +6,63 @@ const initialState = {
     font: "roboto",
     lang: "en",
     color: {
-        primary: "",
-        secondary: "",
+        primary: "#6651f0",
+        secondary: "#BF88EC",
     },
+    notify: false,
     focusSetting: {
-        time: 60,
+        runInTheBackground: false,
+        timeFocus: {
+            option: [60, 120, 180],
+            currentOption: 60,
+        },
+        timeRelax: {
+            option: [5, 10, 15, 20],
+            currentOption: 5,
+        },
         notify: false,
-        music: "",
+        music: {
+            enable: false,
+            musics: ["music1", "music1"],
+            currentMusic: "music1",
+        },
+        showUnCompleteTask: true,
     },
 };
 
 const appSlice = createSlice({
-    name: "user",
+    name: "app",
     initialState: initialState,
     reducers: {
-        resetUserInfo() {},
+        resetAppSetting() {},
         reset(state) {
             state = initialState;
         },
 
-        updateUserInfo(state, { payload }) {
-            state.id = payload.id || "";
-            state.userName = payload.userName || "";
-            state.email = payload.email || "";
-            state.password = payload.password || "";
-            state.avatar = payload.avatar || "";
-            state.task.taskLeft = payload.task.taskLeft || 0;
-            state.task.taskDone = payload.task.taskDone || 0;
-            state.isLogin = payload.isLogin;
+        /** FOCUS SETTING*/
+        setFocusTime(state, action) {},
+        updateFocusTime(state, action) {
+            state.focusSetting.timeFocus.currentOption = action.payload;
         },
-        setUserInfo(state, action) {},
-
-        setEmail(state, action) {
-            if (validateEmail(action.payload)) {
-                state.email = action.payload;
-            }
+        setFocusTimeRelax(state, action) {},
+        updateFocusTimeRelax(state, action) {
+            state.focusSetting.timeRelax.currentOption = action.payload;
         },
-
-        setUserName(state, action) {},
-
-        updateUserName(state, action) {
-            if (action.payload.trim() !== "") {
-                state.userName = action.payload;
-            }
-        },
-
-        setUserPassword(state, action) {
-            if (validatePassword(action.payload)) {
-                state.password = action.payload;
-            }
-        },
-
-        updateUserAvatar(state, action) {
-            state.avatar = action.payload;
-        },
-        setUserAvatar(state, action) {},
-
-        setUserTaskLeft(state, action) {
-            if (action.payload >= 0) {
-                state.task.taskLeft = action.payload;
-            }
-        },
-        setUserTaskDone(state, action) {
-            if (action.payload >= 0) {
-                state.task.taskDone = action.payload;
-            }
+        setFocusShowUnCompleteTask(state, action) {},
+        updateFocusShowUnCompleteTask(state, action) {
+            state.focusSetting.showUnCompleteTask = action.payload;
         },
     },
 });
 
 export const {
     reset,
-    resetUserInfo,
-    updateUserInfo,
-    setUserInfo,
-    setUserName,
-    updateUserName,
-    setEmail,
-    setUserAvatar,
-    updateUserAvatar,
-    setUserPassword,
-    setUserTaskDone,
-    setUserTaskLeft,
+    resetAppSetting,
+    setFocusTime,
+    updateFocusTime,
+    setFocusTimeRelax,
+    updateFocusTimeRelax,
+    setFocusShowUnCompleteTask,
+    updateFocusShowUnCompleteTask,
 } = appSlice.actions;
 export default appSlice.reducer;
