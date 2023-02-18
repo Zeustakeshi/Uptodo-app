@@ -44,6 +44,7 @@ const RegisterScreen = () => {
                 phone: formatPhone(phoneNumber),
                 password: "",
                 avatar: "",
+                todoCoin: 10,
                 task: {
                     taskLeft: 0,
                     taskDone: 0,
@@ -59,6 +60,7 @@ const RegisterScreen = () => {
                     phone: formatPhone(phoneNumber),
                     password: "",
                     avatar: fakeImg,
+                    todoCoin: 10,
                     task: {
                         taskLeft: 0,
                         taskDone: 0,

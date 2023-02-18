@@ -5,20 +5,17 @@ import {
     updateUserAvatar,
     updateUserInfo,
     updateUserName,
-    updateUserPassword,
 } from "./userSlice";
-import uuid from "react-native-uuid";
 
 import {
+    getDownloadURL,
     getStorage,
     ref,
-    getDownloadURL,
     uploadBytesResumable,
 } from "@firebase/storage";
-import { auth, db } from "../../../firebase/firebase-config";
-import { doc, updateDoc } from "firebase/firestore";
-import * as authX from "firebase/auth";
 import { useNavigation } from "@react-navigation/native";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../../../firebase/firebase-config";
 
 export function* handleUpdateUser(action) {
     // add to storage

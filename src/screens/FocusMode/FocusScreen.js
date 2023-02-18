@@ -50,11 +50,12 @@ const FocusScreen = () => {
             </View>
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View className="mb-20">
-                    <Image
+                    <Animatable.Image
+                        animation="rubberBand"
                         className="w-[250px] h-[250px] mx-auto my-5"
                         source={teamwork}
                         resizeMode="contain"
-                    ></Image>
+                    />
                     <Text className="my-5 text-lg text-gray-500 text-center">
                         Disconnect to connect and stay focused. Turn off your
                         devices, tune in to the world around you, and trust the

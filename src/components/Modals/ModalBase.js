@@ -2,18 +2,24 @@ import React from "react";
 import { memo } from "react";
 import { Modal, Pressable, StyleSheet, Text } from "react-native";
 import { View } from "react-native-animatable";
+import * as Animatable from "react-native-animatable";
 
 const ModalBase = ({ modalVisible, setModalVisible, style, children }) => {
     return (
         <Modal
-            animationType="fade"
             transparent={true}
             visible={modalVisible}
             onRequestClose={() => {
                 setModalVisible(!modalVisible);
             }}
         >
-            <View className="relative flex-1 justify-center items-center ">
+            <Animatable.View
+                animation="rubberBand"
+                duration={1000}
+                iterationCount={1}
+                easing="ease-in"
+                className="relative flex-1 justify-center items-center "
+            >
                 <Pressable
                     onPress={() => setModalVisible(false)}
                     className="w-full h-full bg-gray-200 opacity-5"
@@ -24,7 +30,7 @@ const ModalBase = ({ modalVisible, setModalVisible, style, children }) => {
                 >
                     {children}
                 </View>
-            </View>
+            </Animatable.View>
         </Modal>
     );
 };

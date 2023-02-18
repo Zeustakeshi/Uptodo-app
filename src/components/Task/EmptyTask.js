@@ -1,12 +1,17 @@
+import { Entypo } from "@expo/vector-icons";
 import React from "react";
 import { Image, Text, View } from "react-native";
 import { homeTask } from "../../../assets";
+import * as Animatable from "react-native-animatable";
 
 const EmptyTask = () => {
     return (
         <View className="flex-1 justify-center items-center">
             <View className="w-[227px] h-[227px]">
-                <Image
+                <Animatable.Image
+                    animation="rubberBand"
+                    easing="ease-in-out"
+                    iterationCount={1}
                     className="w-full h-full object-cover "
                     source={homeTask}
                 />
@@ -16,9 +21,24 @@ const EmptyTask = () => {
                 <Text className="text-xl font-normal text-text-color">
                     What do you want to do today?
                 </Text>
-                <Text className="text-base text-gray-800">
-                    Tap + to add your tasks
-                </Text>
+                <View className="flex-row gap-x-2 items-center">
+                    <Text className="text-base text-gray-800">Tap</Text>
+                    <Animatable.View
+                        animation="jello"
+                        easing="ease-in-out"
+                        iterationCount="infinite"
+                        className="bg-primary rounded-full p-1"
+                    >
+                        <Entypo
+                            name="circle-with-plus"
+                            size={24}
+                            color="#fff"
+                        />
+                    </Animatable.View>
+                    <Text className="text-base text-gray-800">
+                        to add your tasks
+                    </Text>
+                </View>
             </View>
         </View>
     );

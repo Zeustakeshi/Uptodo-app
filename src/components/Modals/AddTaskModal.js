@@ -1,22 +1,20 @@
-import React, { memo, useState } from "react";
-import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import {
-    MaterialIcons,
-    MaterialCommunityIcons,
     Feather,
     Ionicons,
+    MaterialCommunityIcons,
+    MaterialIcons,
 } from "@expo/vector-icons";
-import ModalPoup1 from "./ModalPoup1";
+import React, { memo, useState } from "react";
+import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import uuid from "react-native-uuid";
+import { useDispatch } from "react-redux";
+import { timeFomat } from "../../const";
+import { addTasks } from "../../redux/slice/tasks/tasksSlice";
 import CategoryModal from "./CategoryModal";
+import ModalPoup1 from "./ModalPoup1";
 import PriorityModal from "./PriorityModal";
 import TimeModal from "./TimeModal";
-import { timeFomat } from "../../const";
-import { useDispatch } from "react-redux";
-import uuid from "react-native-uuid";
-import {
-    addTasks,
-    addUnCompleteTask,
-} from "../../redux/slice/tasks/tasksSlice";
+import * as Animatable from "react-native-animatable";
 
 const AddTaskModal = ({ buttonShow = () => {} }) => {
     const [inputTaskName, setInputTaskName] = useState("");
@@ -52,7 +50,11 @@ const AddTaskModal = ({ buttonShow = () => {} }) => {
     return (
         <ModalPoup1 buttonShow={buttonShow}>
             {(setModalVisible) => (
-                <View className="p-6">
+                <Animatable.View
+                    animation="bounceInUp"
+                    iterationCount={1}
+                    className="p-6"
+                >
                     <Text className="text-xl font-bold text-text-color">
                         Add Task
                     </Text>
@@ -139,7 +141,7 @@ const AddTaskModal = ({ buttonShow = () => {} }) => {
                             />
                         </TouchableOpacity>
                     </View>
-                </View>
+                </Animatable.View>
             )}
         </ModalPoup1>
     );

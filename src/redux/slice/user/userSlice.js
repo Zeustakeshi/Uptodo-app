@@ -8,6 +8,7 @@ const initialState = {
     userName: "",
     password: "",
     avatar: "",
+    todoCoin: 10,
     task: {
         taskLeft: 0,
         taskDone: 0,
@@ -31,6 +32,7 @@ const userSlice = createSlice({
             state.phone = payload.phone || "";
             state.password = payload.password || "";
             state.avatar = payload.avatar || "";
+            state.todoCoin = payload.todoCoin || 10;
             state.task.taskLeft = payload.task.taskLeft || 0;
             state.task.taskDone = payload.task.taskDone || 0;
             state.isLogin = payload.isLogin;

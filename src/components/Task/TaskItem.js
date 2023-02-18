@@ -1,9 +1,9 @@
 import { Entypo, FontAwesome5, MaterialIcons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import CategoryIcon from "../CategoryIcon";
+import * as Animatable from "react-native-animatable";
 
 const TaskItem = ({
     data,
@@ -11,6 +11,7 @@ const TaskItem = ({
     onLongPress = () => {},
     allowPress = true,
     allowLongPress = true,
+    animation = "bounceIn",
 }) => {
     const { categories } = useSelector((state) => state.tasks);
 
@@ -22,7 +23,12 @@ const TaskItem = ({
             onLongPress={() => allowLongPress && onLongPress()}
             className={` ${isCompleted && "opacity-50"}`}
         >
-            <View className="p-3 flex-row justify-start items-center bg-gray-50 mb-3 rounded-lg">
+            <Animatable.View
+                animation={animation}
+                easing="ease-in-out"
+                iterationCount={1}
+                className="p-3 flex-row justify-start items-center bg-gray-50 mb-3 rounded-lg"
+            >
                 {/* icon circle */}
                 {isCompleted ? (
                     <FontAwesome5
@@ -59,7 +65,7 @@ const TaskItem = ({
 
                                 <Text
                                     numberOfLines={1}
-                                    className="max-w-[50px] text-[10px] text-gray-200"
+                                    className="max-w-[50px] text-[10px] text-white"
                                 >
                                     {categories[categrory - 1].name}
                                 </Text>
@@ -76,7 +82,7 @@ const TaskItem = ({
                         </View>
                     </View>
                 </View>
-            </View>
+            </Animatable.View>
         </TouchableOpacity>
     );
 };

@@ -1,41 +1,31 @@
-import React from "react";
-import {
-    Image,
-    Text,
-    View,
-    ScrollView,
-    TouchableOpacity,
-    StyleSheet,
-} from "react-native";
-import { fakeImg } from "../../const";
 import {
     AntDesign,
     Feather,
     Ionicons,
     SimpleLineIcons,
 } from "@expo/vector-icons";
-import { useDispatch, useSelector } from "react-redux";
-import LayoutAuth from "../../components/Layout/LayoutAuth";
 import { useNavigation } from "@react-navigation/native";
-import { signOut } from "firebase/auth";
-import { auth } from "../../firebase/firebase-config";
-import {
-    resetUserInfo,
-    setUserAvatar,
-    updateUserAvatar,
-} from "../../redux/slice/user/userSlice";
-import { resetTasks } from "../../redux/slice/tasks/tasksSlice";
-import Avatar from "../../components/Avatar/Avatar";
 import * as ImagePicker from "expo-image-picker";
-import { useState } from "react";
-import axios from "axios";
+import { signOut } from "firebase/auth";
+import React from "react";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import Avatar from "../../components/Avatar/Avatar";
+import LayoutAuth from "../../components/Layout/LayoutAuth";
 import ChangeUserNameModal from "../../components/Modals/ChangeUserNameModal";
 import SettingItem from "../../components/SettingItem/SettingItem";
+import TodoCoin from "../../components/TodoCoin/TodoCoin";
+import { auth } from "../../firebase/firebase-config";
+import { resetTasks } from "../../redux/slice/tasks/tasksSlice";
+import { resetUserInfo, setUserAvatar } from "../../redux/slice/user/userSlice";
 
 const ProfileScreen = () => {
-    const { userName, task: userTask } = useSelector((state) => state.user);
+    const {
+        userName,
+        task: userTask,
+        todoCoin,
+    } = useSelector((state) => state.user);
     const navigation = useNavigation();
-
     //dispatch
     const dispatch = useDispatch();
 
@@ -59,7 +49,6 @@ const ProfileScreen = () => {
             const selectedAsset = result.assets[0];
 
             if (selectedAsset) {
-                // console.log(selectedAsset);
                 dispatch(setUserAvatar(selectedAsset.uri));
             }
         } else {
@@ -110,16 +99,30 @@ const ProfileScreen = () => {
                     </Text>
                 </View>
 
-                <View className="mt-4 flex-row justify-center items-center gap-x-5">
-                    <View className="px-6 py-3 bg-gray-100 rounded-lg">
-                        <Text className="font-normal text-sm">
-                            {userTask.taskLeft} Task left
+                <View className="mt-4 justify-center items-center ">
+                    <View className="bg-gray-100 rounded-t-3xl mb-5 flex-row justify-center items-center px-5 py-4">
+                        <Text className="text-lg px-2 font-bold text-primary">
+                            {todoCoin}
                         </Text>
+                        <TodoCoin></TodoCoin>
                     </View>
-                    <View className="px-6 py-3 bg-gray-100 rounded-lg">
-                        <Text className="font-normal text-sm">
-                            {userTask.taskDone} Task done
-                        </Text>
+                    <View className="flex-row justify-center items-center gap-x-5">
+                        <View className="px-6 py-3 bg-gray-100 rounded-lg">
+                            <Text className="font-normal text-sm">
+                                <Text className="font-bold text-primary ">
+                                    {userTask.taskLeft}{" "}
+                                </Text>
+                                Task left
+                            </Text>
+                        </View>
+                        <View className="px-6 py-3 bg-gray-100 rounded-lg">
+                            <Text className="font-normal text-sm">
+                                <Text className="font-bold text-primary ">
+                                    {userTask.taskDone}{" "}
+                                </Text>
+                                Task done
+                            </Text>
+                        </View>
                     </View>
                 </View>
                 <View className="mt-5">

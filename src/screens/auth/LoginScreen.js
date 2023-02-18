@@ -49,6 +49,7 @@ const LoginScreen = () => {
                     userName: userData.userName,
                     password: userData.password,
                     avatar: userData.avatar,
+                    todoCoin: userData.todoCoin,
                     task: {
                         taskLeft: userData?.task.taskLeft,
                         taskDone: userData?.task.taskDone,

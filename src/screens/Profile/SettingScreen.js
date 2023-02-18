@@ -18,7 +18,6 @@ import SettingItem from "../../components/SettingItem/SettingItem";
 const SettingScreen = () => {
     const { id: userId } = useSelector((state) => state.user);
     const { tasks } = useSelector((state) => state.tasks);
-
     const navigation = useNavigation();
 
     const [asycServerLoading, setAsyncServerLoading] = useState(false);

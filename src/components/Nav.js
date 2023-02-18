@@ -1,8 +1,12 @@
-import React from "react";
-import { Text, TouchableOpacity, View, StyleSheet } from "react-native";
-import { Ionicons, Feather, AntDesign } from "@expo/vector-icons";
-import AddTaskModal from "./Modals/AddTaskModal";
+import {
+    AntDesign,
+    Feather,
+    FontAwesome,
+    SimpleLineIcons,
+} from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/native";
+import React from "react";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 const Nav = ({ middleButton }) => {
     const navigation = useNavigation();
@@ -13,51 +17,77 @@ const Nav = ({ middleButton }) => {
             className=" bg-gray-50 p-4 h-[85px] flex-row justify-between items-center rounded-tl-3xl rounded-tr-3xl "
             style={styles.shadow}
         >
-            <TouchableOpacity
+            <NavItem
                 onPress={() => navigation.navigate("Home")}
-                className=" justify-center items-center gap-y-2"
-            >
-                <AntDesign
-                    name="home"
-                    size={24}
-                    color={activeScreen === "Home" ? "#6651f0" : "#000"}
-                />
-                <Text>Home</Text>
-            </TouchableOpacity>
-            <TouchableOpacity className="justify-center items-center gap-y-2">
-                <Ionicons
-                    name="ios-calendar-sharp"
-                    size={24}
-                    color={activeScreen === "Calendar" ? "#6651f0" : "#000"}
-                />
-                <Text>Calendar</Text>
-            </TouchableOpacity>
+                icon={
+                    <AntDesign
+                        name="home"
+                        size={26}
+                        color={activeScreen === "Home" ? "#fff" : "#000"}
+                    />
+                }
+                label="Home"
+                isActive={activeScreen === "Home"}
+            />
+
+            <NavItem
+                onPress={() => navigation.navigate("Ranking")}
+                icon={
+                    <SimpleLineIcons
+                        name="energy"
+                        size={26}
+                        color={activeScreen === "Ranking" ? "#fff" : "#000"}
+                    />
+                }
+                label="Ranking"
+                isActive={activeScreen === "Ranking"}
+            />
 
             {middleButton}
-
-            <TouchableOpacity
+            <NavItem
                 onPress={() => navigation.navigate("Focus")}
-                className="justify-center items-center gap-y-2"
-            >
-                <Feather
-                    name="clock"
-                    size={24}
-                    color={activeScreen === "Focus" ? "#6651f0" : "#000"}
-                />
-                <Text>Focuse</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
+                icon={
+                    <Feather
+                        name="clock"
+                        size={26}
+                        color={activeScreen === "Focus" ? "#fff" : "#000"}
+                    />
+                }
+                label="Focus"
+                isActive={activeScreen === "Focus"}
+            />
+            <NavItem
                 onPress={() => navigation.navigate("Profile")}
-                className="justify-center items-center gap-y-2"
-            >
-                <AntDesign
-                    name="user"
-                    size={24}
-                    color={activeScreen === "Profile" ? "#6651f0" : "#000"}
-                />
-                <Text>Profile</Text>
-            </TouchableOpacity>
+                icon={
+                    <AntDesign
+                        name="user"
+                        size={26}
+                        color={activeScreen === "Profile" ? "#fff" : "#000"}
+                    />
+                }
+                label="Profile"
+                isActive={activeScreen === "Profile"}
+            />
         </View>
+    );
+};
+
+const NavItem = ({ isActive, icon, label, ...props }) => {
+    return (
+        <TouchableOpacity
+            {...props}
+            className=" py-4 justify-between items-center  min-h-[90px]"
+        >
+            <View
+                className={`${isActive ? "bg-primary" : ""} p-1 rounded-full`}
+            >
+                {icon}
+            </View>
+
+            <Text className={`${isActive ? "font-bold text-primary" : ""} `}>
+                {label}
+            </Text>
+        </TouchableOpacity>
     );
 };
 
