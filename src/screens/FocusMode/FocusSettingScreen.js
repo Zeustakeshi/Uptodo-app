@@ -6,13 +6,14 @@ import LayoutAuth from "../../components/Layout/LayoutAuth";
 import TimePickerModal from "../../components/Modals/TimePickerModal";
 import SettingItem from "../../components/SettingItem/SettingItem";
 import {
+    setFocusNotifications,
     setFocusTime,
     setFocusTimeRelax,
 } from "../../redux/slice/App/appSlice";
 
 const FocusSettingScreen = () => {
     const dispatch = useDispatch();
-    const { timeFocus, timeRelax } = useSelector(
+    const { timeFocus, timeRelax, notifications } = useSelector(
         (state) => state.app.focusSetting
     );
 
@@ -22,6 +23,10 @@ const FocusSettingScreen = () => {
 
     const handleUpdateRelaxTime = (currTime) => {
         dispatch(setFocusTimeRelax(currTime));
+    };
+
+    const handleChangeNotifications = () => {
+        dispatch(setFocusNotifications(!notifications));
     };
 
     return (
@@ -64,14 +69,22 @@ const FocusSettingScreen = () => {
                     )}
                 />
                 <SettingItem
-                    // onPress={}
+                    onPress={handleChangeNotifications}
                     title="Notifications"
                     icon={
-                        <Ionicons
-                            name="notifications-outline"
-                            size={24}
-                            color="black"
-                        />
+                        notifications ? (
+                            <Ionicons
+                                name="notifications-outline"
+                                size={24}
+                                color="black"
+                            />
+                        ) : (
+                            <Ionicons
+                                name="notifications-off-outline"
+                                size={24}
+                                color="black"
+                            />
+                        )
                     }
                 />
                 <SettingItem

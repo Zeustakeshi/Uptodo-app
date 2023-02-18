@@ -14,7 +14,6 @@ const SettingItem = ({
     ...props
 }) => {
     const [modalVisible, setModalVisible] = useState(false);
-
     const navigation = useNavigation();
     const gotoWebview = () => {
         if (to === "") return;

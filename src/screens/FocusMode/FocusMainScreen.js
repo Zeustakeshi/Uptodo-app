@@ -26,8 +26,8 @@ const FocusMainScreen = () => {
                         setModalVisible={setModalVisible}
                     ></CongratulationsModal>
                     <CountTime
-                        defaultFocusTime={0.2}
-                        defaultRelaxTime={0.2}
+                        defaultFocusTime={timeFocus.currentOption}
+                        defaultRelaxTime={timeRelax.currentOption}
                         onTimeEnd={() => {
                             setModalVisible(true);
                         }}

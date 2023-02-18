@@ -1,6 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { put, select } from "redux-saga/effects";
 import {
+    updateFocusNotification,
     updateFocusSetting,
     updateFocusTime,
     updateFocusTimeRelax,
@@ -46,4 +47,19 @@ export function* handleUpdateFocusTimeRelax(action) {
     };
     yield AsyncStorage.setItem("focusSetting", JSON.stringify(newSetting));
     yield put(updateFocusTimeRelax(action.payload));
+}
+
+export function* handleUpdateFocusNotifications(action) {
+    const { focusSetting } = yield select((state) => state.app);
+    const newSetting = {
+        ...focusSetting,
+        notifications: action.payload,
+    };
+
+    if (action.payload === false) {
+        /**Handle turn off notify when focus */
+    }
+
+    yield AsyncStorage.setItem("focusSetting", JSON.stringify(newSetting));
+    yield put(updateFocusNotification(action.payload));
 }

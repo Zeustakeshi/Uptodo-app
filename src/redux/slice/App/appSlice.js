@@ -8,7 +8,7 @@ const initialState = {
         primary: "#6651f0",
         secondary: "#BF88EC",
     },
-    notify: false,
+    notifications: false,
     focusSetting: {
         runInTheBackground: false,
         timeFocus: {
@@ -19,7 +19,7 @@ const initialState = {
             option: [5, 10, 15, 20],
             currentOption: 5,
         },
-        notify: false,
+        notifications: false,
         music: {
             enable: false,
             musics: ["music1", "music1"],
@@ -63,6 +63,10 @@ const appSlice = createSlice({
         updateFocusShowUnCompleteTask(state, action) {
             state.focusSetting.showUnCompleteTask = action.payload;
         },
+        setFocusNotifications(state, action) {},
+        updateFocusNotification(state, action) {
+            state.focusSetting.notifications = action.payload;
+        },
     },
 });
 
@@ -79,5 +83,7 @@ export const {
     updateFocusTimeRelax,
     setFocusShowUnCompleteTask,
     updateFocusShowUnCompleteTask,
+    setFocusNotifications,
+    updateFocusNotification,
 } = appSlice.actions;
 export default appSlice.reducer;
