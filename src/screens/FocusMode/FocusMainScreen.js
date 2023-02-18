@@ -13,6 +13,9 @@ import { setIsCompleteTask } from "../../redux/slice/tasks/tasksSlice";
 
 const FocusMainScreen = () => {
     const [modalVisible, setModalVisible] = useState(false);
+    const { timeFocus, timeRelax } = useSelector(
+        (state) => state.app.focusSetting
+    );
 
     return (
         <LayoutAuth title="Focus">
@@ -35,12 +38,19 @@ const FocusMainScreen = () => {
                                     notifications will be off
                                 </Text>
                                 <Text className="block text-center p-2 text-xs text-gray-400 leading-relaxed">
-                                    The default focus time is 60 minutes, but
-                                    you can change it at any time in the
-                                    settings.
+                                    Your focus time is
+                                    <Text className="font-bold text-lg text-primary">
+                                        {" "}
+                                        {timeFocus.currentOption}{" "}
+                                    </Text>
+                                    minutes, but you can change it at any time
+                                    in the settings.
                                 </Text>
                             </View>
                         }
+                        startButtonLabel="Start Focus"
+                        pauseButtonLabel={`Relax ${timeRelax.currentOption} Minutes`}
+                        resumeButtonLabel="Continue Focus Now"
                     ></CountTime>
 
                     <UnCompleteTask></UnCompleteTask>

@@ -29,10 +29,13 @@ const CongratulationsModal = ({ modalVisible, setModalVisible }) => {
                     </Text>
                     <View className="p-3">
                         <Text className="text-sm text-text-color text-center font-medium">
-                            You have earned a TodoCoin for completing your focus
-                            session. Keep up the good work and continue
-                            collecting more TodoCoins to boost your
-                            productivity!
+                            You have earned a{" "}
+                            <Text className="font-semibold text-primary">
+                                TodoCoin
+                            </Text>{" "}
+                            for completing your focus session. Keep up the good
+                            work and continue collecting more TodoCoins to boost
+                            your productivity!
                         </Text>
                     </View>
                 </View>

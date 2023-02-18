@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { validateEmail, validatePassword } from "../../../const";
 
 const initialState = {
     theme: "light",
@@ -34,12 +33,24 @@ const appSlice = createSlice({
     name: "app",
     initialState: initialState,
     reducers: {
+        loadSetting(state, action) {},
+        updateSetting(state, action) {
+            state = {
+                ...initialState,
+                ...action.payload,
+            };
+        },
+
         resetAppSetting() {},
         reset(state) {
             state = initialState;
         },
 
         /** FOCUS SETTING*/
+        loadFocusSetting(state, action) {},
+        updateFocusSetting(state, action) {
+            state.focusSetting = { ...state.focusSetting, ...action.payload };
+        },
         setFocusTime(state, action) {},
         updateFocusTime(state, action) {
             state.focusSetting.timeFocus.currentOption = action.payload;
@@ -58,6 +69,10 @@ const appSlice = createSlice({
 export const {
     reset,
     resetAppSetting,
+    loadSetting,
+    updateSetting,
+    loadFocusSetting,
+    updateFocusSetting,
     setFocusTime,
     updateFocusTime,
     setFocusTimeRelax,

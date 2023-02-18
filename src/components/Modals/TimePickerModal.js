@@ -13,7 +13,7 @@ const TimePickerModal = ({
     const [currentIndex, setCurrentIndex] = useState(0);
 
     const handleSave = () => {
-        onSave();
+        onSave(timeOption[currentIndex]);
         setModalVisible(false);
     };
 
@@ -25,7 +25,6 @@ const TimePickerModal = ({
         const contentOffsetY = nativeEvent.contentOffset.y;
         setCurrentIndex(Math.floor(contentOffsetY / 80));
     };
-    console.log(currentIndex);
 
     return (
         <ModalBase

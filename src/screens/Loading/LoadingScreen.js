@@ -3,12 +3,18 @@ import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { useEffect } from "react";
 import { ActivityIndicator, Text, View } from "react-native";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import LayoutWrapper from "../../components/Layout/LayoutWrapper";
+import { loadFocusSetting, loadSetting } from "../../redux/slice/App/appSlice";
 
 const LoadingScreen = () => {
     const navigation = useNavigation();
     const userInfo = useSelector((state) => state.user);
+    const dispath = useDispatch();
+    useEffect(() => {
+        dispath(loadFocusSetting());
+        dispath(loadSetting());
+    }, []);
 
     useEffect(() => {
         (async () => {

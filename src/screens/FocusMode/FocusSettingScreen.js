@@ -5,12 +5,25 @@ import { useDispatch, useSelector } from "react-redux";
 import LayoutAuth from "../../components/Layout/LayoutAuth";
 import TimePickerModal from "../../components/Modals/TimePickerModal";
 import SettingItem from "../../components/SettingItem/SettingItem";
+import {
+    setFocusTime,
+    setFocusTimeRelax,
+} from "../../redux/slice/App/appSlice";
 
 const FocusSettingScreen = () => {
     const dispatch = useDispatch();
     const { timeFocus, timeRelax } = useSelector(
         (state) => state.app.focusSetting
     );
+
+    const handleUpdateFocusTime = (currTime) => {
+        dispatch(setFocusTime(currTime));
+    };
+
+    const handleUpdateRelaxTime = (currTime) => {
+        dispatch(setFocusTimeRelax(currTime));
+    };
+
     return (
         <LayoutAuth title="Focus Setting">
             <View className="mt-5">
@@ -22,6 +35,7 @@ const FocusSettingScreen = () => {
                             timeOption={timeFocus.option}
                             modalVisible={modalVisible}
                             setModalVisible={setModalVisible}
+                            onSave={handleUpdateFocusTime}
                         />
                     )}
                     title="Time focuse"
@@ -45,6 +59,7 @@ const FocusSettingScreen = () => {
                             timeOption={timeRelax.option}
                             modalVisible={modalVisible}
                             setModalVisible={setModalVisible}
+                            onSave={handleUpdateRelaxTime}
                         />
                     )}
                 />

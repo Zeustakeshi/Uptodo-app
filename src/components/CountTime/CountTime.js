@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 import { Text, TouchableHighlight } from "react-native";
 import { View } from "react-native-animatable";
 import * as Progress from "react-native-progress";
@@ -9,6 +9,9 @@ const CountTime = ({
     defaultRelaxTime = 0.5,
     desc,
     onTimeEnd = () => {},
+    startButtonLabel = "Start",
+    pauseButtonLabel = "Pause",
+    resumeButtonLabel = "Resume",
 }) => {
     const [focus, setFocus] = useState({
         inProcess: false,
@@ -101,17 +104,17 @@ const CountTime = ({
                 />
             </View>
             {desc}
-            <View className="items-center my-8">
+            <View className="items-center my-4 mb-20">
                 <TouchableHighlight
                     onPress={hanldePress}
                     className="bg-primary rounded-lg"
                 >
                     <Text className="text-white font-bold text-base px-5 py-3 bg-primary rounded-lg">
                         {focus.isFirstStart
-                            ? "Start Focus"
+                            ? startButtonLabel
                             : focus.inProcess
-                            ? "Take a short 5-minute break"
-                            : "Continue to focus"}
+                            ? pauseButtonLabel
+                            : resumeButtonLabel}
                     </Text>
                 </TouchableHighlight>
             </View>
@@ -119,4 +122,4 @@ const CountTime = ({
     );
 };
 
-export default CountTime;
+export default memo(CountTime);
