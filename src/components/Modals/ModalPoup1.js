@@ -1,12 +1,26 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { memo } from "react";
-import { Modal, Pressable, StyleSheet, View } from "react-native";
+import { Modal, PanResponder, Pressable, StyleSheet, View } from "react-native";
 
 const ModalPoup1 = ({ buttonShow = () => {}, height = 65, children }) => {
     const [modalVisible, setModalVisible] = useState(false);
-
+    const panResponder = useRef(
+        PanResponder.create({
+            onMoveShouldSetPanResponderCapture: (evt, gestureState) => {
+                return gestureState.dy > 0;
+            },
+            onPanResponderRelease: (evt, gestureState) => {
+                if (gestureState.dy > 0) {
+                    console.log("swiper up");
+                    setModalVisible(false);
+                } else if (gestureState.dy < 0) {
+                    console.log("swiper up");
+                }
+            },
+        })
+    ).current;
     return (
-        <View>
+        <View {...panResponder.panHandlers}>
             {buttonShow(setModalVisible)}
             <Modal
                 animationType="slide"

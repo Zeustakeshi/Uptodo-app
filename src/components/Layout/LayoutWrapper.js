@@ -7,6 +7,8 @@ const LayoutWrapper = ({
     style,
     children,
     navMiddleButton,
+    navCustomMidleButton,
+    navOnPressMidleButton = () => {},
     showNavigate = false,
 }) => {
     return (
@@ -14,7 +16,13 @@ const LayoutWrapper = ({
             <View className="flex-1 px-6 bg-white pt-2" style={style}>
                 {children}
             </View>
-            {showNavigate && <Nav middleButton={navMiddleButton} />}
+            {showNavigate && (
+                <Nav
+                    middleButton={navMiddleButton}
+                    customMidleButton={navCustomMidleButton}
+                    onPressMidleButton={navOnPressMidleButton}
+                />
+            )}
         </SafeAreaView>
     );
 };

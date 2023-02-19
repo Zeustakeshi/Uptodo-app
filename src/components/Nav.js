@@ -1,9 +1,10 @@
-import { AntDesign, Feather, SimpleLineIcons } from "@expo/vector-icons";
+import { AntDesign, Feather } from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import * as Animatable from "react-native-animatable";
 
-const Nav = ({ middleButton }) => {
+const Nav = ({ middleButton, customMidleButton, onPressMidleButton }) => {
     const navigation = useNavigation();
     const route = useRoute();
     const activeScreen = route.name;
@@ -26,19 +27,35 @@ const Nav = ({ middleButton }) => {
             />
 
             <NavItem
-                // onPress={() => navigation.navigate("Ranking")}
+                onPress={() => navigation.navigate("Habits")}
                 icon={
-                    <SimpleLineIcons
-                        name="energy"
+                    <Feather
+                        name="pie-chart"
                         size={20}
-                        color={activeScreen === "Ranking" ? "#fff" : "#000"}
+                        color={activeScreen === "Habits" ? "#fff" : "#000"}
                     />
                 }
-                label="Ranking"
-                isActive={activeScreen === "Ranking"}
+                label="Habits"
+                isActive={activeScreen === "Habits"}
             />
-
-            {middleButton}
+            {!middleButton && customMidleButton}
+            {middleButton && (
+                <View className="w-[80px] h-[80px] border-t-[5px] border-r-[3px] border-l-[3px] -translate-y-6 border-primary2 bg-white  rounded-full justify-center items-center">
+                    <TouchableOpacity
+                        onPress={onPressMidleButton}
+                        className="justify-center items-center w-[60px] h-[60px] rounded-full "
+                    >
+                        <Animatable.View
+                            animation="pulse"
+                            easing="ease-out"
+                            iterationCount="infinite"
+                            className="w-16 h-16 bg-primary rounded-full justify-center items-center"
+                        >
+                            {middleButton}
+                        </Animatable.View>
+                    </TouchableOpacity>
+                </View>
+            )}
             <NavItem
                 onPress={() => navigation.navigate("Focus")}
                 icon={

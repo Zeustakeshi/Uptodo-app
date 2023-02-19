@@ -7,6 +7,8 @@ import RegisterScreen from "../../screens/auth/RegisterScreen";
 import FocusMainScreen from "../../screens/FocusMode/FocusMainScreen";
 import FocusScreen from "../../screens/FocusMode/FocusScreen";
 import FocusSettingScreen from "../../screens/FocusMode/FocusSettingScreen";
+import CreateHabitScreen from "../../screens/HabitTracker/CreateHabitScreen";
+import HabitsScreen from "../../screens/HabitTracker/HabitsScreen";
 import HomeScreen from "../../screens/Home/HomeScreen";
 import LoadingScreen from "../../screens/Loading/LoadingScreen";
 import ProfileScreen from "../../screens/Profile/ProfileScreen";
@@ -32,6 +34,8 @@ const StackNavigator = () => {
             <Stack.Screen name="ChangePassword" component={ChangePassword} />
             <Stack.Screen name="Register" component={RegisterScreen} />
             <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="Habits" component={HabitsScreen} />
+            <Stack.Screen name="CreateHabit" component={CreateHabitScreen} />
             <Stack.Screen name="Profile" component={ProfileScreen} />
             <Stack.Screen name="Focus" component={FocusScreen} />
             <Stack.Screen name="MainFocus" component={FocusMainScreen} />

@@ -16,7 +16,7 @@ const HomeScreen = () => {
     return (
         <LayoutWrapper
             showNavigate={true}
-            navMiddleButton={
+            navCustomMidleButton={
                 <AddTaskModal
                     buttonShow={(setModalVisible) => (
                         <View className="w-[80px] h-[80px] border-t-[5px] border-r-[3px] border-l-[3px] -translate-y-6 border-primary2 bg-white  rounded-full justify-center items-center">
@@ -30,11 +30,17 @@ const HomeScreen = () => {
                                     iterationCount="infinite"
                                     className="w-16 h-16 bg-primary rounded-full justify-center items-center"
                                 >
-                                    <Entypo
-                                        name="circle-with-plus"
-                                        size={32}
-                                        color="white"
-                                    />
+                                    <Animatable.View
+                                        animation="jello"
+                                        easing="ease"
+                                        iterationCount="infinite"
+                                    >
+                                        <Entypo
+                                            name="circle-with-plus"
+                                            size={32}
+                                            color="white"
+                                        />
+                                    </Animatable.View>
                                 </Animatable.View>
                             </TouchableOpacity>
                         </View>

@@ -18,27 +18,16 @@ const FocusScreen = () => {
             style={{ position: "relative" }}
             showNavigate
             navMiddleButton={
-                <View className=" bg-white -translate-y-6  w-20 h-20  border-t-[5px] border-r-[3px] border-l-[3px] border-primary2  rounded-full justify-center items-center">
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate("MainFocus")}
-                    >
-                        <Animatable.View
-                            animation="pulse"
-                            easing="ease-out"
-                            iterationCount="infinite"
-                            className="w-16 h-16 bg-primary rounded-full justify-center items-center"
-                        >
-                            <Text className="text-gray-50 font-semibold text-[25px]">
-                                <FontAwesome
-                                    name="play-circle"
-                                    size={40}
-                                    color="#ffff"
-                                />
-                            </Text>
-                        </Animatable.View>
-                    </TouchableOpacity>
-                </View>
+                <Animatable.View
+                    animation="pulse"
+                    easing="ease-out"
+                    iterationCount="infinite"
+                    className="w-16 h-16 bg-primary rounded-full justify-center items-center"
+                >
+                    <FontAwesome name="play-circle" size={40} color="#ffff" />
+                </Animatable.View>
             }
+            navOnPressMidleButton={() => navigation.navigate("MainFocus")}
         >
             <View className="py-4 flex-row justify-between items-center">
                 <Text className="font-medium text-xl">Focus Mode</Text>

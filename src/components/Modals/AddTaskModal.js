@@ -6,6 +6,7 @@ import {
 } from "@expo/vector-icons";
 import React, { memo, useState } from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import * as Animatable from "react-native-animatable";
 import uuid from "react-native-uuid";
 import { useDispatch } from "react-redux";
 import { timeFomat } from "../../const";
@@ -14,7 +15,6 @@ import CategoryModal from "./CategoryModal";
 import ModalPoup1 from "./ModalPoup1";
 import PriorityModal from "./PriorityModal";
 import TimeModal from "./TimeModal";
-import * as Animatable from "react-native-animatable";
 
 const AddTaskModal = ({ buttonShow = () => {} }) => {
     const [inputTaskName, setInputTaskName] = useState("");
