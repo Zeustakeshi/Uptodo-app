@@ -1,9 +1,4 @@
-import {
-    AntDesign,
-    Feather,
-    FontAwesome,
-    SimpleLineIcons,
-} from "@expo/vector-icons";
+import { AntDesign, Feather, SimpleLineIcons } from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
@@ -14,7 +9,7 @@ const Nav = ({ middleButton }) => {
     const activeScreen = route.name;
     return (
         <View
-            className=" bg-gray-50 p-4 h-[85px] flex-row justify-between items-center rounded-tl-3xl rounded-tr-3xl "
+            className=" bg-gray-50 px-4 py-2 h-[70px] flex-row justify-between items-center rounded-tl-3xl rounded-tr-3xl "
             style={styles.shadow}
         >
             <NavItem
@@ -22,7 +17,7 @@ const Nav = ({ middleButton }) => {
                 icon={
                     <AntDesign
                         name="home"
-                        size={26}
+                        size={20}
                         color={activeScreen === "Home" ? "#fff" : "#000"}
                     />
                 }
@@ -31,11 +26,11 @@ const Nav = ({ middleButton }) => {
             />
 
             <NavItem
-                onPress={() => navigation.navigate("Ranking")}
+                // onPress={() => navigation.navigate("Ranking")}
                 icon={
                     <SimpleLineIcons
                         name="energy"
-                        size={26}
+                        size={20}
                         color={activeScreen === "Ranking" ? "#fff" : "#000"}
                     />
                 }
@@ -49,7 +44,7 @@ const Nav = ({ middleButton }) => {
                 icon={
                     <Feather
                         name="clock"
-                        size={26}
+                        size={20}
                         color={activeScreen === "Focus" ? "#fff" : "#000"}
                     />
                 }
@@ -61,7 +56,7 @@ const Nav = ({ middleButton }) => {
                 icon={
                     <AntDesign
                         name="user"
-                        size={26}
+                        size={20}
                         color={activeScreen === "Profile" ? "#fff" : "#000"}
                     />
                 }
@@ -76,7 +71,7 @@ const NavItem = ({ isActive, icon, label, ...props }) => {
     return (
         <TouchableOpacity
             {...props}
-            className=" py-4 justify-between items-center  min-h-[90px]"
+            className=" py-3 justify-between items-center  min-h-[50px]"
         >
             <View
                 className={`${isActive ? "bg-primary" : ""} p-1 rounded-full`}
@@ -84,7 +79,11 @@ const NavItem = ({ isActive, icon, label, ...props }) => {
                 {icon}
             </View>
 
-            <Text className={`${isActive ? "font-bold text-primary" : ""} `}>
+            <Text
+                className={`${
+                    isActive ? "font-bold text-primary " : ""
+                } text-xs`}
+            >
                 {label}
             </Text>
         </TouchableOpacity>

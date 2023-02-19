@@ -48,7 +48,7 @@ const AddTaskModal = ({ buttonShow = () => {} }) => {
     };
 
     return (
-        <ModalPoup1 buttonShow={buttonShow}>
+        <ModalPoup1 buttonShow={buttonShow} height={80}>
             {(setModalVisible) => (
                 <Animatable.View
                     animation="bounceInUp"
