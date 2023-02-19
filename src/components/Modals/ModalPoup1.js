@@ -11,10 +11,7 @@ const ModalPoup1 = ({ buttonShow = () => {}, height = 65, children }) => {
             },
             onPanResponderRelease: (evt, gestureState) => {
                 if (gestureState.dy > 0) {
-                    console.log("swiper up");
                     setModalVisible(false);
-                } else if (gestureState.dy < 0) {
-                    console.log("swiper up");
                 }
             },
         })

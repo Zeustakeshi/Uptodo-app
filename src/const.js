@@ -1,6 +1,14 @@
 export const fakeImg =
     "https://images.unsplash.com/photo-1533738363-b7f9aef128ce?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80";
 
+export const colors = {
+    primary: "#6651f0",
+    primary2: "#8875FF",
+    primaryPink: "#C44C68",
+    primaryPink2: "#BF88EC",
+    textColor: "#2A2B4B",
+};
+
 export const timeFomat = (dateString) => {
     const date = new Date(dateString);
     const today = new Date();
@@ -64,4 +72,4 @@ export const formatPhone = (phoneNumber) => {
     return `+${phoneNumber}`;
 };
 
-export const getIcon = (index) => {};
+export const dayNamesShort = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];

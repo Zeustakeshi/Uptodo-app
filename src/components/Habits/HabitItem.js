@@ -1,13 +1,14 @@
 import React from "react";
-import { Image, Text, TouchableHighlight } from "react-native";
-import { View } from "react-native-animatable";
+import { Image, Text, TouchableOpacity } from "react-native";
 import * as Animatable from "react-native-animatable";
 
-const HabitItem = ({ data, onPress }) => {
+const HabitItem = ({ data, onPress, props }) => {
     return (
-        <TouchableHighlight
+        <TouchableOpacity
+            onPress={onPress}
             style={{ backgroundColor: data.color }}
             className={`h-[100px] bg-blue-200 rounded-2xl p-2 mb-4`}
+            {...props}
         >
             <Animatable.View
                 animation="bounceIn"
@@ -24,7 +25,7 @@ const HabitItem = ({ data, onPress }) => {
                     source={data.imgUrl}
                 />
             </Animatable.View>
-        </TouchableHighlight>
+        </TouchableOpacity>
     );
 };
 

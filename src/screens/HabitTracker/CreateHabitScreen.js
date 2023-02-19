@@ -1,76 +1,91 @@
-import React from "react";
-import {
-    FlatList,
-    ScrollView,
-    TextInput,
-    TouchableOpacity,
-} from "react-native";
-import { View, Text } from "react-native-animatable";
-import LayoutAuth from "../../components/Layout/LayoutAuth";
+import { AntDesign } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import React, { useState } from "react";
+import { useRef } from "react";
+import { ScrollView, TextInput, TouchableOpacity } from "react-native";
+import { Text, View } from "react-native-animatable";
 import uuid from "react-native-uuid";
-import HabitItem from "../../components/Habits/HabitItem";
 import {
     koalaDrinkWater,
     koalaEat,
+    koalaEgg,
     koalaGetUp,
     koalaGoToBed,
     koalaPlaySport,
     koalaReadBook,
 } from "../../../assets";
-import { AntDesign } from "@expo/vector-icons";
-import { useState } from "react";
+import HabitItem from "../../components/Habits/HabitItem";
+import LayoutAuth from "../../components/Layout/LayoutAuth";
 
 const habitsSuggest = [
     {
-        id: 1,
+        id: uuid.v4(),
         icon: "drink",
         title: "Drinking water",
+        desc: "description",
         color: "#3b82f6",
         imgUrl: koalaDrinkWater,
     },
     {
-        id: 2,
+        id: uuid.v4(),
         icon: "drink",
         title: "Going to bed early",
+        desc: "description",
         color: "#4f46e5",
         imgUrl: koalaGoToBed,
     },
     {
-        id: 3,
+        id: uuid.v4(),
         icon: "drink",
         title: "Eating healthy",
+        desc: "description",
         color: "#16a34a",
         imgUrl: koalaEat,
     },
     {
-        id: 4,
+        id: uuid.v4(),
         icon: "drink",
         title: "Waking up early",
+        desc: "description",
         color: "#fbbf24",
         imgUrl: koalaGetUp,
     },
     {
-        id: 5,
+        id: uuid.v4(),
         icon: "Playing sports",
         title: "Playing sports",
+        desc: "description",
         color: "#10b981",
         imgUrl: koalaPlaySport,
     },
     {
-        id: 6,
+        id: uuid.v4(),
         icon: "read book",
         title: "Reading books",
+        desc: "description",
         color: "#f97316",
         imgUrl: koalaReadBook,
     },
 ];
 
 const CreateHabitScreen = () => {
+    const navigation = useNavigation();
+
+    const moveToDetailScreen = (newHabit) => {
+        navigation.navigate("CreateHabitDetail", {
+            newHabitInfo: newHabit,
+        });
+    };
+
     return (
         <LayoutAuth title="Create New Habit">
             <View className="my-3 ">
                 {/* Habit tile and desc */}
-                <CreateNewHabit></CreateNewHabit>
+                <CreateNewHabit
+                    onCreateHabit={(habitTitle, habitDesc) =>
+                        moveToDetailScreen(habitTitle, habitDesc)
+                    }
+                ></CreateNewHabit>
                 {/* Choose an Activity */}
                 <View className="my-5">
                     <Text className="text-text-color font-medium text-base">
@@ -85,7 +100,13 @@ const CreateHabitScreen = () => {
                     >
                         {habitsSuggest.map((habitItem) => {
                             return (
-                                <HabitItem key={uuid.v4()} data={habitItem} />
+                                <HabitItem
+                                    onPress={() =>
+                                        moveToDetailScreen(habitItem)
+                                    }
+                                    key={habitItem.id}
+                                    data={habitItem}
+                                />
                             );
                         })}
                     </ScrollView>
@@ -99,10 +120,32 @@ const CreateNewHabit = ({ onCreateHabit = () => {} }) => {
     const [habitTitle, setHabitTitle] = useState("");
     const [habitDesc, setHabitDesc] = useState("");
 
+    const habitTitleRef = useRef(null);
+
+    const hanldeCreateHabit = () => {
+        if (!habitTitle.trim()) {
+            habitTitleRef.current.focus();
+            return;
+        }
+        const newHabit = {
+            id: uuid.v4(),
+            icon: "no icon",
+            title: habitTitle,
+            desc: habitDesc,
+            color: "#10b981",
+            imgUrl: koalaEgg,
+        };
+        onCreateHabit(newHabit);
+        setHabitTitle("");
+        setHabitDesc("");
+    };
+
     return (
         <View>
             <View className="flex-row w-full justify-start items-center">
                 <TextInput
+                    ref={habitTitleRef}
+                    value={habitTitle}
                     onChangeText={(text) => setHabitTitle(text)}
                     selectionColor="#6651f0"
                     placeholder="Habit Title"
@@ -110,13 +153,12 @@ const CreateNewHabit = ({ onCreateHabit = () => {} }) => {
                     placeholderTextColor="#9ca3af"
                     className="flex-1 border-l border-gray-200 px-3 py-1 text-base "
                 ></TextInput>
-                <TouchableOpacity
-                    onPress={() => onCreateHabit(habitTitle, habitDesc)}
-                >
+                <TouchableOpacity onPress={hanldeCreateHabit}>
                     <AntDesign name="arrowright" size={24} color="#6651f0" />
                 </TouchableOpacity>
             </View>
             <TextInput
+                value={habitDesc}
                 onChangeText={(text) => setHabitDesc(text)}
                 selectionColor="#6651f0"
                 placeholder="Add your habit details "
