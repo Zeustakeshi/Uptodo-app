@@ -14,7 +14,7 @@ import {
     koalaPlaySport,
     koalaReadBook,
 } from "../../../assets";
-import HabitItem from "../../components/Habits/HabitItem";
+import HabitLabel from "../../components/Habits/HabitLabel";
 import LayoutAuth from "../../components/Layout/LayoutAuth";
 
 const habitsSuggest = [
@@ -100,7 +100,7 @@ const CreateHabitScreen = () => {
                     >
                         {habitsSuggest.map((habitItem) => {
                             return (
-                                <HabitItem
+                                <HabitLabel
                                     onPress={() =>
                                         moveToDetailScreen(habitItem)
                                     }

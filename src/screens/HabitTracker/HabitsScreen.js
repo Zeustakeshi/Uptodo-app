@@ -5,6 +5,7 @@ import * as Animatable from "react-native-animatable";
 import { Entypo, SimpleLineIcons } from "@expo/vector-icons";
 import Calendars from "../../components/Calendars/Calendars";
 import { useNavigation } from "@react-navigation/native";
+import HabitItem from "../../components/Habits/HabitItem";
 const HabitsScreen = () => {
     const naviagtion = useNavigation();
     return (
@@ -17,8 +18,8 @@ const HabitsScreen = () => {
             }
             navOnPressMidleButton={() => naviagtion.navigate("CreateHabit")}
         >
-            <View>
-                <Text>{/* <Calendars></Calendars> */}</Text>
+            <View className="w-full">
+                <HabitItem></HabitItem>
             </View>
         </LayoutWrapper>
     );

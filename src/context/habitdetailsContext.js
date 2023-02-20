@@ -6,7 +6,7 @@ const HabitsDetailContext = createContext();
 const HabitDetalisProvider = (props) => {
     const [timeHabit, setTimeHabit] = useState({
         type: "weekly", // "monthly"
-        days: [],
+        days: [0, 1, 2, 3, 4, 5, 6, 7],
     });
     const [dailyCompletionCounter, setDailyCompletionCounter] = useState(1);
     const values = {

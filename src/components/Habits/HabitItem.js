@@ -1,31 +1,22 @@
 import React from "react";
-import { Image, Text, TouchableOpacity } from "react-native";
-import * as Animatable from "react-native-animatable";
-
-const HabitItem = ({ data, onPress, props }) => {
+import { Image, Text } from "react-native";
+import { View } from "react-native-animatable";
+import { koalaEgg } from "../../../assets";
+const HabitItem = () => {
     return (
-        <TouchableOpacity
-            onPress={onPress}
-            style={{ backgroundColor: data.color }}
-            className={`h-[100px] bg-blue-200 rounded-2xl p-2 mb-4`}
-            {...props}
-        >
-            <Animatable.View
-                animation="bounceIn"
-                easing="ease-in-out"
-                iterationCount={1}
-                className=" flex-row w-full h-full justify-end items-start"
-            >
-                <Text className="px-2 flex-1 text-center font-semibold text-base text-white  ">
-                    {data.title}
-                </Text>
+        <View className="p-3 rounded-xl mx-auto bg-gray-100  w-full flex-row justify-between items-center ">
+            <View className="rounded-xl p-2 w-[80px] h-[80px] bg-orange-500">
                 <Image
-                    className="w-[50%] h-full"
+                    source={koalaEgg}
+                    className="w-full h-full"
                     resizeMode="contain"
-                    source={data.imgUrl}
                 />
-            </Animatable.View>
-        </TouchableOpacity>
+            </View>
+            <View className="flex-1 justify-start items-start px-2">
+                <Text className="font-medium text-lg ">Learning c++</Text>
+                <Text className="font-medium text-sm ">Desc</Text>
+            </View>
+        </View>
     );
 };
 

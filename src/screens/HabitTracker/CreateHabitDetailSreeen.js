@@ -23,7 +23,7 @@ const CreateHabitDetailSreeen = ({ route }) => {
                 className="flex-1 w-full h-full "
             >
                 <HabitDetalisProvider>
-                    <View className="mb-20">
+                    <View className="mt-5 mb-20">
                         {/* banner */}
                         <Banner habitData={habitData} />
                         {/* show user chosen */}
@@ -32,7 +32,8 @@ const CreateHabitDetailSreeen = ({ route }) => {
                         <ScheduleTime />
                         {/* Daily completion count */}
                         <DailyCompletionCount />
-                        {/*  */}
+                        {/* ButtonSubmitHabit */}
+                        <ButtonSubmitHabit />
                     </View>
                 </HabitDetalisProvider>
             </ScrollView>
@@ -234,6 +235,26 @@ const DailyCompletionCount = () => {
                     <Entypo name="plus" size={24} color="#fff" />
                 </TouchableOpacity>
             </View>
+        </View>
+    );
+};
+
+const ButtonSubmitHabit = () => {
+    const { timeHabit, dailyCompletionCounter } = useHabitDetail();
+    const handleAddHabit = () => {
+        console.log(timeHabit);
+    };
+
+    return (
+        <View className="my-10 justify-center items-center">
+            <TouchableOpacity
+                onPress={handleAddHabit}
+                className="mt-5 py-3 px-5 bg-primary rounded-lg"
+            >
+                <Text className="text-white font-bold text-base ">
+                    Create your habit now
+                </Text>
+            </TouchableOpacity>
         </View>
     );
 };

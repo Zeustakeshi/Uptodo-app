@@ -5,6 +5,7 @@ import { Text, TextInput, View, ScrollView } from "react-native";
 import { useSelector } from "react-redux";
 import LayoutAuth from "../../components/Layout/LayoutAuth";
 import TaskItem from "../../components/Task/TaskItem";
+import { colors } from "../../const";
 import useDebounce from "../../hooks/useDebounce";
 
 const SearchScreen = () => {
@@ -90,12 +91,16 @@ const SearchScreen = () => {
             <View className="mt-5">
                 <View className="flex-row relative h-[48px]">
                     <View className="absolute top-3 left-3 justify-center items-center">
-                        <Feather name="search" size={24} color="#d1d5db" />
+                        <Feather
+                            name="search"
+                            size={24}
+                            color={colors.primary}
+                        />
                     </View>
                     <TextInput
-                        selectionColor="#6651f0"
-                        className="pl-[48px] flex-1 border border-gray-200 rounded-md"
-                        placeholder="Search for your task..."
+                        selectionColor={colors.primary}
+                        className="pl-[48px] flex-1 border border-primary rounded-2xl"
+                        placeholder="Search for your tasks or habits..."
                         autoFocus
                         value={searchValue}
                         onChangeText={(text) => setSearchValue(text)}

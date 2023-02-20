@@ -1,10 +1,11 @@
 import { AntDesign, FontAwesome } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import * as Animatable from "react-native-animatable";
 import { useSelector } from "react-redux";
 import { teamwork } from "../../../assets";
+import AnimatedTyping from "../../components/AnimatedTyping";
 import LayoutWrapper from "../../components/Layout/LayoutWrapper";
 import TaskItem from "../../components/Task/TaskItem";
 
@@ -45,11 +46,13 @@ const FocusScreen = () => {
                         source={teamwork}
                         resizeMode="contain"
                     />
-                    <Text className="my-5 text-lg text-gray-500 text-center">
-                        Disconnect to connect and stay focused. Turn off your
-                        devices, tune in to the world around you, and trust the
-                        process. The results will speak for themselves.
-                    </Text>
+                    <View>
+                        <AnimatedTyping
+                            animatedTime={40}
+                            text=" Disconnect to connect and stay focused. Turn off your devices, tune in to the world around you, and trust the process. The results will speak for themselves."
+                            className="my-5 text-lg text-gray-500 text-center min-h-[50px]"
+                        />
+                    </View>
                     {uncompleteTasks.length > 0 ? (
                         <View className=" mt-5">
                             <Text className="font-semibold text-base  text-text-color my-5">

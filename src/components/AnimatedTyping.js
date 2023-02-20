@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Text } from "react-native";
 
-const AnimatedTyping = ({ text, ...props }) => {
+const AnimatedTyping = ({ text, animatedTime = 100, ...props }) => {
     const [displayedText, setDisplayedText] = useState("");
 
     useEffect(() => {
@@ -13,7 +13,7 @@ const AnimatedTyping = ({ text, ...props }) => {
             if (index > text.length) {
                 clearInterval(timer);
             }
-        }, 100);
+        }, animatedTime);
 
         return () => clearInterval(timer);
     }, [text]);
