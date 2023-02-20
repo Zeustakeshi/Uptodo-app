@@ -3,15 +3,19 @@ import { createContext, useContext } from "react";
 
 const HabitsDetailContext = createContext();
 
-const HabitDetalisProvider = (props) => {
+const HabitDetalisProvider = ({ habitData, ...props }) => {
     const [timeHabit, setTimeHabit] = useState({
         type: "weekly", // "monthly"
         days: [0, 1, 2, 3, 4, 5, 6, 7],
     });
     const [dailyCompletionCounter, setDailyCompletionCounter] = useState(1);
+    const [color, setColor] = useState(habitData.color);
+
     const values = {
+        color,
         timeHabit,
         dailyCompletionCounter,
+        setColor,
         setDailyCompletionCounter,
         setTimeHabit,
     };

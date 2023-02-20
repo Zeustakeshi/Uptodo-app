@@ -6,6 +6,7 @@ import { calendar, calendar2 } from "../../../assets";
 import AnimatedTyping from "../../components/AnimatedTyping";
 import CalendarMonth from "../../components/Calendars/CalendarMonth";
 import CalendarWeek from "../../components/Calendars/CalendarWeek";
+import ChooseColor from "../../components/ChooseColor/ChooseColor";
 import LayoutAuth from "../../components/Layout/LayoutAuth";
 import { dayNamesShort } from "../../const";
 import {
@@ -22,7 +23,7 @@ const CreateHabitDetailSreeen = ({ route }) => {
                 showsVerticalScrollIndicator={false}
                 className="flex-1 w-full h-full "
             >
-                <HabitDetalisProvider>
+                <HabitDetalisProvider habitData={habitData}>
                     <View className="mt-5 mb-20">
                         {/* banner */}
                         <Banner habitData={habitData} />
@@ -30,6 +31,8 @@ const CreateHabitDetailSreeen = ({ route }) => {
                         <ShowUserChosen></ShowUserChosen>
                         {/* select time*/}
                         <ScheduleTime />
+                        {/* choose habit color */}
+                        <ChooseHabitColor habitData={habitData} />
                         {/* Daily completion count */}
                         <DailyCompletionCount />
                         {/* ButtonSubmitHabit */}
@@ -38,6 +41,25 @@ const CreateHabitDetailSreeen = ({ route }) => {
                 </HabitDetalisProvider>
             </ScrollView>
         </LayoutAuth>
+    );
+};
+
+const ChooseHabitColor = ({ habitData }) => {
+    const { setColor } = useHabitDetail();
+
+    const handleChooseHabitColor = (color) => {
+        setColor(color);
+    };
+    return (
+        <View className="my-2 mt-0">
+            <Text className="text-lg font-medium my-3">
+                Choose your favorite color
+            </Text>
+            <ChooseColor
+                onChooseColor={(color) => handleChooseHabitColor(color)}
+                defautColor={habitData.color}
+            />
+        </View>
     );
 };
 
@@ -77,12 +99,13 @@ const ShowUserChosen = () => {
 };
 
 const Banner = ({ habitData }) => {
+    const { color } = useHabitDetail();
     return (
         <Animatable.View
             animation="bounceIn"
             easing="ease-in-out"
             iterationCount={1}
-            style={{ backgroundColor: habitData.color }}
+            style={{ backgroundColor: color || habitData.color }}
             className={`w-full h-[150px] rounded-xl p-3 relative`}
         >
             <Image
