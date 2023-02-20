@@ -13,7 +13,7 @@ import { setIsCompleteTask } from "../../redux/slice/tasks/tasksSlice";
 
 const FocusMainScreen = () => {
     const [modalVisible, setModalVisible] = useState(false);
-    const { timeFocus, timeRelax } = useSelector(
+    const { timeFocus, timeRelax, showUnCompleteTask } = useSelector(
         (state) => state.app.focusSetting
     );
 
@@ -53,7 +53,7 @@ const FocusMainScreen = () => {
                         resumeButtonLabel="Continue Focus Now"
                     ></CountTime>
 
-                    <UnCompleteTask></UnCompleteTask>
+                    {showUnCompleteTask && <UnCompleteTask></UnCompleteTask>}
                 </View>
             </ScrollView>
         </LayoutAuth>

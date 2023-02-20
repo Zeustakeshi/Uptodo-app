@@ -3,6 +3,7 @@ import { put, select } from "redux-saga/effects";
 import {
     updateFocusNotification,
     updateFocusSetting,
+    updateFocusShowUnCompleteTask,
     updateFocusTime,
     updateFocusTimeRelax,
     updateSetting,
@@ -62,4 +63,19 @@ export function* handleUpdateFocusNotifications(action) {
 
     yield AsyncStorage.setItem("focusSetting", JSON.stringify(newSetting));
     yield put(updateFocusNotification(action.payload));
+}
+
+export function* handleUpdateFocusShowUnCompleteTask(action) {
+    const { focusSetting } = yield select((state) => state.app);
+    const newSetting = {
+        ...focusSetting,
+        showUnCompleteTask: action.payload,
+    };
+
+    if (action.payload === false) {
+        /**Handle turn hidden  UnCompleteTask when focus */
+    }
+
+    yield AsyncStorage.setItem("focusSetting", JSON.stringify(newSetting));
+    yield put(updateFocusShowUnCompleteTask(action.payload));
 }

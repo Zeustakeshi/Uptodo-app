@@ -1,4 +1,9 @@
-import { Entypo, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import {
+    Entypo,
+    Feather,
+    Ionicons,
+    MaterialCommunityIcons,
+} from "@expo/vector-icons";
 import React from "react";
 import { View } from "react-native-animatable";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,15 +12,15 @@ import TimePickerModal from "../../components/Modals/TimePickerModal";
 import SettingItem from "../../components/SettingItem/SettingItem";
 import {
     setFocusNotifications,
+    setFocusShowUnCompleteTask,
     setFocusTime,
     setFocusTimeRelax,
 } from "../../redux/slice/App/appSlice";
 
 const FocusSettingScreen = () => {
     const dispatch = useDispatch();
-    const { timeFocus, timeRelax, notifications } = useSelector(
-        (state) => state.app.focusSetting
-    );
+    const { timeFocus, timeRelax, notifications, showUnCompleteTask } =
+        useSelector((state) => state.app.focusSetting);
 
     const handleUpdateFocusTime = (currTime) => {
         dispatch(setFocusTime(currTime));
@@ -27,6 +32,9 @@ const FocusSettingScreen = () => {
 
     const handleChangeNotifications = () => {
         dispatch(setFocusNotifications(!notifications));
+    };
+    const handleChangeShowUnCompleteTask = () => {
+        dispatch(setFocusShowUnCompleteTask(!showUnCompleteTask));
     };
 
     return (
@@ -81,6 +89,29 @@ const FocusSettingScreen = () => {
                         ) : (
                             <Ionicons
                                 name="notifications-off-outline"
+                                size={24}
+                                color="black"
+                            />
+                        )
+                    }
+                />
+                <SettingItem
+                    onPress={handleChangeShowUnCompleteTask}
+                    title={
+                        showUnCompleteTask
+                            ? "Hidden Uncomlete"
+                            : "Show Uncomlete"
+                    }
+                    icon={
+                        showUnCompleteTask ? (
+                            <Feather
+                                name="toggle-right"
+                                size={24}
+                                color="black"
+                            />
+                        ) : (
+                            <Feather
+                                name="toggle-left"
                                 size={24}
                                 color="black"
                             />
