@@ -7,6 +7,7 @@ import AnimatedTyping from "../../components/AnimatedTyping";
 import CalendarMonth from "../../components/Calendars/CalendarMonth";
 import CalendarWeek from "../../components/Calendars/CalendarWeek";
 import ChooseColor from "../../components/ChooseColor/ChooseColor";
+import ChooseIcon from "../../components/ChooseIcon/ChooseIcon";
 import LayoutAuth from "../../components/Layout/LayoutAuth";
 import { dayNamesShort } from "../../const";
 import {
@@ -28,9 +29,11 @@ const CreateHabitDetailSreeen = ({ route }) => {
                         {/* banner */}
                         <Banner habitData={habitData} />
                         {/* show user chosen */}
-                        <ShowUserChosen></ShowUserChosen>
+                        <ShowUserChosen habitData={habitData} />
                         {/* select time*/}
                         <ScheduleTime />
+                        {/* choose habit icon */}
+                        <ChooseHabitIcon />
                         {/* choose habit color */}
                         <ChooseHabitColor habitData={habitData} />
                         {/* Daily completion count */}
@@ -41,6 +44,16 @@ const CreateHabitDetailSreeen = ({ route }) => {
                 </HabitDetalisProvider>
             </ScrollView>
         </LayoutAuth>
+    );
+};
+
+const ChooseHabitIcon = () => {
+    const { color, icon } = useHabitDetail();
+    return (
+        <View className="my-2 mt-0">
+            <Text className="text-lg font-medium my-3">Choose your icon</Text>
+            <ChooseIcon defaultColor={color} defaultIcon={icon} />
+        </View>
     );
 };
 
@@ -63,8 +76,8 @@ const ChooseHabitColor = ({ habitData }) => {
     );
 };
 
-const ShowUserChosen = () => {
-    const { timeHabit, dailyCompletionCounter } = useHabitDetail();
+const ShowUserChosen = ({ habitData }) => {
+    const { timeHabit, dailyCompletionCounter, color } = useHabitDetail();
     if (timeHabit.type === "weekly") timeHabit.days.sort();
     const days = timeHabit.days.map((day) => {
         if (timeHabit.type === "weekly") {
@@ -77,17 +90,21 @@ const ShowUserChosen = () => {
     return (
         <View className="my-4 ">
             <Text className="text-base">
-                You have chosen to do this habit every
+                You have chosen to do {habitData.title} habit every
                 {timeHabit.type === "weekly"
                     ? " week on the day : "
                     : " month on the day: "}
                 <AnimatedTyping
                     text={`${days.join(", ")}`}
+                    style={{ color: color }}
                     className="inline-block text-primary font-bold"
                 />
                 <Text>
                     .With
-                    <Text className="text-primary-pink font-bold">
+                    <Text
+                        style={{ color: color }}
+                        className="text-primary-pink font-bold"
+                    >
                         {" "}
                         {dailyCompletionCounter}{" "}
                     </Text>
@@ -275,7 +292,7 @@ const ButtonSubmitHabit = () => {
                 className="mt-5 py-3 px-5 bg-primary rounded-lg"
             >
                 <Text className="text-white font-bold text-base ">
-                    Create your habit now
+                    Create habit
                 </Text>
             </TouchableOpacity>
         </View>

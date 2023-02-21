@@ -9,6 +9,7 @@ export { default as calendar } from "./calendar.png";
 export { default as calendar2 } from "./calendar2.png";
 export { default as teamwork } from "./team-work.png";
 export { default as congratulationsTask } from "./congratulationsTask.png";
+export { default as searchIcon } from "./searchIcon.png";
 export { default as medalIcon } from "./medal.png";
 export { default as koalaEat } from "./koala/koala-eat.png";
 export { default as koalaGetUp } from "./koala/koala-getup.png";

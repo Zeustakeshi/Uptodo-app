@@ -10,11 +10,13 @@ const HabitDetalisProvider = ({ habitData, ...props }) => {
     });
     const [dailyCompletionCounter, setDailyCompletionCounter] = useState(1);
     const [color, setColor] = useState(habitData.color);
-
+    const [icon, setIcon] = useState(habitData.icon);
     const values = {
+        icon,
         color,
         timeHabit,
         dailyCompletionCounter,
+        setIcon,
         setColor,
         setDailyCompletionCounter,
         setTimeHabit,

@@ -1,12 +1,14 @@
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
-import { Text, TextInput, View, ScrollView } from "react-native";
+import { Image, ScrollView, TextInput, View } from "react-native";
 import { useSelector } from "react-redux";
 import LayoutAuth from "../../components/Layout/LayoutAuth";
 import TaskItem from "../../components/Task/TaskItem";
 import { colors } from "../../const";
 import useDebounce from "../../hooks/useDebounce";
+import * as Animatable from "react-native-animatable";
+import { searchIcon } from "../../../assets";
 
 const SearchScreen = () => {
     const [searchValue, setSearchValue] = useState("");
@@ -88,7 +90,7 @@ const SearchScreen = () => {
 
     return (
         <LayoutAuth title={"Search"}>
-            <View className="mt-5">
+            <Animatable.View animation="rubberBand" className="mt-5">
                 <View className="flex-row relative h-[48px]">
                     <View className="absolute top-3 left-3 justify-center items-center">
                         <Feather
@@ -106,22 +108,33 @@ const SearchScreen = () => {
                         onChangeText={(text) => setSearchValue(text)}
                     />
                 </View>
-            </View>
-            <ScrollView
-                showsVerticalScrollIndicator={false}
-                className="mt-4 flex-1 "
-            >
-                {results.map((task) => {
-                    return (
-                        <TaskItem
-                            key={task.id}
-                            data={task}
-                            allowPress={true}
-                            onPress={() => handlePress(task)}
-                        />
-                    );
-                })}
-            </ScrollView>
+            </Animatable.View>
+            {results.length > 0 ? (
+                <ScrollView
+                    showsVerticalScrollIndicator={false}
+                    className="mt-4 flex-1 "
+                >
+                    {results.map((task) => {
+                        return (
+                            <TaskItem
+                                key={task.id}
+                                data={task}
+                                allowPress={true}
+                                onPress={() => handlePress(task)}
+                            />
+                        );
+                    })}
+                </ScrollView>
+            ) : (
+                <View className="flex-1 justify-center items-center">
+                    <Animatable.Image
+                        animation="rubberBand"
+                        source={searchIcon}
+                        resizeMode="contain"
+                        className="w-[50%] h-[50%]"
+                    />
+                </View>
+            )}
         </LayoutAuth>
     );
 };

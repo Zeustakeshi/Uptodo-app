@@ -1,11 +1,11 @@
-import React from "react";
-import { Text, TouchableOpacity, View } from "react-native";
-import LayoutWrapper from "../../components/Layout/LayoutWrapper";
-import * as Animatable from "react-native-animatable";
-import { Entypo, SimpleLineIcons } from "@expo/vector-icons";
-import Calendars from "../../components/Calendars/Calendars";
+import { SimpleLineIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import React from "react";
+import { View } from "react-native";
+import * as Animatable from "react-native-animatable";
 import HabitItem from "../../components/Habits/HabitItem";
+import LayoutWrapper from "../../components/Layout/LayoutWrapper";
+import * as Progress from "react-native-progress";
 const HabitsScreen = () => {
     const naviagtion = useNavigation();
     return (
@@ -18,7 +18,7 @@ const HabitsScreen = () => {
             }
             navOnPressMidleButton={() => naviagtion.navigate("CreateHabit")}
         >
-            <View className="w-full">
+            <View className="w-full ">
                 <HabitItem></HabitItem>
             </View>
         </LayoutWrapper>

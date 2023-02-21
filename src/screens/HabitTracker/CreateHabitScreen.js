@@ -20,51 +20,51 @@ import LayoutAuth from "../../components/Layout/LayoutAuth";
 const habitsSuggest = [
     {
         id: uuid.v4(),
-        icon: "drink",
         title: "Drinking water",
         desc: "description",
         color: "#3b82f6",
         imgUrl: koalaDrinkWater,
+        icon: 20,
     },
     {
         id: uuid.v4(),
-        icon: "drink",
         title: "Going to bed early",
         desc: "description",
         color: "#4f46e5",
         imgUrl: koalaGoToBed,
+        icon: 1,
     },
     {
         id: uuid.v4(),
-        icon: "drink",
         title: "Eating healthy",
         desc: "description",
         color: "#16a34a",
         imgUrl: koalaEat,
+        icon: 21,
     },
     {
         id: uuid.v4(),
-        icon: "drink",
         title: "Waking up early",
         desc: "description",
         color: "#fbbf24",
         imgUrl: koalaGetUp,
+        icon: 0,
     },
     {
         id: uuid.v4(),
-        icon: "Playing sports",
         title: "Playing sports",
         desc: "description",
         color: "#10b981",
         imgUrl: koalaPlaySport,
+        icon: 10,
     },
     {
         id: uuid.v4(),
-        icon: "read book",
         title: "Reading books",
         desc: "description",
         color: "#f97316",
         imgUrl: koalaReadBook,
+        icon: 4,
     },
 ];
 
@@ -129,7 +129,7 @@ const CreateNewHabit = ({ onCreateHabit = () => {} }) => {
         }
         const newHabit = {
             id: uuid.v4(),
-            icon: "no icon",
+            icon: 19,
             title: habitTitle,
             desc: habitDesc,
             color: "#10b981",
@@ -149,7 +149,6 @@ const CreateNewHabit = ({ onCreateHabit = () => {} }) => {
                     onChangeText={(text) => setHabitTitle(text)}
                     selectionColor="#6651f0"
                     placeholder="Habit Title"
-                    autoFocus
                     placeholderTextColor="#9ca3af"
                     className="flex-1 border-l border-gray-200 px-3 py-1 text-base "
                 ></TextInput>
