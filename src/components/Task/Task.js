@@ -8,9 +8,9 @@ const Task = ({ showSearchTask = true, showEmptyTask = true }) => {
     const { tasks } = useSelector((state) => state.tasks);
 
     return (
-        <View className="flex-1">
+        <View className="">
             {tasks.length > 0 ? (
-                <TaskWapper showSearchTask={showSearchTask} />
+                <TaskWapper />
             ) : showEmptyTask ? (
                 <EmptyTask />
             ) : (

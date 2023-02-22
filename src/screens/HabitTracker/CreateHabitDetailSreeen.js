@@ -8,8 +8,6 @@ import { calendar, calendar2 } from "../../../assets";
 import AnimatedTyping from "../../components/AnimatedTyping";
 import CalendarMonth from "../../components/Calendars/CalendarMonth";
 import CalendarWeek from "../../components/Calendars/CalendarWeek";
-import ChooseColor from "../../components/ChooseColor/ChooseColor";
-import ChooseIcon from "../../components/ChooseIcon/ChooseIcon";
 import ChooseHabitColor from "../../components/Habits/ChooseHabitColor";
 import ChooseHabitIcon from "../../components/Habits/ChooseHabitIcon";
 import HabitBanner from "../../components/Habits/HabitBanner";
@@ -20,6 +18,7 @@ import {
     useHabitDetail,
 } from "../../context/habitdetailsContext";
 import { addhabitList } from "../../redux/slice/habits/habitsSlice";
+import uuid from "react-native-uuid";
 
 const CreateHabitDetailSreeen = ({ route }) => {
     const habitData = route?.params?.newHabitInfo;
@@ -245,7 +244,7 @@ const ButtonSubmitHabit = ({ habitData }) => {
     const navigation = useNavigation();
     const handleAddNewHabit = () => {
         const newHabit = {
-            id: habitData.id,
+            id: uuid.v4(),
             title: habitData.title,
             desc: habitData.desc,
             color: color,

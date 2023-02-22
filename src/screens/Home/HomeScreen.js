@@ -1,18 +1,22 @@
 import { Entypo, Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
 import { useSelector } from "react-redux";
 import LayoutWrapper from "../../components/Layout/LayoutWrapper";
 import AddTaskModal from "../../components/Modals/AddTaskModal";
 import Task from "../../components/Task/Task";
 import { fakeImg } from "../../const";
 import * as Animatable from "react-native-animatable";
+import { SearchBar } from "react-native-screens";
+import TaskWapper from "../../components/Task/TaskWapper";
+import EmptyTask from "../../components/Task/EmptyTask";
+import HabitWrapper from "../../components/Habits/HabitWrapper";
+import Search from "../../components/Search/Search";
 
 const HomeScreen = () => {
     const navigation = useNavigation();
-    const { avatar } = useSelector((state) => state.user);
-
+    const { user, tasks, habits } = useSelector((state) => state);
     return (
         <LayoutWrapper
             showNavigate={true}
@@ -57,15 +61,22 @@ const HomeScreen = () => {
                     onPress={() => navigation.navigate("Profile")}
                 >
                     <Image
-                        source={{ uri: avatar || fakeImg }}
+                        source={{ uri: user.avatar || fakeImg }}
                         className="w-[42px] h-[42px] rounded-full"
                     />
                 </TouchableOpacity>
             </View>
             {/* Content */}
-            <View className="flex-1">
-                <Task />
-            </View>
+
+            {tasks.tasks.length > 0 || habits.habitsList.length > 0 ? (
+                <ScrollView showsVerticalScrollIndicator={false} className="">
+                    <Search />
+                    {habits.habitsList.length > 0 && <HabitWrapper />}
+                    {tasks.tasks.length > 0 && <TaskWapper />}
+                </ScrollView>
+            ) : (
+                <EmptyTask />
+            )}
         </LayoutWrapper>
     );
 };

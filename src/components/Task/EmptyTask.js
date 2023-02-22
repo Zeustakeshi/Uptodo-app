@@ -3,10 +3,11 @@ import React from "react";
 import { Image, Text, View } from "react-native";
 import { homeTask } from "../../../assets";
 import * as Animatable from "react-native-animatable";
+import AnimatedTyping from "../AnimatedTyping";
 
 const EmptyTask = () => {
     return (
-        <View className="flex-1 justify-center items-center">
+        <View className="flex-1 w-full justify-center items-center">
             <View className="w-[227px] h-[227px]">
                 <Animatable.Image
                     animation="rubberBand"
@@ -18,9 +19,11 @@ const EmptyTask = () => {
             </View>
 
             <View className="justify-center items-center mt-3 gap-y-2">
-                <Text className="text-xl font-normal text-text-color">
-                    What do you want to do today?
-                </Text>
+                <AnimatedTyping
+                    className="text-xl font-normal text-text-color"
+                    text="What do you want to do today?"
+                />
+
                 <View className="flex-row gap-x-2 items-center">
                     <Text className="text-base text-gray-800">Tap</Text>
                     <Animatable.View

@@ -6,11 +6,11 @@ import { colors } from "../../const";
 import * as Animatable from "react-native-animatable";
 import AnimatedTyping from "../AnimatedTyping";
 
-const SearchTask = () => {
+const Search = () => {
     const navigation = useNavigation();
 
     return (
-        <View className="mb-5">
+        <View className="my-5">
             <View className="flex-row relative h-[48px]">
                 <Animatable.View
                     animation="rubberBand"
@@ -34,4 +34,4 @@ const SearchTask = () => {
     );
 };
 
-export default SearchTask;
+export default Search;

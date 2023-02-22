@@ -1,6 +1,6 @@
-import { SimpleLineIcons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import { Feather, FontAwesome5 } from "@expo/vector-icons";
 import React from "react";
+import { useState } from "react";
 import {
     Dimensions,
     ScrollView,
@@ -9,11 +9,11 @@ import {
     TouchableOpacity,
     View,
 } from "react-native";
-import * as Animatable from "react-native-animatable";
 import { LineChart } from "react-native-chart-kit";
 import { useDispatch } from "react-redux";
+import AnimatedTyping from "../../components/AnimatedTyping";
 import HabitBanner from "../../components/Habits/HabitBanner";
-import LayoutWrapper from "../../components/Layout/LayoutWrapper";
+import LayoutAuth from "../../components/Layout/LayoutAuth";
 import { dayNamesShort, hexToRgba } from "../../const";
 import { HabitDetalisProvider } from "../../context/habitdetailsContext";
 import { setCompletionCounter } from "../../redux/slice/habits/habitsSlice";
@@ -22,21 +22,12 @@ const windowHeight = Dimensions.get("window").height;
 const windowWidth = Dimensions.get("window").width;
 
 const HabitsDetailScreen = ({ route }) => {
-    const navigation = useNavigation();
     const habitData = route?.params?.habitData;
 
     return (
-        <LayoutWrapper
-            showNavigate
-            navMiddleButton={
-                <Animatable.View animation="rotate" iterationCount={1}>
-                    <SimpleLineIcons name="energy" size={32} color="#ffff" />
-                </Animatable.View>
-            }
-            navOnPressMidleButton={() => navigation.navigate("CreateHabit")}
-        >
+        <LayoutAuth>
             <HabitView habitData={habitData} />
-        </LayoutWrapper>
+        </LayoutAuth>
     );
 };
 
@@ -90,7 +81,11 @@ const HabitView = ({ habitData }) => {
     };
 
     return (
-        <View style={sytles.habitView} className="w-full flex-1 mx-auto">
+        <ScrollView
+            showsVerticalScrollIndicator={false}
+            style={sytles.habitView}
+            className="w-full flex-1 mx-auto"
+        >
             <HabitDetalisProvider habitData={habitData}>
                 {/* baner */}
                 <HabitBanner
@@ -98,24 +93,85 @@ const HabitView = ({ habitData }) => {
                     habitData={habitData}
                     animation="rubberBand"
                 />
-                <Text className="p-4 font-bold text-lg text-center ">
-                    {habitData.title}
-                </Text>
-                <ScrollView className="w-full" horizontal>
-                    <LineChart
-                        data={data}
-                        width={windowWidth + 200}
-                        height={300}
-                        chartConfig={chartConfig}
-                    />
-                </ScrollView>
             </HabitDetalisProvider>
-            {/* <Text className="font-bold text-primary text-lg mb-10">
-                {JSON.stringify(habitData)}
-            </Text> */}
-            <TouchableOpacity onPress={handleUpdate}>
-                <Text className="font-bold text-lg text-primary">
-                    Update counter{" "}
+            <Text className="p-4 font-bold text-2xl text-center ">
+                {habitData.title}
+            </Text>
+            <AnimatedTyping
+                className="p-2 text-text-color text-center"
+                text={`Today you have ${
+                    habitData.dailyCompletionCounter -
+                    habitData.timeHabit.days[0].completionCounter
+                } unfinished`}
+            />
+
+            <Text className="my-5 font-semibold text-lg">Analytics</Text>
+            <ScrollView
+                className="w-full max-h-[350px] min-h-[350px] "
+                horizontal
+                nestedScrollEnabled
+            >
+                <LineChart
+                    data={data}
+                    width={windowWidth + 200}
+                    height={300}
+                    chartConfig={chartConfig}
+                />
+            </ScrollView>
+            {/* Action */}
+            <HabitAction habitData={habitData} />
+        </ScrollView>
+    );
+};
+
+const HabitAction = ({ habitData }) => {
+    const [isPause, setIsPause] = useState(false);
+    const [isStop, setIsStop] = useState(false);
+
+    const handlePauseHabit = () => {
+        setIsPause((prev) => !prev);
+    };
+
+    const handleStopHabit = () => {
+        setIsStop((prev) => !prev);
+    };
+
+    return (
+        <View className="mb-20 justify-center">
+            <Text className="font-semibold text-lg">Habit Setting</Text>
+            <View className=" my-5 px-2 justify-center flex-row items-center">
+                <TouchableOpacity
+                    onPress={handlePauseHabit}
+                    style={{ backgroundColor: habitData.color }}
+                    className="my-2 flex-row justify-start items-center mr-6 px-3 py-2 bg-primary rounded-lg"
+                >
+                    {isPause ? (
+                        <Feather name="play-circle" size={24} color="white" />
+                    ) : (
+                        <FontAwesome5
+                            name="pause-circle"
+                            size={24}
+                            color="white"
+                        />
+                    )}
+                    <Text className="font-semibold text-white ml-2">
+                        {`${isPause ? "Continue Habit" : "Pause Habit"}`}
+                    </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={handleStopHabit}
+                    style={{ backgroundColor: habitData.color }}
+                    className="my-2 flex-row justify-start items-center px-3 py-2 bg-primary rounded-lg"
+                >
+                    <FontAwesome5 name="flag" size={24} color="white" />
+                    <Text className=" font-semibold text-white ml-2">
+                        Stop habit
+                    </Text>
+                </TouchableOpacity>
+            </View>
+            <TouchableOpacity>
+                <Text className="p-4 text-center font-semibold text-red-500 text-base">
+                    Delete habit
                 </Text>
             </TouchableOpacity>
         </View>

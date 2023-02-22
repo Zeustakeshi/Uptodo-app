@@ -2,10 +2,10 @@ import React from "react";
 import { Text, View, ScrollView, TouchableOpacity } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCompletedTask } from "../../redux/slice/tasks/tasksSlice";
-import SearchTask from "./SearchTask";
+import Search from "../Search/Search";
 import TaskList from "./TaskList";
 
-const TaskWapper = ({ showSearchTask = true }) => {
+const TaskWapper = ({}) => {
     const { tasks } = useSelector((state) => state.tasks);
     const uncompleteTasks = tasks.filter((task) => !task.isCompleted);
     const completeTasks = tasks.filter((task) => task.isCompleted);
@@ -16,10 +16,11 @@ const TaskWapper = ({ showSearchTask = true }) => {
     };
 
     return (
-        <View className="flex-1 mt-5">
-            <ScrollView showsVerticalScrollIndicator={false} className="flex-1">
-                {/* Search */}
-                {showSearchTask && <SearchTask />}
+        <View className="flex-1">
+            <Text className="py-2 text-lg font-semibold text-text-color ">
+                Tasks
+            </Text>
+            <View showsVerticalScrollIndicator={false} className="flex-1">
                 {/* Task content */}
                 {uncompleteTasks.length > 0 && (
                     <View className="flex-1">
@@ -45,7 +46,7 @@ const TaskWapper = ({ showSearchTask = true }) => {
                         <TaskList tasks={completeTasks}></TaskList>
                     </View>
                 )}
-            </ScrollView>
+            </View>
         </View>
     );
 };

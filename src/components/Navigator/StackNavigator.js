@@ -28,13 +28,13 @@ const StackNavigator = () => {
                 headerShown: false,
             }}
         >
-            <Stack.Screen name="Loading" component={LoadingScreen} />
+            {/* <Stack.Screen name="Loading" component={LoadingScreen} />
             <Stack.Screen name="Welcome" component={Welcome} />
             <Stack.Screen name="MainWelcome" component={MainWelcome} />
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="OTP" component={OTPVerifyScreen} />
             <Stack.Screen name="ChangePassword" component={ChangePassword} />
-            <Stack.Screen name="Register" component={RegisterScreen} />
+            <Stack.Screen name="Register" component={RegisterScreen} /> */}
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="Habits" component={HabitsScreen} />
             <Stack.Screen name="HabitsDetail" component={HabitsDetailScreen} />

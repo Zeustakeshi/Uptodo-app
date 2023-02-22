@@ -5,11 +5,19 @@ import { useHabitDetail } from "../../context/habitdetailsContext";
 import ChooseIcon from "../ChooseIcon/ChooseIcon";
 
 const ChooseHabitIcon = () => {
-    const { color, icon } = useHabitDetail();
+    const { color, icon, setIcon } = useHabitDetail();
+    const handleChooseHabitIcon = (iconIndex) => {
+        setIcon(iconIndex);
+    };
+
     return (
         <View className="my-2 mt-0">
             <Text className="text-lg font-medium my-3">Choose your icon</Text>
-            <ChooseIcon defaultColor={color} defaultIcon={icon} />
+            <ChooseIcon
+                onChooseIcon={handleChooseHabitIcon}
+                defaultColor={color}
+                defaultIcon={icon}
+            />
         </View>
     );
 };
