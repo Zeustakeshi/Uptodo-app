@@ -3,6 +3,7 @@ import React from "react";
 import { Image, Pressable, Text } from "react-native";
 import { View } from "react-native-animatable";
 import AnimatedTyping from "../AnimatedTyping";
+import Icon, { icons } from "../ChooseIcon/Icon";
 
 const HabitItem = ({ habitData }) => {
     const navigation = useNavigation();
@@ -12,11 +13,24 @@ const HabitItem = ({ habitData }) => {
             onPress={() =>
                 navigation.navigate("HabitsDetail", { habitData: habitData })
             }
-            className=" my-2 bg-slate-100 rounded-2xl p-4 flex-row justify-start items-center"
+            className="relative  my-2 bg-slate-100 rounded-2xl p-4 flex-row justify-start items-center"
         >
+            {/* <View
+                style={{
+                    borderColor: habitData.color,
+                    borderWidth: 1,
+                }}
+                className="absolute top-0 right-0 rounded-full  p-4 z-10 "
+            >
+                <Icon
+                    name={icons[habitData.icon]}
+                    size={10}
+                    color={habitData.color}
+                ></Icon>
+            </View> */}
             <View
                 style={{ backgroundColor: habitData.color }}
-                className="w-[100px] h-[100px] p-2 rounded-2xl"
+                className="relative w-[100px] h-[100px] p-2 rounded-2xl"
             >
                 <Image
                     className="w-full h-full"
