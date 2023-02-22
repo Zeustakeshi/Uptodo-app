@@ -1,13 +1,17 @@
+import React from "react";
+import LayoutWrapper from "../../components/Layout/LayoutWrapper";
+import * as Animatable from "react-native-animatable";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import React from "react";
-import { View } from "react-native";
-import * as Animatable from "react-native-animatable";
+import { ScrollView, Text, View } from "react-native";
 import HabitItem from "../../components/Habits/HabitItem";
-import LayoutWrapper from "../../components/Layout/LayoutWrapper";
-import * as Progress from "react-native-progress";
+import { useSelector } from "react-redux";
+import uuid from "react-native-uuid";
+
 const HabitsScreen = () => {
-    const naviagtion = useNavigation();
+    const navigation = useNavigation();
+    const { habitsList } = useSelector((state) => state.habits);
+
     return (
         <LayoutWrapper
             showNavigate
@@ -16,11 +20,24 @@ const HabitsScreen = () => {
                     <SimpleLineIcons name="energy" size={32} color="#ffff" />
                 </Animatable.View>
             }
-            navOnPressMidleButton={() => naviagtion.navigate("CreateHabit")}
+            navOnPressMidleButton={() => navigation.navigate("CreateHabit")}
         >
-            <View className="w-full ">
-                <HabitItem></HabitItem>
-            </View>
+            <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
+                <View className="w-full h-full py-4">
+                    <Text className="font-semibold text-2xl ">Habits</Text>
+                    {habitsList.length > 0 ? (
+                        <View>
+                            {habitsList.map((habit) => (
+                                <HabitItem key={uuid.v4()} habitData={habit} />
+                            ))}
+                        </View>
+                    ) : (
+                        <View>
+                            <Text>no habit</Text>
+                        </View>
+                    )}
+                </View>
+            </ScrollView>
         </LayoutWrapper>
     );
 };

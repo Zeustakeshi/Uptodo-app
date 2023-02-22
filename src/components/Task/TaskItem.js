@@ -1,9 +1,9 @@
 import { Entypo, FontAwesome5, MaterialIcons } from "@expo/vector-icons";
 import React from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
+import * as Animatable from "react-native-animatable";
 import { useSelector } from "react-redux";
 import CategoryIcon from "../CategoryIcon";
-import * as Animatable from "react-native-animatable";
 
 const TaskItem = ({
     data,
@@ -18,7 +18,7 @@ const TaskItem = ({
     const { name, time, categrory, priority, isCompleted } = data;
 
     return (
-        <TouchableOpacity
+        <Pressable
             onPress={() => allowPress && onPress()}
             onLongPress={() => allowLongPress && onLongPress()}
             className={` ${isCompleted && "opacity-50"}`}
@@ -27,7 +27,7 @@ const TaskItem = ({
                 animation={animation}
                 easing="ease-in-out"
                 iterationCount={1}
-                className="p-3 flex-row justify-start items-center bg-gray-50 mb-3 rounded-lg"
+                className="p-3 flex-row justify-start items-center bg-slate-50 mb-3 rounded-lg"
             >
                 {/* icon circle */}
                 {isCompleted ? (
@@ -83,7 +83,7 @@ const TaskItem = ({
                     </View>
                 </View>
             </Animatable.View>
-        </TouchableOpacity>
+        </Pressable>
     );
 };
 

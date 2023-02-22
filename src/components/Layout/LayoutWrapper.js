@@ -13,8 +13,8 @@ const LayoutWrapper = ({
 }) => {
     return (
         <SafeAreaView className={`flex-1 bg-white `}>
-            <View className="flex-1 px-6 bg-white pt-2" style={style}>
-                {children}
+            <View className="flex-1 px-5  bg-white pt-2" style={style}>
+                <View className="flex-1 mx-auto w-full">{children}</View>
             </View>
             {showNavigate && (
                 <Nav

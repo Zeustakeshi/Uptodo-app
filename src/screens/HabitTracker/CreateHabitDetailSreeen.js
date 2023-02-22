@@ -1,19 +1,25 @@
 import { Entypo } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
 import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import * as Animatable from "react-native-animatable";
+import { useDispatch } from "react-redux";
 import { calendar, calendar2 } from "../../../assets";
 import AnimatedTyping from "../../components/AnimatedTyping";
 import CalendarMonth from "../../components/Calendars/CalendarMonth";
 import CalendarWeek from "../../components/Calendars/CalendarWeek";
 import ChooseColor from "../../components/ChooseColor/ChooseColor";
 import ChooseIcon from "../../components/ChooseIcon/ChooseIcon";
+import ChooseHabitColor from "../../components/Habits/ChooseHabitColor";
+import ChooseHabitIcon from "../../components/Habits/ChooseHabitIcon";
+import HabitBanner from "../../components/Habits/HabitBanner";
 import LayoutAuth from "../../components/Layout/LayoutAuth";
 import { dayNamesShort } from "../../const";
 import {
     HabitDetalisProvider,
     useHabitDetail,
 } from "../../context/habitdetailsContext";
+import { addhabitList } from "../../redux/slice/habits/habitsSlice";
 
 const CreateHabitDetailSreeen = ({ route }) => {
     const habitData = route?.params?.newHabitInfo;
@@ -27,7 +33,7 @@ const CreateHabitDetailSreeen = ({ route }) => {
                 <HabitDetalisProvider habitData={habitData}>
                     <View className="mt-5 mb-20">
                         {/* banner */}
-                        <Banner habitData={habitData} />
+                        <HabitBanner habitData={habitData} />
                         {/* show user chosen */}
                         <ShowUserChosen habitData={habitData} />
                         {/* select time*/}
@@ -39,40 +45,11 @@ const CreateHabitDetailSreeen = ({ route }) => {
                         {/* Daily completion count */}
                         <DailyCompletionCount />
                         {/* ButtonSubmitHabit */}
-                        <ButtonSubmitHabit />
+                        <ButtonSubmitHabit habitData={habitData} />
                     </View>
                 </HabitDetalisProvider>
             </ScrollView>
         </LayoutAuth>
-    );
-};
-
-const ChooseHabitIcon = () => {
-    const { color, icon } = useHabitDetail();
-    return (
-        <View className="my-2 mt-0">
-            <Text className="text-lg font-medium my-3">Choose your icon</Text>
-            <ChooseIcon defaultColor={color} defaultIcon={icon} />
-        </View>
-    );
-};
-
-const ChooseHabitColor = ({ habitData }) => {
-    const { setColor } = useHabitDetail();
-
-    const handleChooseHabitColor = (color) => {
-        setColor(color);
-    };
-    return (
-        <View className="my-2 mt-0">
-            <Text className="text-lg font-medium my-3">
-                Choose your favorite color
-            </Text>
-            <ChooseColor
-                onChooseColor={(color) => handleChooseHabitColor(color)}
-                defautColor={habitData.color}
-            />
-        </View>
     );
 };
 
@@ -115,25 +92,6 @@ const ShowUserChosen = ({ habitData }) => {
     );
 };
 
-const Banner = ({ habitData }) => {
-    const { color } = useHabitDetail();
-    return (
-        <Animatable.View
-            animation="bounceIn"
-            easing="ease-in-out"
-            iterationCount={1}
-            style={{ backgroundColor: color || habitData.color }}
-            className={`w-full h-[150px] rounded-xl p-3 relative`}
-        >
-            <Image
-                className="w-full h-full"
-                resizeMode="contain"
-                source={habitData.imgUrl}
-            />
-        </Animatable.View>
-    );
-};
-
 const ScheduleTime = () => {
     return (
         <View className="my-2 mt-0">
@@ -150,6 +108,7 @@ const ScheduleTimeWeekly = () => {
     const [showCalendar, setShowcalendar] = useState(false);
     const { setTimeHabit } = useHabitDetail();
     const handleSave = (currentChooses) => {
+        if (currentChooses.length == 0) return;
         setTimeHabit({
             type: "weekly",
             days: currentChooses,
@@ -196,6 +155,7 @@ const ScheduleTimeMonthly = () => {
     const [showCalendar, setShowcalendar] = useState(false);
     const { setTimeHabit } = useHabitDetail();
     const handleSave = (currentChooses) => {
+        if (currentChooses.length == 0) return;
         setTimeHabit({
             type: "monthly",
             days: currentChooses,
@@ -279,16 +239,37 @@ const DailyCompletionCount = () => {
     );
 };
 
-const ButtonSubmitHabit = () => {
-    const { timeHabit, dailyCompletionCounter } = useHabitDetail();
-    const handleAddHabit = () => {
-        console.log(timeHabit);
-    };
+const ButtonSubmitHabit = ({ habitData }) => {
+    const { icon, timeHabit, dailyCompletionCounter, color } = useHabitDetail();
+    const dispatch = useDispatch();
+    const navigation = useNavigation();
+    const handleAddNewHabit = () => {
+        const newHabit = {
+            id: habitData.id,
+            title: habitData.title,
+            desc: habitData.desc,
+            color: color,
+            imgUrl: habitData.imgUrl,
+            icon: icon,
+            dailyCompletionCounter: dailyCompletionCounter,
+            timeHabit: {
+                type: timeHabit.type,
+                days: timeHabit.days.map((day) => {
+                    return {
+                        day: day,
+                        completionCounter: 0,
+                    };
+                }),
+            },
+        };
 
+        dispatch(addhabitList(newHabit));
+        navigation.navigate("Habits");
+    };
     return (
         <View className="my-10 justify-center items-center">
             <TouchableOpacity
-                onPress={handleAddHabit}
+                onPress={handleAddNewHabit}
                 className="mt-5 py-3 px-5 bg-primary rounded-lg"
             >
                 <Text className="text-white font-bold text-base ">
