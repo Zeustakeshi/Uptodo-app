@@ -66,6 +66,7 @@ const RegisterScreen = () => {
                         taskDone: 0,
                     },
                     isLogin: true,
+                    habits: [],
                 })
             );
             navigation.reset({

@@ -72,9 +72,9 @@ const ProfileScreen = () => {
     };
 
     const handleLogout = () => {
-        signOut(auth);
-        dispatch(resetUserInfo());
         dispatch(resetTasks());
+        dispatch(resetUserInfo());
+        signOut(auth);
         navigation.reset({
             index: 1,
             routes: [{ name: "Login" }],

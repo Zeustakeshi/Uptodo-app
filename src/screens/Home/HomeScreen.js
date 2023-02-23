@@ -1,22 +1,44 @@
-import { Entypo, Feather } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
-import React from "react";
-import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import * as Animatable from "react-native-animatable";
+import { useDispatch, useSelector } from "react-redux";
+import HabitWrapper from "../../components/Habits/HabitWrapper";
 import LayoutWrapper from "../../components/Layout/LayoutWrapper";
 import AddTaskModal from "../../components/Modals/AddTaskModal";
-import Task from "../../components/Task/Task";
-import { fakeImg } from "../../const";
-import * as Animatable from "react-native-animatable";
-import { SearchBar } from "react-native-screens";
-import TaskWapper from "../../components/Task/TaskWapper";
-import EmptyTask from "../../components/Task/EmptyTask";
-import HabitWrapper from "../../components/Habits/HabitWrapper";
 import Search from "../../components/Search/Search";
+import EmptyTask from "../../components/Task/EmptyTask";
+import TaskWapper from "../../components/Task/TaskWapper";
+import { fakeImg } from "../../const";
+import { createHabitList } from "../../redux/slice/habits/habitsSlice";
+import { updateTasks } from "../../redux/slice/tasks/tasksSlice";
 
 const HomeScreen = () => {
     const navigation = useNavigation();
     const { user, tasks, habits } = useSelector((state) => state);
+
+    const dispatch = useDispatch();
+    // useEffect(() => {
+    //     (async () => {
+    //         const tasks = await AsyncStorage.getItem("tasks");
+    //         if (tasks) {
+    //             dispatch(updateTasks(JSON.parse(tasks)));
+    //         }
+    //         const keys = await AsyncStorage.getAllKeys();
+    //         if (keys.length != 0) {
+    //             const values = await AsyncStorage.multiGet(
+    //                 keys.filter((key) => key.includes("habit-"))
+    //             );
+    //             const habits = values.map((value) => {
+    //                 return JSON.parse(value[1]);
+    //             });
+    //             dispatch(createHabitList(habits));
+    //         }
+    //     })();
+    // }, []);
+
     return (
         <LayoutWrapper
             showNavigate={true}

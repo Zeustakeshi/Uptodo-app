@@ -6,14 +6,19 @@ import { ActivityIndicator, Text, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import LayoutWrapper from "../../components/Layout/LayoutWrapper";
 import { loadFocusSetting, loadSetting } from "../../redux/slice/App/appSlice";
+import {
+    createHabitList,
+    updateHabitList,
+} from "../../redux/slice/habits/habitsSlice";
+import { setTasks, updateTasks } from "../../redux/slice/tasks/tasksSlice";
 
 const LoadingScreen = () => {
     const navigation = useNavigation();
     const userInfo = useSelector((state) => state.user);
-    const dispath = useDispatch();
+    const dispatch = useDispatch();
     useEffect(() => {
-        dispath(loadFocusSetting());
-        dispath(loadSetting());
+        dispatch(loadFocusSetting());
+        dispatch(loadSetting());
     }, []);
 
     useEffect(() => {
@@ -27,6 +32,20 @@ const LoadingScreen = () => {
                 });
             } else {
                 if (userInfo.isLogin) {
+                    const tasks = await AsyncStorage.getItem("tasks");
+                    if (tasks) {
+                        dispatch(updateTasks(JSON.parse(tasks)));
+                    }
+                    const keys = await AsyncStorage.getAllKeys();
+                    if (keys.length != 0) {
+                        const values = await AsyncStorage.multiGet(
+                            keys.filter((key) => key.includes("habit-"))
+                        );
+                        const habits = values.map((value) => {
+                            return JSON.parse(value[1]);
+                        });
+                        dispatch(createHabitList(habits));
+                    }
                     navigation.reset({
                         index: 1,
                         routes: [{ name: "Home" }],
@@ -39,7 +58,7 @@ const LoadingScreen = () => {
                 }
             }
         })();
-    });
+    }, []);
 
     return (
         <LayoutWrapper>

@@ -1,7 +1,15 @@
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React, { useState, useEffect } from "react";
 import { Text } from "react-native";
+import { View } from "react-native-animatable";
 
-const AnimatedTyping = ({ text, animatedTime = 100, ...props }) => {
+const AnimatedTyping = ({
+    text,
+    animatedTime = 100,
+    quote,
+
+    ...props
+}) => {
     const [displayedText, setDisplayedText] = useState("");
 
     useEffect(() => {
@@ -18,7 +26,13 @@ const AnimatedTyping = ({ text, animatedTime = 100, ...props }) => {
         return () => clearInterval(timer);
     }, [text]);
 
-    return <Text {...props}>{displayedText}</Text>;
+    return (
+        <Text {...props}>
+            {quote && <Text className="font-bold text-primary">" </Text>}
+            {displayedText}
+            {quote && <Text className="font-bold text-primary"> "{"\n"}</Text>}
+        </Text>
+    );
 };
 
 export default AnimatedTyping;

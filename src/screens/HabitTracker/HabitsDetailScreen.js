@@ -1,6 +1,5 @@
 import { Feather, FontAwesome5 } from "@expo/vector-icons";
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import {
     Dimensions,
     ScrollView,
@@ -11,7 +10,6 @@ import {
 } from "react-native";
 import { LineChart } from "react-native-chart-kit";
 import { useDispatch } from "react-redux";
-import AnimatedTyping from "../../components/AnimatedTyping";
 import HabitBanner from "../../components/Habits/HabitBanner";
 import UnfinishedMessage from "../../components/Habits/UnfinishedMessage";
 import LayoutAuth from "../../components/Layout/LayoutAuth";

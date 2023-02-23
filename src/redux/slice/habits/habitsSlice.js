@@ -12,21 +12,27 @@ const habtisSlice = createSlice({
         updateHabitList(state, action) {
             state.habitsList.unshift(action.payload);
         },
+        loadHabitList(state, action) {},
+        createHabitList(state, action) {
+            state.habitsList = action.payload;
+        },
+        resetHabits() {},
+        reset(state) {
+            state = initialState;
+        },
+
         setCompletionCounter(action, payload) {},
         updateCompletionCounter(state, action) {
-            const { id, dayIndex, completionCounter } = action.payload;
-            const targetHabit = state.habitsList.find(
-                (habit) => habit.id === id
-            );
-            if (targetHabit) {
-                targetHabit.timeHabit.days[dayIndex].completionCounter =
-                    completionCounter;
-            }
+            state.habitsList = action.payload;
         },
     },
 });
 
 export const {
+    resetHabits,
+    reset,
+    loadHabitList,
+    createHabitList,
     addhabitList,
     updateHabitList,
     setCompletionCounter,

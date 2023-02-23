@@ -17,7 +17,8 @@ import SettingItem from "../../components/SettingItem/SettingItem";
 
 const SettingScreen = () => {
     const { id: userId } = useSelector((state) => state.user);
-    const { tasks } = useSelector((state) => state.tasks);
+    const { tasks: tasksList, habits } = useSelector((state) => state);
+
     const navigation = useNavigation();
 
     const [asycServerLoading, setAsyncServerLoading] = useState(false);
@@ -25,7 +26,10 @@ const SettingScreen = () => {
         try {
             setAsyncServerLoading(true);
             const userRef = doc(db, "users", userId);
-            await updateDoc(userRef, { tasks: tasks });
+            await updateDoc(userRef, {
+                tasks: tasksList.tasks,
+                habits: habits.habitsList,
+            });
         } catch (error) {
             alert(error);
             console.log(error);

@@ -16,6 +16,7 @@ import { appleIcon, googleIcon } from "../../../assets";
 import LayoutAuth from "../../components/Layout/LayoutAuth";
 import { formatPhone, isValidPhone } from "../../const";
 import { auth, db, firebaseConfig } from "../../firebase/firebase-config";
+import { createHabitList } from "../../redux/slice/habits/habitsSlice";
 import { setTasks } from "../../redux/slice/tasks/tasksSlice";
 import { setUserInfo } from "../../redux/slice/user/userSlice";
 
@@ -56,10 +57,13 @@ const LoginScreen = () => {
                     },
                 };
                 const tasks = userData?.tasks;
+                const habits = userData?.habits;
                 // dispatch set current user data to store
                 dispatch(setUserInfo({ ...userInfo, isLogin: true }));
                 // dispatch set current user tasks to store
                 dispatch(setTasks(tasks));
+                // dispatch set habits to store
+                dispatch(createHabitList(habits));
             }
             navigation.reset({
                 index: 1,

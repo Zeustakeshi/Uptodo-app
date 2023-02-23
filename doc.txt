@@ -10,4 +10,7 @@
 + reset tasks
     dispatch action resetTasks
 
+// lưu dữ liệu habit vào storage va firebase
+// cho phép người dùng xóa habit
+// thêm chức năng search habit
 

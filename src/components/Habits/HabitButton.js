@@ -36,7 +36,9 @@ const HabitButton = ({ habitData, showTitle = true, ...props }) => {
             dispatch(
                 setCompletionCounter({
                     id: habitData.id,
-                    dayIndex: todayOfWeek,
+                    dayIndex: habitData.timeHabit.days.findIndex(
+                        (time) => time.day === todayOfWeek
+                    ),
                     completionCounter: currentCounter + 1,
                 })
             );
@@ -44,7 +46,9 @@ const HabitButton = ({ habitData, showTitle = true, ...props }) => {
             dispatch(
                 setCompletionCounter({
                     id: habitData.id,
-                    dayIndex: todayOfMonth,
+                    dayIndex: habitData.timeHabit.days.findIndex(
+                        (time) => time.day === todayOfMonth
+                    ),
                     completionCounter: currentCounter + 1,
                 })
             );

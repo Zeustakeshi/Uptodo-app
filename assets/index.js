@@ -11,6 +11,8 @@ export { default as teamwork } from "./team-work.png";
 export { default as congratulationsTask } from "./congratulationsTask.png";
 export { default as searchIcon } from "./searchIcon.png";
 export { default as medalIcon } from "./medal.png";
+export { default as smokingPipe } from "./smoking-pipe.png";
+// Koala
 export { default as koalaEat } from "./koala/koala-eat.png";
 export { default as koalaGetUp } from "./koala/koala-getup.png";
 export { default as koalaDrinkWater } from "./koala/koala-drink-water.png";
