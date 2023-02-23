@@ -18,8 +18,10 @@ const habtisSlice = createSlice({
             const targetHabit = state.habitsList.find(
                 (habit) => habit.id === id
             );
-            targetHabit.timeHabit.days[dayIndex].completionCounter =
-                completionCounter;
+            if (targetHabit) {
+                targetHabit.timeHabit.days[dayIndex].completionCounter =
+                    completionCounter;
+            }
         },
     },
 });

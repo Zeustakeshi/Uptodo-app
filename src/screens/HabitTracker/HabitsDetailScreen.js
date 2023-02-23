@@ -13,6 +13,7 @@ import { LineChart } from "react-native-chart-kit";
 import { useDispatch } from "react-redux";
 import AnimatedTyping from "../../components/AnimatedTyping";
 import HabitBanner from "../../components/Habits/HabitBanner";
+import UnfinishedMessage from "../../components/Habits/UnfinishedMessage";
 import LayoutAuth from "../../components/Layout/LayoutAuth";
 import { dayNamesShort, hexToRgba } from "../../const";
 import { HabitDetalisProvider } from "../../context/habitdetailsContext";
@@ -97,13 +98,9 @@ const HabitView = ({ habitData }) => {
             <Text className="p-4 font-bold text-2xl text-center ">
                 {habitData.title}
             </Text>
-            <AnimatedTyping
-                className="p-2 text-text-color text-center"
-                text={`Today you have ${
-                    habitData.dailyCompletionCounter -
-                    habitData.timeHabit.days[0].completionCounter
-                } unfinished`}
-            />
+            <View className="justify-center items-center">
+                <UnfinishedMessage fontSize={16} habitData={habitData} />
+            </View>
 
             <Text className="my-5 font-semibold text-lg">Analytics</Text>
             <ScrollView

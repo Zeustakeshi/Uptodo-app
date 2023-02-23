@@ -4,6 +4,7 @@ import { Image, Pressable, Text } from "react-native";
 import { View } from "react-native-animatable";
 import AnimatedTyping from "../AnimatedTyping";
 import Icon, { icons } from "../ChooseIcon/Icon";
+import UnfinishedMessage from "./UnfinishedMessage";
 
 const HabitItem = ({ habitData }) => {
     const navigation = useNavigation();
@@ -45,14 +46,15 @@ const HabitItem = ({ habitData }) => {
                 >
                     {habitData.title}
                 </Text>
-                <AnimatedTyping
+                {/* <AnimatedTyping
                     className="text-slate-500 text-xs"
                     numberOfLines={2}
                     text={`Today you have ${
                         habitData.dailyCompletionCounter -
                         habitData.timeHabit.days[0].completionCounter
                     } unfinished`}
-                />
+                /> */}
+                <UnfinishedMessage habitData={habitData} />
             </View>
         </Pressable>
     );

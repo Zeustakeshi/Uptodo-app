@@ -11,4 +11,3 @@
     dispatch action resetTasks
 
 
-phãi lấy số lượng task còn lại từ ngày hiện tại chứ không phải từ ngày số 0
