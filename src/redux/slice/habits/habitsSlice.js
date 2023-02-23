@@ -16,9 +16,15 @@ const habtisSlice = createSlice({
         createHabitList(state, action) {
             state.habitsList = action.payload;
         },
+
         resetHabits() {},
         reset(state) {
             state = initialState;
+        },
+
+        removeHabit(state, action) {},
+        remove(state, action) {
+            state.habitsList = action.payload;
         },
 
         setCompletionCounter(action, payload) {},
@@ -29,6 +35,8 @@ const habtisSlice = createSlice({
 });
 
 export const {
+    removeHabit,
+    remove,
     resetHabits,
     reset,
     loadHabitList,

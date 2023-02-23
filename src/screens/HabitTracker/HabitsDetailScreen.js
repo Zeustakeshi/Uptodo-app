@@ -1,4 +1,5 @@
 import { Feather, FontAwesome5 } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
 import {
     Dimensions,
@@ -15,7 +16,10 @@ import UnfinishedMessage from "../../components/Habits/UnfinishedMessage";
 import LayoutAuth from "../../components/Layout/LayoutAuth";
 import { dayNamesShort, hexToRgba } from "../../const";
 import { HabitDetalisProvider } from "../../context/habitdetailsContext";
-import { setCompletionCounter } from "../../redux/slice/habits/habitsSlice";
+import {
+    removeHabit,
+    setCompletionCounter,
+} from "../../redux/slice/habits/habitsSlice";
 
 const windowHeight = Dimensions.get("window").height;
 const windowWidth = Dimensions.get("window").width;
@@ -123,12 +127,22 @@ const HabitAction = ({ habitData }) => {
     const [isPause, setIsPause] = useState(false);
     const [isStop, setIsStop] = useState(false);
 
+    const dispatch = useDispatch();
+    const navigation = useNavigation();
     const handlePauseHabit = () => {
         setIsPause((prev) => !prev);
     };
 
     const handleStopHabit = () => {
         setIsStop((prev) => !prev);
+    };
+
+    const handleDeleteHabit = () => {
+        dispatch(removeHabit(habitData.id));
+        navigation.reset({
+            index: 1,
+            routes: [{ name: "Home" }],
+        });
     };
 
     return (
@@ -164,7 +178,7 @@ const HabitAction = ({ habitData }) => {
                     </Text>
                 </TouchableOpacity>
             </View>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={handleDeleteHabit}>
                 <Text className="p-4 text-center font-semibold text-red-500 text-base">
                     Delete habit
                 </Text>

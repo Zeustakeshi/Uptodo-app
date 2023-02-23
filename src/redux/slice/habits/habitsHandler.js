@@ -51,3 +51,11 @@ export function* handleResethabits(action) {
     // remove from store
     yield put(reset());
 }
+
+export function* handleRemoveHabit(action) {
+    const { habitsList } = yield select((state) => state.habits);
+    const id = action.payload;
+    const newHabitList = habitsList.filter((habit) => habit.id !== id);
+    yield AsyncStorage.removeItem(`habit-${id}`);
+    yield put(updateCompletionCounter(newHabitList));
+}
