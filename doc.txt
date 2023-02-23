@@ -11,5 +11,4 @@
     dispatch action resetTasks
 
 
-khi không có habit trong ngày hôm đó thì không hiện your habit
 phãi lấy số lượng task còn lại từ ngày hiện tại chứ không phải từ ngày số 0

@@ -2,12 +2,25 @@ import React from "react";
 import { ScrollView, Text } from "react-native";
 import { View } from "react-native-animatable";
 import { useSelector } from "react-redux";
-import HabitButton from "./HabitButton";
+import HabitButton, { ButtonAddNewHabit } from "./HabitButton";
 
 const todayOfWeek = new Date().getDay();
 const todayOfMonth = new Date().getDate();
 const HabitWrapper = () => {
     const { habitsList } = useSelector((state) => state.habits);
+
+    const habits = habitsList.filter((habit) => {
+        return (
+            (habit.timeHabit.type === "weekly" &&
+                habit.timeHabit.days.some(
+                    (time) => time.day === todayOfWeek - 1
+                )) ||
+            (habit.timeHabit.type === "monthly" &&
+                habit.timeHabit.days.some(
+                    (time) => time.day === todayOfMonth - 1
+                ))
+        );
+    });
 
     return (
         <View className="flex-1">
@@ -15,23 +28,13 @@ const HabitWrapper = () => {
                 Your Habits
             </Text>
             <ScrollView horizontal className="rounded-md  ">
-                {habitsList.map((habit, index) => {
-                    if (
-                        habitsList[index].timeHabit.type === "weekly" &&
-                        habitsList[index].timeHabit.days.some(
-                            (time) => time.day === todayOfWeek - 1
-                        )
-                    ) {
+                {habits.length > 0 ? (
+                    habits.map((habit, index) => {
                         return <HabitButton key={index} habitData={habit} />;
-                    } else if (
-                        habitsList[index].timeHabit.type === "monthly" &&
-                        habitsList[index].timeHabit.days.some(
-                            (time) => time.day === todayOfMonth - 1
-                        )
-                    ) {
-                        return <HabitButton key={index} habitData={habit} />;
-                    }
-                })}
+                    })
+                ) : (
+                    <ButtonAddNewHabit />
+                )}
             </ScrollView>
         </View>
     );

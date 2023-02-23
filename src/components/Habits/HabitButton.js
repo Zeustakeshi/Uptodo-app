@@ -1,12 +1,13 @@
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
-import { Pressable, Text, TouchableOpacity } from "react-native";
+import { SimpleLineIcons } from "@expo/vector-icons";
+import React, { useEffect, useState } from "react";
+import { Text, TouchableOpacity } from "react-native";
 import { View } from "react-native-animatable";
 import * as Progress from "react-native-progress";
 import { useDispatch } from "react-redux";
 import { setCompletionCounter } from "../../redux/slice/habits/habitsSlice";
 import Icon, { icons } from "../ChooseIcon/Icon";
+import * as Animatable from "react-native-animatable";
+import { useNavigation } from "@react-navigation/native";
 
 const todayOfWeek = new Date().getDay() - 1;
 const todayOfMonth = new Date().getDate() - 1;
@@ -64,6 +65,7 @@ const HabitButton = ({ habitData, showTitle = true, ...props }) => {
             >
                 <View className="bg-slate-100 p-[2px] absolute w-[70px] h-[70px] rounded-full justify-center items-center">
                     <TouchableOpacity
+                        activeOpacity={0.5}
                         onPress={handleIncreaseCounter}
                         {...props}
                         style={{
@@ -82,6 +84,25 @@ const HabitButton = ({ habitData, showTitle = true, ...props }) => {
                 {habitData.title}
             </Text>
         </View>
+    );
+};
+
+export const ButtonAddNewHabit = () => {
+    const navigation = useNavigation();
+
+    return (
+        <TouchableOpacity
+            onPress={() => navigation.navigate("CreateHabit")}
+            className="w-[80px] h-[80px] p-1 bg-slate-50 rounded-full justify-center items-center border-2 border-primary"
+        >
+            <Animatable.View
+                animation="swing"
+                iterationCount="infinite"
+                className="bg-primary w-full h-full rounded-full justify-center items-center"
+            >
+                <SimpleLineIcons name="energy" size={24} color="#fff" />
+            </Animatable.View>
+        </TouchableOpacity>
     );
 };
 
