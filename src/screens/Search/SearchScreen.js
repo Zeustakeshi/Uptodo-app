@@ -5,20 +5,23 @@ import { Image, ScrollView, TextInput, View } from "react-native";
 import { useSelector } from "react-redux";
 import LayoutAuth from "../../components/Layout/LayoutAuth";
 import TaskItem from "../../components/Task/TaskItem";
-import { colors } from "../../const";
+import { colors, convertViToEn } from "../../const";
 import useDebounce from "../../hooks/useDebounce";
 import * as Animatable from "react-native-animatable";
 import { searchIcon } from "../../../assets";
+import HabitItem from "../../components/Habits/HabitItem";
 
 const SearchScreen = () => {
     const [searchValue, setSearchValue] = useState("");
-    const [results, setResults] = useState([]);
+    const [results, setResults] = useState({ habits: [], tasks: [] });
     const debounce = useDebounce(searchValue, 500);
 
     const navigation = useNavigation();
 
     // get tasks from store
-    const { tasks, categories } = useSelector((state) => state.tasks);
+    const { tasks, habits } = useSelector((state) => state);
+    const { tasks: tasksList, categories } = tasks;
+    const habitsList = habits.habitsList;
 
     // handle search
     //get categories
@@ -30,33 +33,42 @@ const SearchScreen = () => {
         });
     };
 
-    //convertViToEn
-    const convertViToEn = (str, toUpperCase = false) => {
-        str = str.toLowerCase();
-        str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
-        str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
-        str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
-        str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
-        str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
-        str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
-        str = str.replace(/đ/g, "d");
-        // Some system encode vietnamese combining accent as individual utf-8 characters
-        str = str.replace(/\u0300|\u0301|\u0303|\u0309|\u0323/g, ""); // Huyền sắc hỏi ngã nặng
-        str = str.replace(/\u02C6|\u0306|\u031B/g, ""); // Â, Ê, Ă, Ơ, Ư
-
-        return toUpperCase ? str.toUpperCase() : str;
-    };
-
     useEffect(() => {
         if (searchValue.trim() === "") {
             setResults([]);
             return;
         }
         const matchCategrory = getcategories();
-        const results = [
-            ...tasks.filter((task) => {
-                return (
-                    convertViToEn(task.name)
+        const results = {
+            tasks: [
+                ...tasksList.filter((task) => {
+                    return (
+                        convertViToEn(task.name)
+                            .toLowerCase()
+                            .trim()
+
+                            .includes(
+                                convertViToEn(
+                                    searchValue.toLocaleLowerCase().trim()
+                                )
+                            ) ||
+                        convertViToEn(task.desc)
+                            .toLowerCase()
+                            .trim()
+                            .includes(
+                                convertViToEn(
+                                    searchValue.toLocaleLowerCase().trim()
+                                )
+                            ) ||
+                        matchCategrory.some(
+                            (matchValue) => matchValue.id === task.categrory
+                        )
+                    );
+                }),
+            ],
+            habits: [
+                ...habitsList.filter((habit) => {
+                    return convertViToEn(habit.title)
                         .toLowerCase()
                         .trim()
 
@@ -64,21 +76,10 @@ const SearchScreen = () => {
                             convertViToEn(
                                 searchValue.toLocaleLowerCase().trim()
                             )
-                        ) ||
-                    convertViToEn(task.desc)
-                        .toLowerCase()
-                        .trim()
-                        .includes(
-                            convertViToEn(
-                                searchValue.toLocaleLowerCase().trim()
-                            )
-                        ) ||
-                    matchCategrory.some(
-                        (matchValue) => matchValue.id === task.categrory
-                    )
-                );
-            }),
-        ];
+                        );
+                }),
+            ],
+        };
 
         setResults(results);
     }, [debounce]);
@@ -109,12 +110,12 @@ const SearchScreen = () => {
                     />
                 </View>
             </Animatable.View>
-            {results.length > 0 ? (
+            {results?.habits?.length > 0 || results?.tasks?.length > 0 ? (
                 <ScrollView
                     showsVerticalScrollIndicator={false}
                     className="mt-4 flex-1 "
                 >
-                    {results.map((task) => {
+                    {results.tasks?.map((task) => {
                         return (
                             <TaskItem
                                 key={task.id}
@@ -123,6 +124,9 @@ const SearchScreen = () => {
                                 onPress={() => handlePress(task)}
                             />
                         );
+                    })}
+                    {results.habits?.map((habit, index) => {
+                        return <HabitItem key={index} habitData={habit} />;
                     })}
                 </ScrollView>
             ) : (
