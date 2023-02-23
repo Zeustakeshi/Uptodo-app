@@ -4,6 +4,7 @@ import React from "react";
 import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import * as Animatable from "react-native-animatable";
 import { useSelector } from "react-redux";
+import Avatar from "../../components/Avatar/Avatar";
 import HabitWrapper from "../../components/Habits/HabitWrapper";
 import LayoutWrapper from "../../components/Layout/LayoutWrapper";
 import AddTaskModal from "../../components/Modals/AddTaskModal";
@@ -56,14 +57,19 @@ const HomeScreen = () => {
                 <Text className="text-xl font-semibold text-text-color">
                     Home
                 </Text>
-                <TouchableOpacity
+                {/* <TouchableOpacity
                     onPress={() => navigation.navigate("Profile")}
                 >
                     <Image
                         source={{ uri: user.avatar || fakeImg }}
                         className="w-[42px] h-[42px] rounded-full"
                     />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
+                <Avatar
+                    width={42}
+                    height={42}
+                    onPress={() => navigation.navigate("Profile")}
+                />
             </View>
             {/* Content */}
 

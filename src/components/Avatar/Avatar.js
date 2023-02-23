@@ -10,8 +10,8 @@ const Avatar = ({ width, height, onPress, ...props }) => {
         <TouchableOpacity
             onPress={onPress}
             {...props}
-            style={{ width, height, ...styles.avatar }}
-            className="rounded-full"
+            style={{ width, height }}
+            className="rounded-full border-2 border-slate-100"
         >
             <Image
                 className="w-full h-full rounded-full object-cover"
@@ -20,19 +20,5 @@ const Avatar = ({ width, height, onPress, ...props }) => {
         </TouchableOpacity>
     );
 };
-
-const styles = StyleSheet.create({
-    avatar: {
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 1,
-        },
-        shadowOpacity: 0.18,
-        shadowRadius: 1.0,
-
-        elevation: 1,
-    },
-});
 
 export default Avatar;

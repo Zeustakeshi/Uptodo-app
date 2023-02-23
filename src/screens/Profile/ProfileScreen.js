@@ -94,18 +94,18 @@ const ProfileScreen = () => {
                         height={120}
                         onPress={handleChooseAvatar}
                     ></Avatar>
-                    <Text className="font-semibold text-2xl mt-3 ">
+                    <Text className="font-semibold text-2xl my-5 ">
                         {userName}
                     </Text>
                 </View>
 
                 <View className="mt-4 justify-center items-center ">
-                    <View className="bg-gray-100 rounded-t-3xl mb-5 flex-row justify-center items-center px-5 py-4">
+                    {/* <View className="bg-gray-100 rounded-t-3xl mb-5 flex-row justify-center items-center px-5 py-4">
                         <Text className="text-lg px-2 font-bold text-primary">
                             {todoCoin}
                         </Text>
                         <TodoCoin></TodoCoin>
-                    </View>
+                    </View> */}
                     <View className="flex-row justify-center items-center gap-x-5">
                         <View className="px-6 py-3 bg-gray-100 rounded-lg">
                             <Text className="font-normal text-sm">
