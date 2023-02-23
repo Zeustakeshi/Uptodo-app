@@ -10,7 +10,7 @@ const habtisSlice = createSlice({
     reducers: {
         addhabitList(state, action) {},
         updateHabitList(state, action) {
-            state.habitsList.push(action.payload);
+            state.habitsList.unshift(action.payload);
         },
         setCompletionCounter(action, payload) {},
         updateCompletionCounter(state, action) {

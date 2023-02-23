@@ -27,8 +27,7 @@ const HabitButton = ({ habitData, showTitle = true, ...props }) => {
 
             setCurrentCounter(completionCounter);
         }
-    }, []);
-
+    }, [habitData]);
     const dispatch = useDispatch();
 
     const handleIncreaseCounter = () => {
