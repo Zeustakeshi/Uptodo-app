@@ -13,10 +13,9 @@ export function* handleAddhabitList(action) {
 export function* habdleUpdateCompletionCounter(action) {
     const { habitsList } = yield select((state) => state.habits);
     const { id, dayIndex, completionCounter } = action.payload;
-
     const newHabitList = habitsList.map((habit) => {
         if (habit.id === id) {
-            const newDays = habit.timeHabit.days.map((time) => {
+            const newDays = habit.timeHabit.days.map((time, index) => {
                 if (time.day === dayIndex) {
                     return { ...time, completionCounter: completionCounter };
                 } else {
@@ -34,6 +33,7 @@ export function* habdleUpdateCompletionCounter(action) {
             return habit;
         }
     });
+
     const targetHabit = newHabitList.find((habit) => habit.id === id);
 
     yield AsyncStorage.setItem(`habit-${id}`, JSON.stringify(targetHabit));

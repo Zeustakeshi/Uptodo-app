@@ -11,13 +11,9 @@ import HabitItem from "../../components/Habits/HabitItem";
 import LayoutWrapper from "../../components/Layout/LayoutWrapper";
 import { colors } from "../../const";
 
-const windowHeight = Dimensions.get("window").height;
-const windowWidth = Dimensions.get("window").width;
-
 const HabitsScreen = () => {
     const navigation = useNavigation();
     const { habitsList } = useSelector((state) => state.habits);
-
     return (
         <LayoutWrapper
             showNavigate

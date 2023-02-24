@@ -22,7 +22,8 @@
             "adaptiveIcon": {
                 "foregroundImage": "./assets/adaptive-icon.png",
                 "backgroundColor": "#FFFF"
-            }
+            },
+            "package": "com.minh_hieu.UpTodo"
         },
         "web": {
             "favicon": "./assets/favicon.png"

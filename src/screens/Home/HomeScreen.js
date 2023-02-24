@@ -16,7 +16,6 @@ import { fakeImg } from "../../const";
 const HomeScreen = () => {
     const navigation = useNavigation();
     const { user, tasks, habits } = useSelector((state) => state);
-
     return (
         <LayoutWrapper
             showNavigate={true}

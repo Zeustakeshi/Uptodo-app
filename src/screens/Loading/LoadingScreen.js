@@ -1,20 +1,16 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
-import React from "react";
-import { useEffect } from "react";
-import { ActivityIndicator, Text, View } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { ActivityIndicator, View } from "react-native";
+import { useDispatch } from "react-redux";
 import LayoutWrapper from "../../components/Layout/LayoutWrapper";
 import { loadFocusSetting, loadSetting } from "../../redux/slice/App/appSlice";
-import {
-    createHabitList,
-    updateHabitList,
-} from "../../redux/slice/habits/habitsSlice";
-import { setTasks, updateTasks } from "../../redux/slice/tasks/tasksSlice";
+import { createHabitList } from "../../redux/slice/habits/habitsSlice";
+import { updateTasks } from "../../redux/slice/tasks/tasksSlice";
+import { updateUserInfo } from "../../redux/slice/user/userSlice";
 
 const LoadingScreen = () => {
     const navigation = useNavigation();
-    const userInfo = useSelector((state) => state.user);
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(loadFocusSetting());
@@ -31,8 +27,14 @@ const LoadingScreen = () => {
                     routes: [{ name: "Welcome" }],
                 });
             } else {
+                const user = await AsyncStorage.getItem("user");
+                let userInfo = { isLogin: false };
+                if (user) {
+                    userInfo = JSON.parse(user);
+                }
                 if (userInfo.isLogin) {
                     const tasks = await AsyncStorage.getItem("tasks");
+                    dispatch(updateUserInfo(userInfo));
                     if (tasks) {
                         dispatch(updateTasks(JSON.parse(tasks)));
                     }

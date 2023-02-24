@@ -4,6 +4,7 @@ import dataSliders from "./dataSliders";
 import WelcomeItem from "./WelcomeItem";
 import { Dimensions } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -33,9 +34,9 @@ const Welcome = () => {
     };
 
     return (
-        <View className="flex-1">
+        <SafeAreaView className="flex-1 mt-10 bg-white">
             <FlatList
-                className="flex-1 mb-0"
+                className="flex-1 mb-0 bg-white"
                 data={dataSliders}
                 ref={sliderRef}
                 renderItem={({ item }) => (
@@ -89,7 +90,7 @@ const Welcome = () => {
                     </TouchableOpacity>
                 )}
             </View>
-        </View>
+        </SafeAreaView>
     );
 };
 

@@ -5,7 +5,7 @@ const todayOfWeek = new Date().getDay() - 1;
 const todayOfMonth = new Date().getDate() - 1;
 
 const UnfinishedMessage = ({ habitData, fontSize, ...props }) => {
-    const [currentCounter, setCurrentCounter] = useState(3);
+    const [currentCounter, setCurrentCounter] = useState(0);
 
     useEffect(() => {
         const aa = habitData.timeHabit.days.find(

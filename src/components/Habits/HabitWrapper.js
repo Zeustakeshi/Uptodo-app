@@ -4,8 +4,8 @@ import { View } from "react-native-animatable";
 import { useSelector } from "react-redux";
 import HabitButton, { ButtonAddNewHabit } from "./HabitButton";
 
-const todayOfWeek = new Date().getDay();
-const todayOfMonth = new Date().getDate();
+const todayOfWeek = new Date().getDay() - 1;
+const todayOfMonth = new Date().getDate() - 1;
 const HabitWrapper = () => {
     const { habitsList } = useSelector((state) => state.habits);
 
@@ -13,12 +13,10 @@ const HabitWrapper = () => {
         return (
             (habit.timeHabit.type === "weekly" &&
                 habit.timeHabit.days.some(
-                    (time) => time.day === todayOfWeek - 1
+                    (time) => time.day === todayOfWeek
                 )) ||
             (habit.timeHabit.type === "monthly" &&
-                habit.timeHabit.days.some(
-                    (time) => time.day === todayOfMonth - 1
-                ))
+                habit.timeHabit.days.some((time) => time.day === todayOfMonth))
         );
     });
 

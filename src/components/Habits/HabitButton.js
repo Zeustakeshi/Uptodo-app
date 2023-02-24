@@ -15,6 +15,8 @@ const todayOfMonth = new Date().getDate() - 1;
 const HabitButton = ({ habitData, showTitle = true, ...props }) => {
     const [currentCounter, setCurrentCounter] = useState(0);
 
+    const navigation = useNavigation();
+
     useEffect(() => {
         if (habitData.timeHabit.type === "weekly") {
             const { completionCounter } = habitData.timeHabit.days.find(
@@ -25,7 +27,6 @@ const HabitButton = ({ habitData, showTitle = true, ...props }) => {
             const { completionCounter } = habitData.timeHabit.days.find(
                 (time) => time.day === todayOfMonth
             );
-
             setCurrentCounter(completionCounter);
         }
     }, [habitData]);
@@ -36,9 +37,7 @@ const HabitButton = ({ habitData, showTitle = true, ...props }) => {
             dispatch(
                 setCompletionCounter({
                     id: habitData.id,
-                    dayIndex: habitData.timeHabit.days.findIndex(
-                        (time) => time.day === todayOfWeek
-                    ),
+                    dayIndex: todayOfWeek,
                     completionCounter: currentCounter + 1,
                 })
             );
@@ -46,9 +45,7 @@ const HabitButton = ({ habitData, showTitle = true, ...props }) => {
             dispatch(
                 setCompletionCounter({
                     id: habitData.id,
-                    dayIndex: habitData.timeHabit.days.findIndex(
-                        (time) => time.day === todayOfMonth
-                    ),
+                    dayIndex: todayOfMonth,
                     completionCounter: currentCounter + 1,
                 })
             );
@@ -71,6 +68,11 @@ const HabitButton = ({ habitData, showTitle = true, ...props }) => {
                     <TouchableOpacity
                         activeOpacity={0.5}
                         onPress={handleIncreaseCounter}
+                        onLongPress={() =>
+                            navigation.navigate("HabitsDetail", {
+                                habitData: habitData,
+                            })
+                        }
                         {...props}
                         style={{
                             backgroundColor: habitData.color,

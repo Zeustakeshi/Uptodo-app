@@ -98,3 +98,5 @@ export const convertViToEn = (str, toUpperCase = false) => {
 
     return toUpperCase ? str.toUpperCase() : str;
 };
+
+//eas build -p android --profile preview

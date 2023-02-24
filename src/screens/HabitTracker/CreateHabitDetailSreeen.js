@@ -55,11 +55,11 @@ const CreateHabitDetailSreeen = ({ route }) => {
 const ShowUserChosen = ({ habitData }) => {
     const { timeHabit, dailyCompletionCounter, color } = useHabitDetail();
     if (timeHabit.type === "weekly") timeHabit.days.sort();
-    const days = timeHabit.days.map((day) => {
+    const days = timeHabit.days.map((time) => {
         if (timeHabit.type === "weekly") {
-            return dayNamesShort[day];
+            return dayNamesShort[time.day];
         } else {
-            return day + 1;
+            return time.day + 1;
         }
     });
     if (days.length === 0) return;
@@ -110,7 +110,12 @@ const ScheduleTimeWeekly = () => {
         if (currentChooses.length == 0) return;
         setTimeHabit({
             type: "weekly",
-            days: currentChooses,
+            days: currentChooses.map((time) => {
+                return {
+                    day: time,
+                    completionCounter: 0,
+                };
+            }),
         });
         setShowcalendar(false);
     };
@@ -157,7 +162,12 @@ const ScheduleTimeMonthly = () => {
         if (currentChooses.length == 0) return;
         setTimeHabit({
             type: "monthly",
-            days: currentChooses,
+            days: currentChooses.map((time) => {
+                return {
+                    day: time,
+                    completionCounter: 0,
+                };
+            }),
         });
         setShowcalendar(false);
     };
@@ -253,15 +263,9 @@ const ButtonSubmitHabit = ({ habitData }) => {
             dailyCompletionCounter: dailyCompletionCounter,
             timeHabit: {
                 type: timeHabit.type,
-                days: timeHabit.days.map((day) => {
-                    return {
-                        day: day,
-                        completionCounter: 0,
-                    };
-                }),
+                days: timeHabit.days.sort(),
             },
         };
-
         dispatch(addhabitList(newHabit));
         navigation.navigate("Habits");
     };

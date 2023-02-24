@@ -5,6 +5,7 @@ import { useRef } from "react";
 import { ScrollView, TextInput, TouchableOpacity } from "react-native";
 import { Text, View } from "react-native-animatable";
 import uuid from "react-native-uuid";
+import { useSelector } from "react-redux";
 import {
     koalaDrinkWater,
     koalaEat,
@@ -67,9 +68,23 @@ const habitsSuggest = [
         icon: 4,
     },
 ];
-
+const todayOfWeek = new Date().getDay() - 1;
+const todayOfMonth = new Date().getDate() - 1;
 const CreateHabitScreen = () => {
     const navigation = useNavigation();
+
+    const { habitsList } = useSelector((state) => state.habits);
+
+    const habits = habitsList.filter((habit) => {
+        return (
+            (habit.timeHabit.type === "weekly" &&
+                habit.timeHabit.days.some(
+                    (time) => time.day === todayOfWeek
+                )) ||
+            (habit.timeHabit.type === "monthly" &&
+                habit.timeHabit.days.some((time) => time.day === todayOfMonth))
+        );
+    });
 
     const moveToDetailScreen = (newHabit) => {
         navigation.navigate("CreateHabitDetail", {

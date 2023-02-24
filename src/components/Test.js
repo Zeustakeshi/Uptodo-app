@@ -52,7 +52,6 @@ const Test = () => {
         getTasks();
     };
 
-    // console.log(tasksInfo.completed);
     return (
         <LayoutWrapper>
             <View className="flex-1 justify-center items-center">
