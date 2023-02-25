@@ -12,13 +12,23 @@ UpTodo is a productivity app that helps users manage their tasks and habits. It 
 
 To use the app, users must first sign up for an account. They can do this by entering their phone number and clicking on the "Sign Up" button. After receiving the OTP, they will be able to log in and access the app's features.
 
-![Sign Up](./snapshot/up-todo/Register.jpg) ![Login](./snapshot/up-todo/Login.jpg)
+<div style = "display: flex; gap: 20px;  flex-wrap: wrap; justify-content: center;
+    align-items: center;">
+    <img src="./snapshot/up-todo/Register.jpg" alt="Sign-up" style="width:30%;"/> 
+    <img src="./snapshot/up-todo/Login.jpg" alt="login" style="width:30%;"/>
+     <img src="./snapshot/up-todo/OTP.jpg" alt="OTP" style="width:30%;"/>
+</div>
 
 ## Add Tasks and Habits
 
 Users can add tasks and habits to the app by clicking on the "Add Task" or "Add Habit" button. They can set deadlines, reminders, and notes for each task.
 
-![Add Task](./snapshot/up-todo/addTaks.jpg)
+<div style = "display: flex; gap: 20px;  flex-wrap: wrap;justify-content: center;
+    align-items: center;">
+    <img src="./snapshot/up-todo/Home.jpg" alt="Home" style="width:30%;"/> 
+    <img src="./snapshot/up-todo/addTask.jpg" alt="addTask" style="width:30%;"/>
+    <img src="./snapshot/up-todo/TaskDetail.jpg" alt="TaskDetail" style="width:30%;"/>
+</div>
 
 For habits, users can switch to the "Habit" tab and add their habits. The app will remind users to do their habits at the scheduled time.
 
