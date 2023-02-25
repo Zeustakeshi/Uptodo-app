@@ -9,6 +9,10 @@ UpTodo is a productivity app that helps users manage their tasks and habits. It 
 -   Focus Mode
 -   Search for tasks and habits
 
+## Install
+
+Link install: https://drive.google.com/file/d/1mVIPgzxNg_fJKZt8QmQtRZNWQIqqQnvk/view?usp=share_link
+
 ## Sign Up and Login with OTP
 
 To use the app, users must first sign up for an account. They can do this by entering their phone number and clicking on the "Sign Up" button. After receiving the OTP, they will be able to log in and access the app's features.
