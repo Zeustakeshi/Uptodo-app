@@ -58,6 +58,29 @@ The app provides users with detailed statistics for their habits. They can view 
      <img src="./snapshot/up-todo/Analytics.jpg" alt="habits" style="width:50%;"/>
 </div>
 
+## Focus Mode
+
+The Focus Mode feature in UpTodo helps users improve their productivity by allowing them to focus on their tasks without distractions. When users activate Focus Mode, they will be prompted to set a specific time interval for their focus session.
+
+During the focus session, the app will hide all non-essential information and display only the task at hand. Users can also switch between focus and break intervals to improve their productivity.
+
+To activate Focus Mode, users can follow these steps:
+
+1. Open the focus screen.
+2. Click on the "Focus Mode" button.
+3. Set the desired focus and break intervals.
+4. Click on the "Start" button to begin the focus session.
+
+The app will display a countdown timer during the focus session to help users track their progress. Once the session is over, users can choose to continue with another session or return to their normal view.
+
+With Focus Mode, users can achieve their goals and improve their productivity with ease.
+
+<div style = "display:flex; gap: 16px;  flex-wrap: wrap;justify-content: center;
+    align-items: center;">
+     <img src="./snapshot/up-todo/Focus.jpg" alt="focus" style="width:40%;"/>
+     <img src="./snapshot/up-todo/focus2.jpg" alt="focus" style="width:40%;"/>
+</div>
+
 ## Search for Tasks and Habits
 
 Users can search for tasks and habits by using the search bar. They can search by name, date, or other criteria.
