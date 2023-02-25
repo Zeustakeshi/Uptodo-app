@@ -6,6 +6,7 @@ UpTodo is a productivity app that helps users manage their tasks and habits. It 
 -   Add tasks and habits
 -   View and track progress
 -   Statistics for habits
+-   Focus Mode
 -   Search for tasks and habits
 
 ## Sign Up and Login with OTP
