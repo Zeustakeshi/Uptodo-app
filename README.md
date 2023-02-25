@@ -1,4 +1,4 @@
-# UpTodo
+# <h1 style="color:#6651f0"> UpTodo</h1>
 
 UpTodo is a productivity app that helps users manage their tasks and habits. It includes the following features:
 
@@ -32,20 +32,48 @@ Users can add tasks and habits to the app by clicking on the "Add Task" or "Add 
 
 For habits, users can switch to the "Habit" tab and add their habits. The app will remind users to do their habits at the scheduled time.
 
-![Add Habit](./snapshot/up-todo/Habit2.jpg)
+<div style = "display: flex; gap: 16px;  flex-wrap: wrap;justify-content: center;
+    align-items: center;">
+    <img src="./snapshot/up-todo/Habits.jpg" alt="habits" style="width:22%;"/> 
+    <img src="./snapshot/up-todo/Habit2.jpg" alt="habits" style="width:22%;"/>
+    <img src="./snapshot/up-todo/Habit.jpg" alt="habits" style="width:22%;"/>
+     <img src="./snapshot/up-todo/Habit3.jpg" alt="habits" style="width:22%;"/>
+</div>
 
 ## View and Track Progress
 
 Users can view and track their progress for both tasks and habits in the app. They can mark tasks as completed or postpone them to a later time. They can also mark habits as done or skip them if necessary.
 
+<div style = "display: flex; gap: 16px;  flex-wrap: wrap;justify-content: center;
+    align-items: center;">
+     <img src="./snapshot/up-todo/Home.jpg" alt="habits" style="width:40%;"/>
+</div>
+
 ## Statistics for Habits
 
 The app provides users with detailed statistics for their habits. They can view graphs and charts that show their progress over time. The app also records the number of times the user has completed their habit and displays it in the statistics section.
 
-![Habit Statistics](./snapshot/up-todo/Analytics.jpg)
+<div style = "display: flex; gap: 16px;  flex-wrap: wrap;justify-content: center;
+    align-items: center;">
+     <img src="./snapshot/up-todo/Analytics.jpg" alt="habits" style="width:50%;"/>
+</div>
 
 ## Search for Tasks and Habits
 
 Users can search for tasks and habits by using the search bar. They can search by name, date, or other criteria.
 
-![Search](./snapshot/up-todo/Search.jpg)
+<div style = "display: flex; gap: 16px;  flex-wrap: wrap;justify-content: center;
+    align-items: center;">
+     <img src="./snapshot/up-todo/Search.jpg" alt="search" style="width:50%;"/>
+</div>
+
+## User Profile
+
+You can access your User Profile by clicking on your username in the top right corner of the app
+
+<div style = "display: flex; gap: 16px;  flex-wrap: wrap;justify-content: center;
+    align-items: center;">
+     <img src="./snapshot/up-todo/Profile.jpg" alt="search" style="width:50%;"/>
+</div>
+
+In the User Profile, you can view your personal information, modify your profile, and view your activity history, app setting,
