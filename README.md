@@ -11,7 +11,7 @@ UpTodo is a productivity app that helps users manage their tasks and habits. It 
 
 ## Install
 
-Link install: https://drive.google.com/file/d/1mVIPgzxNg_fJKZt8QmQtRZNWQIqqQnvk/view?usp=share_link
+You can install Uptodo <a href="https://drive.google.com/file/d/1mVIPgzxNg_fJKZt8QmQtRZNWQIqqQnvk/view?usp=share_link">here</a>
 
 ## Sign Up and Login with OTP
 
